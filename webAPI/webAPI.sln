@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webAPI", "webAPI.csproj", "{8E618A5A-B4B3-4F1C-872E-234ADC3CFDC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webAPI", "webAPI.csproj", "{8E618A5A-B4B3-4F1C-872E-234ADC3CFDC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webAPI.Data", "..\webAPI.Data\webAPI.Data.csproj", "{6B4210D3-94D6-4D65-ACF1-10465DDDB116}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F5854A69-1E59-4A1D-8ECA-0D5504227685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webApi.Data.Models", "..\webApi.Data.Models\webApi.Data.Models.csproj", "{4B509138-96A6-4427-A30F-E16F8999AA75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,21 @@ Global
 		{8E618A5A-B4B3-4F1C-872E-234ADC3CFDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E618A5A-B4B3-4F1C-872E-234ADC3CFDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E618A5A-B4B3-4F1C-872E-234ADC3CFDC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B4210D3-94D6-4D65-ACF1-10465DDDB116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B4210D3-94D6-4D65-ACF1-10465DDDB116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B4210D3-94D6-4D65-ACF1-10465DDDB116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B4210D3-94D6-4D65-ACF1-10465DDDB116}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B509138-96A6-4427-A30F-E16F8999AA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B509138-96A6-4427-A30F-E16F8999AA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B509138-96A6-4427-A30F-E16F8999AA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B509138-96A6-4427-A30F-E16F8999AA75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B4210D3-94D6-4D65-ACF1-10465DDDB116} = {F5854A69-1E59-4A1D-8ECA-0D5504227685}
+		{4B509138-96A6-4427-A30F-E16F8999AA75} = {F5854A69-1E59-4A1D-8ECA-0D5504227685}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {628B09F0-0304-4B50-A688-6EE2AE7FF35C}
