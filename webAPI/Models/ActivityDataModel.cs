@@ -1,4 +1,6 @@
-﻿namespace webAPI.Models
+﻿using webAPI.Models.Request;
+
+namespace webAPI.Models
 {
     public class ActivityDataModel
     {
@@ -9,6 +11,6 @@
         public float DailyDistance { get; set; }
         public float DailyEnergyBurned { get; set; }
         // Navigation property to the User
-        public virtual UserModel User { get; set; }
+        public virtual UserRegisterRequest User { get; set; }
     }
 }
