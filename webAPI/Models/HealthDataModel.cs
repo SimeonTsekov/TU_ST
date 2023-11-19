@@ -1,4 +1,6 @@
-﻿namespace webAPI.Models
+﻿using webAPI.Models.Request;
+
+namespace webAPI.Models
 {
     public class HealthDataModel
     {
@@ -10,6 +12,6 @@
         public float LeanBodyMass { get; set; }
         public string SleepAnalysis { get; set; }
         // Navigation property to the User
-        public virtual UserModel User { get; set; }
+        public virtual UserRegisterRequest User { get; set; }
     }
 }

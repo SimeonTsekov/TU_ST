@@ -8,7 +8,7 @@
 
         public string Email { get; set; }
 
-        public string Passwords { get; set; } 
+        public string Password { get; set; }
         // Note: Storing passwords as plain text is not secure
         public int Age { get; set; }
 
