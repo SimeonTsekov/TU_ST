@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webAPI.Data;
 
@@ -10,9 +11,11 @@ using webAPI.Data;
 namespace webAPI.Data.Migrations
 {
     [DbContext(typeof(webAPIDbContext))]
-    partial class webAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120122414_Two-New-Tables")]
+    partial class TwoNewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
