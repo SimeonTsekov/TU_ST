@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var router = TabRouter()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView(selection: $router.currentTab) {
+            ForEach(router.destinations, id: \.rawValue) { destinaton in
+                tabView(for: destinaton)
+            }
         }
-        .padding()
+    }
+
+    @ViewBuilder func tabView(for destination: TabDestination) -> some View {
+        tabContentView(for: destination)
+            .tabItem {
+                destination.label(isSelected: destination == router.currentTab)
+            }
+            .tag(destination)
+    }
+
+    @ViewBuilder func tabContentView(for destination: TabDestination) -> some View {
+        switch destination {
+        case .health:
+            HealthNavigationView()
+        case .activity:
+            ActivityNavigationView()
+        case .profile:
+            ProfileNavigationView()
+        }
     }
 }
 

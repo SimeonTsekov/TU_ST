@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct iFitTrakcerApp: App {
+struct IFitTrakcerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

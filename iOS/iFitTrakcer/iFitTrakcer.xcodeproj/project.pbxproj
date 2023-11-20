@@ -14,6 +14,21 @@
 		EC2018202B0B6C5500C69150 /* iFitTrakcerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20181F2B0B6C5500C69150 /* iFitTrakcerTests.swift */; };
 		EC20182A2B0B6C5500C69150 /* iFitTrakcerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018292B0B6C5500C69150 /* iFitTrakcerUITests.swift */; };
 		EC20182C2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20182B2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift */; };
+		EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018392B0B6E1800C69150 /* TabDestination.swift */; };
+		EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20183C2B0B6E8800C69150 /* Icon.swift */; };
+		EC2018402B0B712200C69150 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20183F2B0B712200C69150 /* TabRouter.swift */; };
+		EC2018462B0B71FE00C69150 /* ActivityNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018452B0B71FE00C69150 /* ActivityNavigationView.swift */; };
+		EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018472B0B720F00C69150 /* ActivityContentView.swift */; };
+		EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20184C2B0B72EF00C69150 /* ActivityRouter.swift */; };
+		EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20184E2B0B731000C69150 /* ActivityDestination.swift */; };
+		EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018502B0B746D00C69150 /* HealthNavigationView.swift */; };
+		EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018522B0B749F00C69150 /* HealthContentView.swift */; };
+		EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018552B0B750C00C69150 /* HealthRouter.swift */; };
+		EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018572B0B752F00C69150 /* HealthDestination.swift */; };
+		EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20185B2B0B760900C69150 /* ProfileNavigationView.swift */; };
+		EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20185D2B0B764400C69150 /* ProfileContentView.swift */; };
+		EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018602B0B768F00C69150 /* ProfileRouter.swift */; };
+		EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018622B0B76BB00C69150 /* ProfileDestination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +59,21 @@
 		EC2018252B0B6C5500C69150 /* iFitTrakcerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFitTrakcerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC2018292B0B6C5500C69150 /* iFitTrakcerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerUITests.swift; sourceTree = "<group>"; };
 		EC20182B2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EC2018392B0B6E1800C69150 /* TabDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDestination.swift; sourceTree = "<group>"; };
+		EC20183C2B0B6E8800C69150 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		EC20183F2B0B712200C69150 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
+		EC2018452B0B71FE00C69150 /* ActivityNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityNavigationView.swift; sourceTree = "<group>"; };
+		EC2018472B0B720F00C69150 /* ActivityContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityContentView.swift; sourceTree = "<group>"; };
+		EC20184C2B0B72EF00C69150 /* ActivityRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRouter.swift; sourceTree = "<group>"; };
+		EC20184E2B0B731000C69150 /* ActivityDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDestination.swift; sourceTree = "<group>"; };
+		EC2018502B0B746D00C69150 /* HealthNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthNavigationView.swift; sourceTree = "<group>"; };
+		EC2018522B0B749F00C69150 /* HealthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthContentView.swift; sourceTree = "<group>"; };
+		EC2018552B0B750C00C69150 /* HealthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthRouter.swift; sourceTree = "<group>"; };
+		EC2018572B0B752F00C69150 /* HealthDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDestination.swift; sourceTree = "<group>"; };
+		EC20185B2B0B760900C69150 /* ProfileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationView.swift; sourceTree = "<group>"; };
+		EC20185D2B0B764400C69150 /* ProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentView.swift; sourceTree = "<group>"; };
+		EC2018602B0B768F00C69150 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		EC2018622B0B76BB00C69150 /* ProfileDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDestination.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +124,9 @@
 		EC20180D2B0B6C5400C69150 /* iFitTrakcer */ = {
 			isa = PBXGroup;
 			children = (
+				EC20183B2B0B6E5A00C69150 /* Helpers */,
+				EC2018382B0B6E0100C69150 /* Navigation */,
+				EC2018412B0B718500C69150 /* Screens */,
 				EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */,
 				EC2018102B0B6C5400C69150 /* ContentView.swift */,
 				EC2018122B0B6C5500C69150 /* Assets.xcassets */,
@@ -127,6 +160,106 @@
 			path = iFitTrakcerUITests;
 			sourceTree = "<group>";
 		};
+		EC2018382B0B6E0100C69150 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018492B0B723300C69150 /* Routing */,
+				EC20184A2B0B723E00C69150 /* TabBar */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		EC20183B2B0B6E5A00C69150 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EC20183C2B0B6E8800C69150 /* Icon.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EC2018412B0B718500C69150 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018432B0B71B500C69150 /* ActivityScreen */,
+				EC2018422B0B71AA00C69150 /* HealthScreen */,
+				EC2018442B0B71C000C69150 /* ProfileScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		EC2018422B0B71AA00C69150 /* HealthScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018522B0B749F00C69150 /* HealthContentView.swift */,
+				EC2018502B0B746D00C69150 /* HealthNavigationView.swift */,
+			);
+			path = HealthScreen;
+			sourceTree = "<group>";
+		};
+		EC2018432B0B71B500C69150 /* ActivityScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018472B0B720F00C69150 /* ActivityContentView.swift */,
+				EC2018452B0B71FE00C69150 /* ActivityNavigationView.swift */,
+			);
+			path = ActivityScreen;
+			sourceTree = "<group>";
+		};
+		EC2018442B0B71C000C69150 /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EC20185D2B0B764400C69150 /* ProfileContentView.swift */,
+				EC20185B2B0B760900C69150 /* ProfileNavigationView.swift */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		EC2018492B0B723300C69150 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				EC20184B2B0B724F00C69150 /* Activity */,
+				EC2018542B0B74F100C69150 /* Health */,
+				EC20185F2B0B767400C69150 /* Profile */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		EC20184A2B0B723E00C69150 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018392B0B6E1800C69150 /* TabDestination.swift */,
+				EC20183F2B0B712200C69150 /* TabRouter.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		EC20184B2B0B724F00C69150 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				EC20184E2B0B731000C69150 /* ActivityDestination.swift */,
+				EC20184C2B0B72EF00C69150 /* ActivityRouter.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		EC2018542B0B74F100C69150 /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018572B0B752F00C69150 /* HealthDestination.swift */,
+				EC2018552B0B750C00C69150 /* HealthRouter.swift */,
+			);
+			path = Health;
+			sourceTree = "<group>";
+		};
+		EC20185F2B0B767400C69150 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EC2018622B0B76BB00C69150 /* ProfileDestination.swift */,
+				EC2018602B0B768F00C69150 /* ProfileRouter.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,6 +270,7 @@
 				EC2018072B0B6C5400C69150 /* Sources */,
 				EC2018082B0B6C5400C69150 /* Frameworks */,
 				EC2018092B0B6C5400C69150 /* Resources */,
+				EC20183E2B0B70D500C69150 /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -252,13 +386,49 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EC20183E2B0B70D500C69150 /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EC2018072B0B6C5400C69150 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */,
 				EC2018112B0B6C5400C69150 /* ContentView.swift in Sources */,
 				EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */,
+				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
+				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
+				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
+				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
+				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
+				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
+				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
+				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
+				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
+				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
+				EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */,
+				EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */,
+				EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */,
+				EC2018462B0B71FE00C69150 /* ActivityNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +594,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iFitTrakcer/Preview Content\"";
 				DEVELOPMENT_TEAM = 7352ZCGRRF;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -453,6 +624,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"iFitTrakcer/Preview Content\"";
 				DEVELOPMENT_TEAM = 7352ZCGRRF;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
