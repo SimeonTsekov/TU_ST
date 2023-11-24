@@ -4,13 +4,16 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using webAPI.Authentication.JwtBearer;
 using webAPI.Authentication.JwtBearer.impl;
 using webAPI.Authentication.JwtBearer.OptionsSetup;
-using webAPI.Services;
-using webAPI.Services.impl;
 using webAPI.Swagger;
 using Microsoft.EntityFrameworkCore;
 using webAPI.Data;
+using webAPI.Interfaces;
+using webAPI.Services;
+using webAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -36,7 +39,8 @@ builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
-builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
-﻿using webAPI.Models.Request;
-using webAPI.Models.Response;
+﻿using webAPI.DTOs.Request;
+using webAPI.DTOs.Response;
 
-namespace webAPI.Services
+namespace webAPI.Interfaces
 {
     public interface IUserService
     {

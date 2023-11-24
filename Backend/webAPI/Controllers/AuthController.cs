@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using webAPI.Models.Request;
-using webAPI.Services;
+using webAPI.Interfaces;
+using webAPI.DTOs.Request;
 
 namespace webAPI.Controllers
 {
@@ -18,30 +18,40 @@ namespace webAPI.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserLoginRequest userLoginRequest)
         {
-            // TODO: 1. Validate the UserLoginRequest.
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            // TODO: 2. Find the user entity in the DB and throw an error if it doesn't exist.
+            var result = _userService.Login(userLoginRequest);
 
-            // TODO: 3. Compare the hashed passwords and throw an error if they do not match.
+            if (result == null)
+            {
+                return Unauthorized("Invalid credentials");
+            }
 
-            // TODO: 4. Create an object containing the JWT token and return it.
-
-            throw new NotImplementedException();
+            return Ok(result);
         }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
             // TODO: 1. Validate the UserRegisterRequest.
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            // TODO: 2. Register the user:
-            //              Check for already existing users and throw an error if they are found.
-            //              Hash the password.
-            //              Create the user object and save it to the database.
+            // TODO: 2. Attempt to register the user.
+            var result = _userService.Register(userRegisterRequest);
 
-            // TODO 3. Create an object containing the JWT token and return it.
+            if (result == null)
+            {
+                return Conflict("Username already taken");
+            }
 
-            throw new NotImplementedException();
+            // TODO: 3. Return the JWT token.
+            return Ok(result);
         }
     }
 }
