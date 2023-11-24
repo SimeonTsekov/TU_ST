@@ -21,7 +21,7 @@ namespace webAPI.Services
         {
             if(loginRequest.Email == null || loginRequest.Password == null)
             {
-                throw new InvalidOperationException(); // Removes the green lines that say "property may be null"
+                throw new InvalidOperationException(); //! Removes the green lines that say "property may be null"
             }
 
             var user = _userRepository.FindUserByEmail(loginRequest.Email);
@@ -31,13 +31,34 @@ namespace webAPI.Services
                 return null;
             }
 
-            // Authentication successful, create a session
             return CreateSession(user);
         }
 
         public JwtResponse Register(UserRegisterRequest registerRequest)
         {
-            throw new NotImplementedException();
+            if(registerRequest.Email == null)
+            {
+                throw new InvalidOperationException(); // Removes the green lines that say "property may be null"
+            }
+
+            var existingUser = _userRepository.FindUserByEmail(registerRequest.Email);
+
+            if (existingUser != null)
+            {
+                return null;
+            }
+
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerRequest.Password);
+
+            var newUser = new UserModel
+            {
+                Email = registerRequest.Email,
+                Passwords = hashedPassword,
+            };
+
+            _userRepository.Create(newUser);
+
+            return CreateSession(newUser);
         }
 
         private JwtResponse CreateSession(UserModel user)
@@ -53,7 +74,7 @@ namespace webAPI.Services
 
         private bool VerifyPassword(UserModel user, string password)
         {
-            return false;
+            return BCrypt.Net.BCrypt.Verify(password, user.Passwords);
         }
     }
 }
