@@ -1,9 +1,11 @@
 ﻿using webAPI.Data;
 using webApi.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using webAPI.Interfaces;
 
 namespace webAPI.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly webAPIDbContext _dbContext;
 
@@ -53,6 +55,11 @@ namespace webAPI.Repositories
         public UserModel GetUserById(int userId)
         {
             return _dbContext.UserModels.Find(userId);
+        }
+
+        public UserModel FindUserByEmail(string email)
+        {
+            return _dbContext.UserModels.FirstOrDefault(u => u.Email == email);
         }
     }
 }

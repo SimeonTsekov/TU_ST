@@ -1,8 +1,8 @@
-﻿using webAPI.Models.Request;
+﻿using webAPI.DTOs.Request;
 
-namespace webAPI.Models
+namespace webAPI.DTOs
 {
-    public class HealthDataModel
+    public class HealthDataDTO
     {
         public int HealthDataId { get; set; }
         public int UserId { get; set; }
@@ -10,8 +10,8 @@ namespace webAPI.Models
         public float BMI { get; set; }
         public float BodyFat { get; set; }
         public float LeanBodyMass { get; set; }
-        public string SleepAnalysis { get; set; }
+        public string? SleepAnalysis { get; set; }
         // Navigation property to the User
-        public virtual UserRegisterRequest User { get; set; }
+        public virtual UserDTO? User { get; set; }
     }
 }
