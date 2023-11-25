@@ -54,6 +54,9 @@ namespace webAPI.Services
             {
                 Email = registerRequest.Email,
                 Passwords = hashedPassword,
+                Username = registerRequest.Username,
+                Age = registerRequest.Age,
+                Height = registerRequest.Height,
             };
 
             _userRepository.Create(newUser);
