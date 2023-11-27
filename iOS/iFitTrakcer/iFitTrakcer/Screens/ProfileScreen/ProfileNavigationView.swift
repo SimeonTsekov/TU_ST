@@ -15,7 +15,6 @@ struct ProfileNavigationView: View {
             profileView
 //                .navigationDestination(for: ProfileDestination.self) { $0 }
                 .navigationTitle("Profile")
-                .navigationBarTitleDisplayMode(.inline)
         }
         .environmentObject(router)
     }
@@ -23,8 +22,4 @@ struct ProfileNavigationView: View {
     private var profileView: some View {
         ProfileContentView(router: router)
     }
-}
-
-#Preview {
-    ProfileNavigationView()
 }

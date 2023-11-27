@@ -15,15 +15,10 @@ struct HealthNavigationView: View {
             healthContentView
 //                .navigationDestination(for: HealthDestination.self) { $0 }
                 .navigationTitle("Health")
-                .navigationBarTitleDisplayMode(.inline)
         }
     }
 
     var healthContentView: some View {
         HealthContentView(router: router)
     }
-}
-
-#Preview {
-    HealthNavigationView()
 }
