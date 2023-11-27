@@ -7,9 +7,8 @@
 
 import Foundation
 
-@MainActor
 class HealthViewModel: ObservableObject {
-    @Published var weeklyAverageWeight: Double?
+    @MainActor @Published var weeklyAverageWeight: Double?
     var healthKitManager: HealthKitManager
 
     init(healthKitManager: HealthKitManager) {
@@ -20,7 +19,9 @@ class HealthViewModel: ObservableObject {
                 return
             }
 
-            self.weeklyAverageWeight = sample
+            Task { @MainActor in
+                self.weeklyAverageWeight = sample
+            }
         }
     }
 }
