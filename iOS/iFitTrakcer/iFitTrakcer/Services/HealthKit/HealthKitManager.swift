@@ -8,28 +8,39 @@
 import Foundation
 import HealthKit
 
+// Define errors needed
+enum HealthKitError: Error {
+    case queryError(String?)
+    case castError
+}
+
 class HealthKitManager: ObservableObject {
     var healthStore = HKHealthStore()
 
-    func loadSample(completion: @escaping (Double) -> Void) {
-        let bodyMass = HKQuantityType.quantityType(forIdentifier: .bodyMass)!
+    func loadSample<T>(sampleType: HKQuantityType,
+                       unit: HKUnit,
+                       completion: @escaping (Result<T, HealthKitError>) -> Void) {
         let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
 
-        var weeklyAverageBodyMass: Double = 0
-
-        let query = HKSampleQuery(sampleType: bodyMass,
+        let query = HKSampleQuery(sampleType: sampleType,
                                   predicate: predicate,
                                   limit: Int(HKObjectQueryNoLimit),
                                   sortDescriptors: nil) { (query, results, error) in
             guard let samples = results as? [HKQuantitySample] else {
+                completion(.failure(.queryError(error?.localizedDescription)))
                 return
             }
 
-            let bodyMass = samples.reduce(0, {$0 + $1.quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))})
-            weeklyAverageBodyMass = bodyMass / Double(samples.count)
-            print("Average weight for last 7 days: \(weeklyAverageBodyMass)")
-            completion(weeklyAverageBodyMass)
+            let resourceSum = samples.reduce(0, {$0 + $1.quantity.doubleValue(for: unit)})
+            let weeklyAverageResource = resourceSum / Double(samples.count)
+
+            guard let castResource = weeklyAverageResource as? T else {
+                completion(.failure(.castError))
+                return
+            }
+
+            completion(.success(castResource))
         }
 
         healthStore.execute(query)

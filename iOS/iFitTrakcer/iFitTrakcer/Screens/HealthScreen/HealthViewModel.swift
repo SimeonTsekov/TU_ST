@@ -5,6 +5,7 @@
 //  Created by Simeon Tsekov on 27.11.23.
 //
 
+import HealthKit
 import Foundation
 
 class HealthViewModel: ObservableObject {
@@ -14,13 +15,19 @@ class HealthViewModel: ObservableObject {
     init(healthKitManager: HealthKitManager) {
         self.healthKitManager = healthKitManager
 
-        healthKitManager.loadSample { [weak self] sample in
+        healthKitManager.loadSample(sampleType: HKQuantityType.quantityType(forIdentifier: .bodyMass)!,
+                                    unit: HKUnit.gramUnit(with: .kilo)) { [weak self] (result: Result<Double, HealthKitError>) in
             guard let self else {
                 return
             }
 
             Task { @MainActor in
-                self.weeklyAverageWeight = sample
+                switch result {
+                case .success(let value):
+                    self.weeklyAverageWeight = value
+                case .failure(_):
+                    return
+                }
             }
         }
     }
