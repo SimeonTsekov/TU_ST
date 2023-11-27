@@ -28,6 +28,8 @@
 		EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018602B0B768F00C69150 /* ProfileRouter.swift */; };
 		EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018622B0B76BB00C69150 /* ProfileDestination.swift */; };
 		EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88212B13E07C003196DB /* SimpleListCell.swift */; };
+		EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88252B148CAE003196DB /* HealthKitManager.swift */; };
+		EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,9 @@
 		EC2018602B0B768F00C69150 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		EC2018622B0B76BB00C69150 /* ProfileDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDestination.swift; sourceTree = "<group>"; };
 		EC3D88212B13E07C003196DB /* SimpleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListCell.swift; sourceTree = "<group>"; };
+		EC3D88252B148CAE003196DB /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFitTrakcer.entitlements; sourceTree = "<group>"; };
+		EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +110,13 @@
 		EC20180D2B0B6C5400C69150 /* iFitTrakcer */ = {
 			isa = PBXGroup;
 			children = (
+				EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */,
 				EC20183B2B0B6E5A00C69150 /* Helpers */,
 				EC2018382B0B6E0100C69150 /* Navigation */,
 				EC2018412B0B718500C69150 /* Screens */,
-				EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */,
+				EC3D88232B148C88003196DB /* Services */,
 				EC2018102B0B6C5400C69150 /* ContentView.swift */,
+				EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */,
 				EC2018122B0B6C5500C69150 /* Assets.xcassets */,
 				EC2018142B0B6C5500C69150 /* Preview Content */,
 			);
@@ -165,6 +172,7 @@
 			children = (
 				EC2018522B0B749F00C69150 /* HealthContentView.swift */,
 				EC2018502B0B746D00C69150 /* HealthNavigationView.swift */,
+				EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */,
 			);
 			path = HealthScreen;
 			sourceTree = "<group>";
@@ -239,6 +247,22 @@
 				EC3D88212B13E07C003196DB /* SimpleListCell.swift */,
 			);
 			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		EC3D88232B148C88003196DB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88242B148C9C003196DB /* HealthKit */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		EC3D88242B148C9C003196DB /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88252B148CAE003196DB /* HealthKitManager.swift */,
+			);
+			path = HealthKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +364,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		EC20183E2B0B70D500C69150 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -370,6 +395,7 @@
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
+				EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */,
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
 				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
@@ -380,6 +406,7 @@
 				EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */,
 				EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */,
 				EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */,
+				EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */,
 				EC2018462B0B71FE00C69150 /* ActivityNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -512,6 +540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -527,6 +556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iFitTrakcer/iFitTrakcer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iFitTrakcer/Preview Content\"";
@@ -534,6 +564,10 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We want to write your health data.";
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -557,6 +591,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iFitTrakcer/iFitTrakcer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iFitTrakcer/Preview Content\"";
@@ -564,6 +599,10 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We want to write your health data.";
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

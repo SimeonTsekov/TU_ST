@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HealthNavigationView: View {
+    @EnvironmentObject private var healthKitManager: HealthKitManager
     @ObservedObject private var router = HealthRouter()
 
     var body: some View {
@@ -19,6 +20,10 @@ struct HealthNavigationView: View {
     }
 
     var healthContentView: some View {
-        HealthContentView(router: router)
+        HealthContentView(viewModel: healthViewModel, router: router)
+    }
+
+    var healthViewModel: HealthViewModel {
+        HealthViewModel(healthKitManager: healthKitManager)
     }
 }

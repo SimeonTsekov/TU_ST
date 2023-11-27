@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct IFitTrakcerApp: App {
+    var healthKitManager = HealthKitManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    healthKitManager.requestAuthorization()
+                }
+                .environmentObject(healthKitManager)
         }
     }
 }
