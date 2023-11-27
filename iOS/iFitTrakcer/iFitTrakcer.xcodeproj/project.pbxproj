@@ -30,6 +30,7 @@
 		EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88212B13E07C003196DB /* SimpleListCell.swift */; };
 		EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88252B148CAE003196DB /* HealthKitManager.swift */; };
 		EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */; };
+		EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882E2B14C3BB003196DB /* UserMetric.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		EC3D88252B148CAE003196DB /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFitTrakcer.entitlements; sourceTree = "<group>"; };
 		EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewModel.swift; sourceTree = "<group>"; };
+		EC3D882E2B14C3BB003196DB /* UserMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetric.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			children = (
 				EC3D88202B13E04D003196DB /* UIComponents */,
 				EC20183C2B0B6E8800C69150 /* Icon.swift */,
+				EC3D882E2B14C3BB003196DB /* UserMetric.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
+				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
 				EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */,
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,

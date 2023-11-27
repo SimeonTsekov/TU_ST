@@ -7,40 +7,53 @@
 
 import Foundation
 import HealthKit
+import OSLog
 
-// Define errors needed
 enum HealthKitError: Error {
     case queryError(String?)
     case castError
 }
 
 class HealthKitManager: ObservableObject {
-    var healthStore = HKHealthStore()
+    let healthStore = HKHealthStore()
+    let logger = Logger()
 
-    func loadSample<T>(sampleType: HKQuantityType,
-                       unit: HKUnit,
-                       completion: @escaping (Result<T, HealthKitError>) -> Void) {
+    func loadSample<T>(for metric: UserMetric) async -> T {
+        await withCheckedContinuation { continuation in
+            loadSample(metric: metric) { (result: T) in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    private func loadSample<T>(metric: UserMetric,
+                               completion: @escaping (T) -> Void) {
         let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
 
-        let query = HKSampleQuery(sampleType: sampleType,
+        let query = HKSampleQuery(sampleType: metric.sampleType,
                                   predicate: predicate,
                                   limit: Int(HKObjectQueryNoLimit),
-                                  sortDescriptors: nil) { (query, results, error) in
-            guard let samples = results as? [HKQuantitySample] else {
-                completion(.failure(.queryError(error?.localizedDescription)))
+                                  sortDescriptors: nil) { [weak self] (_, results, _) in
+            guard let self else {
                 return
             }
 
-            let resourceSum = samples.reduce(0, {$0 + $1.quantity.doubleValue(for: unit)})
+            guard let samples = results as? [HKQuantitySample] else {
+                self.logger.error("Error in retrieving \(metric.sampleType)")
+                return
+            }
+
+            let resourceSum = samples.reduce(0, {$0 + $1.quantity.doubleValue(for: metric.unit)})
             let weeklyAverageResource = resourceSum / Double(samples.count)
 
             guard let castResource = weeklyAverageResource as? T else {
-                completion(.failure(.castError))
+                self.logger.error("Error in casting \(weeklyAverageResource.self) to \(T.self)")
                 return
             }
 
-            completion(.success(castResource))
+            self.logger.info("Resource of type \(metric.sampleType) loaded successfully")
+            completion(castResource)
         }
 
         healthStore.execute(query)
@@ -66,26 +79,4 @@ class HealthKitManager: ObservableObject {
             return
         }
     }
-}
-
-    // Define structs to hold the fetched data
-struct UserData {
-    var dateOfBirth: Date?
-    var biologicalSex: HKBiologicalSexObject?
-    var height: HKQuantitySample?
-    var weight: HKQuantitySample?
-}
-
-struct HealthData {
-    var bodyMassIndex: HKQuantitySample?
-    var bodyFatPercentage: HKQuantitySample?
-    var leanBodyMass: HKQuantitySample?
-//    var sleepAnalysis: [HKCategorySample]?
-}
-
-struct ActivityData {
-    var stepCount: HKQuantitySample?
-    var distance: HKQuantitySample?
-    var activeEnergyBurned: HKQuantitySample?
-    var workouts: [HKWorkout]?
 }
