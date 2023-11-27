@@ -31,6 +31,8 @@
 		EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88252B148CAE003196DB /* HealthKitManager.swift */; };
 		EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */; };
 		EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882E2B14C3BB003196DB /* UserMetric.swift */; };
+		EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88302B14D99F003196DB /* UserHealthModel.swift */; };
+		EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88332B14DC51003196DB /* NumericArray+Average.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFitTrakcer.entitlements; sourceTree = "<group>"; };
 		EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewModel.swift; sourceTree = "<group>"; };
 		EC3D882E2B14C3BB003196DB /* UserMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetric.swift; sourceTree = "<group>"; };
+		EC3D88302B14D99F003196DB /* UserHealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHealthModel.swift; sourceTree = "<group>"; };
+		EC3D88332B14DC51003196DB /* NumericArray+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumericArray+Average.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +157,7 @@
 		EC20183B2B0B6E5A00C69150 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EC3D88322B14DC0D003196DB /* Extensions */,
 				EC3D88202B13E04D003196DB /* UIComponents */,
 				EC20183C2B0B6E8800C69150 /* Icon.swift */,
 				EC3D882E2B14C3BB003196DB /* UserMetric.swift */,
@@ -176,6 +181,7 @@
 				EC2018522B0B749F00C69150 /* HealthContentView.swift */,
 				EC2018502B0B746D00C69150 /* HealthNavigationView.swift */,
 				EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */,
+				EC3D88302B14D99F003196DB /* UserHealthModel.swift */,
 			);
 			path = HealthScreen;
 			sourceTree = "<group>";
@@ -266,6 +272,14 @@
 				EC3D88252B148CAE003196DB /* HealthKitManager.swift */,
 			);
 			path = HealthKit;
+			sourceTree = "<group>";
+		};
+		EC3D88322B14DC0D003196DB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88332B14DC51003196DB /* NumericArray+Average.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,6 +410,7 @@
 				EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */,
 				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
+				EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
 				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
@@ -403,6 +418,7 @@
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
 				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
+				EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,

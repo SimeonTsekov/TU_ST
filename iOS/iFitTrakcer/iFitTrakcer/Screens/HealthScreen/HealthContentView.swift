@@ -18,13 +18,19 @@ struct HealthContentView: View {
     }
 
     private var healthSection: some View {
-        Section(header: Text("Summary")) {
-            if let weeklyAverageWeight = viewModel.weeklyAverageWeight {
-                SimpleListCell(title: "Body Mass", value: String(format: "%.2f", weeklyAverageWeight))
+        Section(header: Text("7-Day Summary")) {
+            if let weeklyAverageWeight = viewModel.bodyMassEntries.average() {
+                SimpleListCell(title: "Body Mass", value: String(format: "%.2f", weeklyAverageWeight) + " kg")
             }
-            SimpleListCell(title: "BMI", value: "25")
-            SimpleListCell(title: "Body Fat", value: "25%")
-            SimpleListCell(title: "Lean Body Mass", value: "63")
+            if let weeklyAverageBMI = viewModel.bmiEntries.average() {
+                SimpleListCell(title: "BMI", value: String(format: "%.2f", weeklyAverageBMI))
+            }
+            if let weeklyAveragebodyFat = viewModel.bodyFatEntries.average() {
+                SimpleListCell(title: "Body Fat", value: String(format: "%.2f", weeklyAveragebodyFat * 100) + "%")
+            }
+            if let weeklyAverageLeanMass = viewModel.leanBodyMassEntries.average() {
+                SimpleListCell(title: "Lean Mass", value: String(format: "%.2f", weeklyAverageLeanMass) + " kg")
+            }
             SimpleListCell(title: "Sleep Time", value: "6 hours")
         }
     }

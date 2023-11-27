@@ -7,19 +7,46 @@
 
 import Foundation
 
+@MainActor
 class HealthViewModel: ObservableObject {
-    @MainActor @Published var weeklyAverageWeight: Double?
+    @Published var userHealth = UserHealthModel()
     var healthKitManager: HealthKitManager
+
+    var bodyMassEntries: [Double] {
+        userHealth.bodyMassEntries
+    }
+
+    var bmiEntries: [Double] {
+        userHealth.bmiEntries
+    }
+
+    var bodyFatEntries: [Double] {
+        userHealth.bodyFatEntries
+    }
+
+    var leanBodyMassEntries: [Double] {
+        userHealth.leanBodyMassEntries
+    }
 
     init(healthKitManager: HealthKitManager) {
         self.healthKitManager = healthKitManager
-
         loadHealthData()
     }
 
     private func loadHealthData() {
-        Task { @MainActor in
-            weeklyAverageWeight = await healthKitManager.loadSample(for: .bodyMass)
+        var userHealth = UserHealthModel()
+
+        Task { @MainActor [weak self] in
+            guard let self else {
+                return
+            }
+
+            userHealth.bodyMassEntries = await healthKitManager.loadSamples(for: .bodyMass)
+            userHealth.bmiEntries = await healthKitManager.loadSamples(for: .bmi)
+            userHealth.bodyFatEntries = await healthKitManager.loadSamples(for: .bodyFat)
+            userHealth.leanBodyMassEntries = await healthKitManager.loadSamples(for: .leanMass)
+
+            self.userHealth = userHealth
         }
     }
 }
