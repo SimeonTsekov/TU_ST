@@ -3,7 +3,7 @@ using webAPI.DTOs.Response;
 
 namespace webAPI.Interfaces
 {
-    public interface IUserService
+    public interface IAuthService
     {
         JwtResponse Login(UserLoginRequest loginRequest);
 

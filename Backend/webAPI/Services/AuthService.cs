@@ -6,12 +6,12 @@ using webApi.Data.Models;
 
 namespace webAPI.Services
 {
-    public class UserService : IUserService
+    public class AuthService : IAuthService
     {
         private readonly IJwtProvider _jwtProvider;
         private readonly IUserRepository _userRepository;
 
-        public UserService(IJwtProvider jwtProvider, IUserRepository userRepository)
+        public AuthService(IJwtProvider jwtProvider, IUserRepository userRepository)
         {
             _jwtProvider = jwtProvider;
             _userRepository = userRepository;

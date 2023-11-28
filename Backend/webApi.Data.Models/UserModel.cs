@@ -15,7 +15,7 @@ namespace webApi.Data.Models
 		public string Email { get; set; } = null!;
 
 		[Required]
-		public string Passwords { get; set; } = null!; //TODO: Ask Svetlio if we can change from plural to single word
+		public string Passwords { get; set; } = null!; 
 
 		[Required]
 		public int Age { get; set; }
