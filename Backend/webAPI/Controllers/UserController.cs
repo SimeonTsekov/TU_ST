@@ -4,12 +4,16 @@ namespace webAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    // UserController -> UserService -> UserRepository
+    // Controller -> Service -> Repository
     public class UserController : Controller
     {
         [HttpPost]
         public IActionResult Create()
         {
             throw new NotImplementedException();
+            //_userService.create()
         }
 
         [HttpPut("{id}")]

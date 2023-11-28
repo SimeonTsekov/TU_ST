@@ -8,11 +8,11 @@ namespace webAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IUserService userService)
+        public AuthController(IAuthService authService)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         [HttpPost("login")]
@@ -23,7 +23,7 @@ namespace webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = _userService.Login(userLoginRequest);
+            var result = _authService.Login(userLoginRequest);
 
             if (result == null)
             {
@@ -43,7 +43,7 @@ namespace webAPI.Controllers
             }
 
             // TODO: 2. Attempt to register the user.
-            var result = _userService.Register(userRegisterRequest);
+            var result = _authService.Register(userRegisterRequest);
 
             if (result == null)
             {
