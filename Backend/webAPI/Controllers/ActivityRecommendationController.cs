@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using webAPI.Interfaces;
 
 namespace webAPI.Controllers
 {
@@ -6,6 +7,13 @@ namespace webAPI.Controllers
 	[ApiController]
 	public class ActivityRecommendationController : Controller
 	{
+		private IActivityRecommendationRepository _activityRecommendationRepository;
+
+		public ActivityRecommendationController(IActivityRecommendationRepository activityRecommendationRepository)
+		{
+			_activityRecommendationRepository = activityRecommendationRepository;
+		}
+
 		[HttpPost]
 		public IActionResult Create()
 		{
