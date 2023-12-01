@@ -33,6 +33,8 @@
 		EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882E2B14C3BB003196DB /* UserMetric.swift */; };
 		EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88302B14D99F003196DB /* UserHealthModel.swift */; };
 		EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88332B14DC51003196DB /* NumericArray+Average.swift */; };
+		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
+		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		EC3D882E2B14C3BB003196DB /* UserMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetric.swift; sourceTree = "<group>"; };
 		EC3D88302B14D99F003196DB /* UserHealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHealthModel.swift; sourceTree = "<group>"; };
 		EC3D88332B14DC51003196DB /* NumericArray+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumericArray+Average.swift"; sourceTree = "<group>"; };
+		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
+		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +195,8 @@
 			children = (
 				EC2018472B0B720F00C69150 /* ActivityContentView.swift */,
 				EC2018452B0B71FE00C69150 /* ActivityNavigationView.swift */,
+				ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */,
+				ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */,
 			);
 			path = ActivityScreen;
 			sourceTree = "<group>";
@@ -415,11 +421,13 @@
 				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
 				EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */,
+				ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */,
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
 				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
 				EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
+				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
 				EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */,

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ActivityContentView: View {
+    @StateObject var viewModel: ActivityViewModel
     var router: ActivityRouter
 
     var body: some View {
@@ -17,11 +18,21 @@ struct ActivityContentView: View {
     }
 
     private var activitySection: some View {
-        Section(header: Text("Summary")) {
-            SimpleListCell(title: "Workouts", value: "-")
-            SimpleListCell(title: "DailySteps", value: "3000")
-            SimpleListCell(title: "DailyDistance", value: "5 km")
-            SimpleListCell(title: "DailyEnergyBurned", value: "100 kcal")
+        Section(header: Text("7-Day Summary")) {
+            SimpleListCell(title: "Workouts",
+                           value: String(viewModel.dailyWorkoutEntries.count))
+            if let weeklyAverageStepEntries = viewModel.dailyStepsEntries.weeklyAverage() {
+                SimpleListCell(title: "Steps",
+                               value: String(format: "%.2f", weeklyAverageStepEntries))
+            }
+            if let weeklyAverageDistanceEntries = viewModel.dailyDistanceEntries.weeklyAverage() {
+                SimpleListCell(title: "Distance",
+                               value: String(format: "%.2f", weeklyAverageDistanceEntries) + " km")
+            }
+            if let weeklyAverageEnergyExpenditureEntries = viewModel.dailyEnergyExpenditureEntries.weeklyAverage() {
+                SimpleListCell(title: "Energy Burned",
+                               value: String(format: "%.2f", weeklyAverageEnergyExpenditureEntries) + " kcal")
+            }
         }
     }
 }

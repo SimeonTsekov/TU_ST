@@ -19,15 +19,15 @@ struct SimpleListCell: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
-//        .padding(8)
     }
 
     var cellContent: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .foregroundStyle(Color.accentColor)
-                .bold()
+                .font(.system(.headline, design: .rounded))
             Text(value)
+                .font(.system(.body, design: .rounded))
         }
     }
 }

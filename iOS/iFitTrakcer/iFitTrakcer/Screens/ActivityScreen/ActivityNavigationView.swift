@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ActivityNavigationView: View {
+    @EnvironmentObject private var healthKitManager: HealthKitManager
     @ObservedObject private var router = ActivityRouter()
 
     var body: some View {
@@ -19,6 +20,10 @@ struct ActivityNavigationView: View {
     }
 
     var activityContentView: some View {
-        ActivityContentView(router: router)
+        ActivityContentView(viewModel: activityViewModel, router: router)
+    }
+
+    var activityViewModel: ActivityViewModel {
+        ActivityViewModel(healthKitManager: healthKitManager)
     }
 }

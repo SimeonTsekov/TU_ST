@@ -30,7 +30,8 @@ class HealthKitManager: ObservableObject {
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
             HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKObjectType.categoryType(forIdentifier: .appleStandHour)!,
-            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!]
+            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+            .workoutType()]
     }
 
     var weeklyPredicate: NSPredicate {
@@ -52,6 +53,14 @@ class HealthKitManager: ObservableObject {
         }
     }
 
+    func loadWorkouts() async -> [HKWorkout] {
+        await withCheckedContinuation { continuation in
+            loadWorkouts { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
     private func loadSamples<T>(metric: UserMetric,
                                 completion: @escaping (T) -> Void) {
         let query = HKSampleQuery(sampleType: metric.sampleType,
@@ -63,12 +72,19 @@ class HealthKitManager: ObservableObject {
             }
 
             guard let samples = results as? [HKQuantitySample] else {
-                self.logger.error("[HEALTH KIT LOADING] Error in retrieving \(metric.sampleType)")
+                self.logger
+                    .error("[HEALTH KIT LOADING] Error in retrieving \(metric.sampleType)")
+                return
+            }
+
+            guard let unit = metric.unit else {
+                self.logger
+                    .error("[HEALTH KIT LOADING] Atttempting retrieval of \(metric.sampleType) without specifying unit")
                 return
             }
 
             let sampleValues = samples.map { sample in
-                sample.quantity.doubleValue(for: metric.unit)
+                sample.quantity.doubleValue(for: unit)
             }
 
             guard let castSampleValues = sampleValues as? T else {
@@ -78,6 +94,23 @@ class HealthKitManager: ObservableObject {
 
             self.logger.info("[HEALTH KIT LOADING] Resource of type \(metric.sampleType) loaded successfully")
             completion(castSampleValues)
+        }
+
+        healthStore.execute(query)
+    }
+
+    private func loadWorkouts(completion: @escaping ([HKWorkout]) -> Void) {
+        let query = HKSampleQuery(sampleType: .workoutType(),
+                                  predicate: weeklyPredicate,
+                                  limit: HKObjectQueryNoLimit,
+                                  sortDescriptors: nil) { (_, samples, _) in
+            guard let workouts = samples as? [HKWorkout] else {
+                self.logger
+                    .error("[HEALTH KIT LOADING] Error in retrieving workouts")
+                return
+            }
+
+            completion(workouts)
         }
 
         healthStore.execute(query)

@@ -34,7 +34,7 @@ class HealthViewModel: ObservableObject {
     }
 
     private func loadHealthData() {
-        var userHealth = UserHealthModel()
+        let userHealth = UserHealthModel()
 
         Task { @MainActor [weak self] in
             guard let self else {

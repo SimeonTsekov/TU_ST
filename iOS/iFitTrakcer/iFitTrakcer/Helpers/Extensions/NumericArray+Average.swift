@@ -16,4 +16,13 @@ extension Collection where Element: Numeric {
 
         return sum / Double(count)
     }
+
+    func weeklyAverage() -> Double? {
+        guard isEmpty == false,
+              let sum = reduce(0, +) as? Double else {
+            return nil
+        }
+
+        return sum / Double(7)
+    }
 }

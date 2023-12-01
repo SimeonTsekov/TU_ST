@@ -13,8 +13,12 @@ enum UserMetric {
     case bmi
     case bodyFat
     case leanMass
+    case workouts
+    case steps
+    case distance
+    case energyExpenditure
 
-    var sampleType: HKQuantityType {
+    var sampleType: HKSampleType {
         switch self {
         case .bodyMass:
             HKQuantityType.quantityType(forIdentifier: .bodyMass)!
@@ -24,10 +28,18 @@ enum UserMetric {
             HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage)!
         case .leanMass:
             HKQuantityType.quantityType(forIdentifier: .leanBodyMass)!
+        case .workouts:
+            HKObjectType.workoutType()
+        case .steps:
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!
+        case .distance:
+            HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!
+        case .energyExpenditure:
+            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         }
     }
 
-    var unit: HKUnit {
+    var unit: HKUnit? {
         switch self {
         case .bodyMass:
             HKUnit.gramUnit(with: .kilo)
@@ -37,6 +49,14 @@ enum UserMetric {
             HKUnit.percent()
         case .leanMass:
             HKUnit.gramUnit(with: .kilo)
+        case .workouts:
+            nil
+        case .steps:
+            HKUnit.count()
+        case .distance:
+            HKUnit.meterUnit(with: .kilo)
+        case .energyExpenditure:
+            HKUnit.largeCalorie()
         }
     }
 }
