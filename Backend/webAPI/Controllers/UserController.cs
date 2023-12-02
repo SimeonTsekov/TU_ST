@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using webAPI.Interfaces;
 
 namespace webAPI.Controllers
 {
@@ -9,12 +10,19 @@ namespace webAPI.Controllers
     // Controller -> Service -> Repository
     public class UserController : Controller
     {
-        [HttpPost]
-        public IActionResult Create()
+        private readonly IActivityService _activityService;
+
+        public UserController(IActivityService activityService)
         {
-            throw new NotImplementedException();
-            //_userService.create()
+            _activityService = activityService;
         }
+
+        // [HttpPost]
+        // public IActionResult Create()
+        // {
+        //     throw new NotImplementedException();
+        //     //_userService.create()
+        // }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id)
@@ -42,6 +50,13 @@ namespace webAPI.Controllers
         {
             throw new NotImplementedException();
 
+        }
+
+        [HttpGet("{id}/activities")]
+        public IActionResult GetActivitiesForUser(int id)
+        {
+            var allByUserId = this._activityService.GetAllByUserId(id);
+            return Ok(allByUserId);
         }
     }
 }

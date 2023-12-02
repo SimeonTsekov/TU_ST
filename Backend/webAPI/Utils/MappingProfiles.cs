@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using webApi.Data.Models;
 using webAPI.DTOs;
+using webAPI.DTOs.Response;
 
 namespace webAPI.Utils
 {
@@ -9,6 +10,8 @@ namespace webAPI.Utils
         public MappingProfiles()
         {
             CreateMap<UserModel, UserDTO>();
+            CreateMap<ActivityRequest, ActivityDataModel>();
+            CreateMap<ActivityDataModel, ActivityResponse>();
         }
     }
 }
