@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics;
+using AutoMapper;
 using webAPI.Authentication.JwtBearer;
 using webAPI.Interfaces;
 using webAPI.DTOs.Request;
@@ -23,12 +24,7 @@ namespace webAPI.Services
 
         public JwtResponse Login(UserLoginRequest loginRequest)
         {
-            if(loginRequest.Email == null || loginRequest.Password == null)
-            {
-                throw new InvalidOperationException(); //! Removes the green lines that say "property may be null"
-            }
-
-            var user = _userRepository.FindUserByEmail(loginRequest.Email);
+            var user = _userRepository.FindUserByEmail(loginRequest.Email!);
 
             if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
             {
@@ -40,19 +36,9 @@ namespace webAPI.Services
 
         public JwtResponse Register(UserRegisterRequest registerRequest)
         {
-            if(registerRequest.Email == null || registerRequest.Username == null)
-            {
-                throw new InvalidOperationException(); // Removes the green lines that say "property may be null"
-            }
-
-            if (registerRequest.Password != registerRequest.ConfirmPassword)
-            {
-                throw new InvalidOperationException("Passwords do not match!");
-            }
-
             try
             {
-                _userRepository.FindUserByEmail(registerRequest.Email);
+                _userRepository.FindUserByEmail(registerRequest.Email!);
 
                 // If the above line doesn't throw an exception, it means that the user exists, so the email is already taken
                 // and we can't register the user, so we throw an exception to be caught in the controller
@@ -67,9 +53,9 @@ namespace webAPI.Services
 
             var newUser = new UserModel
             {
-                Email = registerRequest.Email,
+                Email = registerRequest.Email!,
                 Password = hashedPassword,
-                Username = registerRequest.Username,
+                Username = registerRequest.Username!,
                 Age = registerRequest.Age,
                 Height = registerRequest.Height,
             };

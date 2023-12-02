@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using webAPI.Interfaces;
 using webAPI.DTOs.Request;
+using webAPI.Identity;
+using webAPI.Utils;
 
 namespace webAPI.Controllers
 {
@@ -16,13 +18,9 @@ namespace webAPI.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymousOnly]
         public IActionResult Login([FromBody] UserLoginRequest userLoginRequest)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
                 var result = _authService.Login(userLoginRequest);
@@ -35,13 +33,9 @@ namespace webAPI.Controllers
         }
 
         [HttpPost("register")]
+        [AllowAnonymousOnly]
         public IActionResult Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
                 var result = _authService.Register(userRegisterRequest);
