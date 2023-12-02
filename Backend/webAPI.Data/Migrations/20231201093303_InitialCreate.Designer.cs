@@ -11,8 +11,8 @@ using webAPI.Data;
 namespace webAPI.Data.Migrations
 {
     [DbContext(typeof(webAPIDbContext))]
-    [Migration("20231116195401_Initial")]
-    partial class Initial
+    [Migration("20231201093303_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,36 @@ namespace webAPI.Data.Migrations
                     b.ToTable("ActivityDataModels");
                 });
 
+            modelBuilder.Entity("webApi.Data.Models.ActivityRecommendationModel", b =>
+                {
+                    b.Property<int>("ActivityRecommendationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActivityRecommendationId"));
+
+                    b.Property<string>("ActivityGoals")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomActivityAdvice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkoutRecommendations")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ActivityRecommendationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ActivityRecommendationModels");
+                });
+
             modelBuilder.Entity("webApi.Data.Models.HealthDataModel", b =>
                 {
                     b.Property<int>("HealthDataId")
@@ -88,6 +118,36 @@ namespace webAPI.Data.Migrations
                     b.ToTable("HealthDataModels");
                 });
 
+            modelBuilder.Entity("webApi.Data.Models.HealthRecommendationModel", b =>
+                {
+                    b.Property<int>("HealthRecommendationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HealthRecommendationId"));
+
+                    b.Property<string>("DietaryAdvice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralHealthAdvice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SleepAdvice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HealthRecommendationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("HealthRecommendationModels");
+                });
+
             modelBuilder.Entity("webApi.Data.Models.UserModel", b =>
                 {
                     b.Property<int>("UserId")
@@ -106,7 +166,7 @@ namespace webAPI.Data.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
-                    b.Property<string>("Passwords")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -130,7 +190,29 @@ namespace webAPI.Data.Migrations
                     b.Navigation("UserModel");
                 });
 
+            modelBuilder.Entity("webApi.Data.Models.ActivityRecommendationModel", b =>
+                {
+                    b.HasOne("webApi.Data.Models.UserModel", "UserModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserModel");
+                });
+
             modelBuilder.Entity("webApi.Data.Models.HealthDataModel", b =>
+                {
+                    b.HasOne("webApi.Data.Models.UserModel", "UserModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserModel");
+                });
+
+            modelBuilder.Entity("webApi.Data.Models.HealthRecommendationModel", b =>
                 {
                     b.HasOne("webApi.Data.Models.UserModel", "UserModel")
                         .WithMany()

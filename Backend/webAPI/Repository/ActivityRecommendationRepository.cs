@@ -52,15 +52,12 @@ namespace webAPI.Repository
 
 		public ActivityRecommendationModel Update(int activityRecommendationId, ActivityRecommendationModel updatedModel)
 		{
-			var existingModel = _dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
+			var existingModel = this.GetActivityRecommendationById(activityRecommendationId);
 
-			if (existingModel != null)
-			{
-				existingModel.WorkoutRecommendations = updatedModel.WorkoutRecommendations;
-				existingModel.ActivityGoals = updatedModel.ActivityGoals;
-				existingModel.CustomActivityAdvice = updatedModel.CustomActivityAdvice;
-				existingModel.UserModel = updatedModel.UserModel;
-			}
+            existingModel.WorkoutRecommendations = updatedModel.WorkoutRecommendations;
+            existingModel.ActivityGoals = updatedModel.ActivityGoals;
+            existingModel.CustomActivityAdvice = updatedModel.CustomActivityAdvice;
+            existingModel.UserModel = updatedModel.UserModel;
 
 			return existingModel;
 		}

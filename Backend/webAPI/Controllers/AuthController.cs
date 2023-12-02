@@ -23,35 +23,34 @@ namespace webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = _authService.Login(userLoginRequest);
-
-            if (result == null)
+            try
             {
-                return Unauthorized("Invalid credentials");
+                var result = _authService.Login(userLoginRequest);
+                return Ok(result);
             }
-
-            return Ok(result);
+            catch (Exception exception)
+            {
+                return Unauthorized(exception.Message);
+            }
         }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
-            // TODO: 1. Validate the UserRegisterRequest.
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            // TODO: 2. Attempt to register the user.
-            var result = _authService.Register(userRegisterRequest);
-
-            if (result == null)
+            try
             {
-                return Conflict("Username already taken");
+                var result = _authService.Register(userRegisterRequest);
+                return Ok(result);
             }
-
-            // TODO: 3. Return the JWT token.
-            return Ok(result);
+            catch (Exception exception)
+            {
+                return Conflict(exception.Message);
+            }
         }
     }
 }

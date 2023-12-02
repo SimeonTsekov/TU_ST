@@ -5,7 +5,7 @@
 namespace webAPI.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace webAPI.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Passwords = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Height = table.Column<int>(type: "int", nullable: false)
                 },
@@ -51,6 +51,28 @@ namespace webAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ActivityRecommendationModels",
+                columns: table => new
+                {
+                    ActivityRecommendationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkoutRecommendations = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActivityGoals = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomActivityAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivityRecommendationModels", x => x.ActivityRecommendationId);
+                    table.ForeignKey(
+                        name: "FK_ActivityRecommendationModels_UserModels_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserModels",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HealthDataModels",
                 columns: table => new
                 {
@@ -74,14 +96,46 @@ namespace webAPI.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "HealthRecommendationModels",
+                columns: table => new
+                {
+                    HealthRecommendationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DietaryAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SleepAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GeneralHealthAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HealthRecommendationModels", x => x.HealthRecommendationId);
+                    table.ForeignKey(
+                        name: "FK_HealthRecommendationModels_UserModels_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserModels",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityDataModels_UserId",
                 table: "ActivityDataModels",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ActivityRecommendationModels_UserId",
+                table: "ActivityRecommendationModels",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HealthDataModels_UserId",
                 table: "HealthDataModels",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HealthRecommendationModels_UserId",
+                table: "HealthRecommendationModels",
                 column: "UserId");
         }
 
@@ -92,7 +146,13 @@ namespace webAPI.Data.Migrations
                 name: "ActivityDataModels");
 
             migrationBuilder.DropTable(
+                name: "ActivityRecommendationModels");
+
+            migrationBuilder.DropTable(
                 name: "HealthDataModels");
+
+            migrationBuilder.DropTable(
+                name: "HealthRecommendationModels");
 
             migrationBuilder.DropTable(
                 name: "UserModels");

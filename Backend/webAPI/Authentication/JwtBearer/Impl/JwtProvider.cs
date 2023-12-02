@@ -23,7 +23,7 @@ namespace webAPI.Authentication.JwtBearer.impl
 
             var now = DateTime.UtcNow;
             var expiry = now.Add(TimeSpan.FromHours(_jwtBearerSettings.LifeSpan));
-            var key = Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey);
+            var key = Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey ?? throw new InvalidOperationException());
 
             var claims = new List<Claim>
             {
