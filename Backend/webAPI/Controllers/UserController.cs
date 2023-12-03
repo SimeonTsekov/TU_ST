@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using webApi.Data.Models;
 using webAPI.Interfaces;
 
 namespace webAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    // UserController -> UserService -> UserRepository
-    // Controller -> Service -> Repository
     public class UserController : Controller
     {
         private readonly IActivityService _activityService;
+        private readonly IUserRepository _userRepository;
 
-        public UserController(IActivityService activityService)
+        public UserController(IActivityService activityService, IUserRepository userRepository)
         {
             _activityService = activityService;
+            _userRepository = userRepository;
         }
 
         // [HttpPost]
@@ -24,38 +25,75 @@ namespace webAPI.Controllers
         //     //_userService.create()
         // }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id)
+        [HttpPut("{userId}")]
+        [SwaggerOperation(Summary = "Updates an existing user", Description = "Requires authentication")]
+        public IActionResult Update(int userId, [FromBody] UserModel updatedUser)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            try
+            {
+                var userToUpdate = _userRepository.GetUserById(userId);
+                if (userToUpdate == null)
+                {
+                    return NotFound($"User with ID {userId} not found.");
+                }
+
+                var updatedUserInfo = _userRepository.Update(userId, updatedUser);
+                return Ok(updatedUserInfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating user data");
+            }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{userId}")]
+        [SwaggerOperation(Summary = "Deletes the user", Description = "Requires authentication")]
+        public IActionResult Delete(int userId)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            _userRepository.Delete(userId);
+
+            return Ok();
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Gets all users", Description = "Requires authentication")]
         public IActionResult GetAllUsers()
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var users = _userRepository.GetAllUsers();
+
+            return Ok(users);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetUser(int id)
+        [HttpGet("{userId}")]
+        [SwaggerOperation(Summary = "Gets a certain user", Description = "Requires authentication")]
+        public IActionResult GetUser(int userId)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var user = _userRepository.GetUserById(userId);
+
+            return Ok(user);
         }
 
-        [HttpGet("{id}/activities")]
-        public IActionResult GetActivitiesForUser(int id)
+        [HttpGet("{userId}/activities")]
+        [SwaggerOperation(Summary = "Gets activities of a certain user", Description = "Requires authentication")]
+        public IActionResult GetActivitiesForUser(int userId)
         {
-            var allByUserId = this._activityService.GetAllByUserId(id);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var allByUserId = this._activityService.GetAllByUserId(userId);
+
             return Ok(allByUserId);
         }
     }

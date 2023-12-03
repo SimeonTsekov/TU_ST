@@ -3,6 +3,7 @@ using webAPI.Interfaces;
 using webAPI.DTOs.Request;
 using webAPI.Identity;
 using webAPI.Utils;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace webAPI.Controllers
 {
@@ -11,7 +12,6 @@ namespace webAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-
         public AuthController(IAuthService authService)
         {
             _authService = authService;
@@ -19,6 +19,7 @@ namespace webAPI.Controllers
 
         [HttpPost("login")]
         [AllowAnonymousOnly]
+        [SwaggerOperation(Summary = "Logs the user", Description = "Requires authentication")]
         public IActionResult Login([FromBody] UserLoginRequest userLoginRequest)
         {
             try
@@ -34,6 +35,7 @@ namespace webAPI.Controllers
 
         [HttpPost("register")]
         [AllowAnonymousOnly]
+        [SwaggerOperation(Summary = "Registers the user", Description = "Requires authentication")]
         public IActionResult Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
             try
