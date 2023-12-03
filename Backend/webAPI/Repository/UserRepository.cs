@@ -2,6 +2,7 @@
 using webApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using webAPI.Interfaces;
+using BCrypt.Net;
 
 namespace webAPI.Repositories
 {
@@ -25,11 +26,14 @@ namespace webAPI.Repositories
         {
             var existingUser = this.GetUserById(userId);
 
-            existingUser.Username = updatedUser.Username;
-            existingUser.Email = updatedUser.Email;
-            existingUser.Password = updatedUser.Password;
-            existingUser.Age = updatedUser.Age;
-            existingUser.Height = updatedUser.Height;
+            if (existingUser != null)
+            {
+                existingUser.Username = updatedUser.Username;
+                existingUser.Email = updatedUser.Email;
+                existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
+                existingUser.Age = updatedUser.Age;
+                existingUser.Height = updatedUser.Height;
+            }
 
             _dbContext.SaveChanges();
 
