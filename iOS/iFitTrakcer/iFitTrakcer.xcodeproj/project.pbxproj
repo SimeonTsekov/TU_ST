@@ -33,6 +33,8 @@
 		EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882E2B14C3BB003196DB /* UserMetric.swift */; };
 		EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88302B14D99F003196DB /* UserHealthModel.swift */; };
 		EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88332B14DC51003196DB /* NumericArray+Average.swift */; };
+		EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */; };
+		EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */; };
 		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
 		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +79,8 @@
 		EC3D882E2B14C3BB003196DB /* UserMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetric.swift; sourceTree = "<group>"; };
 		EC3D88302B14D99F003196DB /* UserHealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHealthModel.swift; sourceTree = "<group>"; };
 		EC3D88332B14DC51003196DB /* NumericArray+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumericArray+Average.swift"; sourceTree = "<group>"; };
+		EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
+		EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
 		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,6 +210,8 @@
 			children = (
 				EC20185D2B0B764400C69150 /* ProfileContentView.swift */,
 				EC20185B2B0B760900C69150 /* ProfileNavigationView.swift */,
+				EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */,
+				EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 				EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */,
 				EC2018112B0B6C5400C69150 /* ContentView.swift in Sources */,
 				EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */,
+				EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */,
 				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
 				EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */,
@@ -435,6 +442,7 @@
 				EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */,
 				EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */,
 				EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */,
+				EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */,
 				EC2018462B0B71FE00C69150 /* ActivityNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

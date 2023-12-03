@@ -14,6 +14,21 @@ enum HealthKitError: Error {
     case castError
 }
 
+enum TimePredicate {
+    case weekly
+    case alltime
+
+    var predicate: NSPredicate? {
+        switch self {
+        case .weekly:
+            let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
+            return HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
+        case .alltime:
+            return nil
+        }
+    }
+}
+
 class HealthKitManager: ObservableObject {
     let healthStore = HKHealthStore()
     let logger = Logger()
@@ -34,20 +49,17 @@ class HealthKitManager: ObservableObject {
             .workoutType()]
     }
 
-    var weeklyPredicate: NSPredicate {
-        let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
-        return HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
-    }
-
     func requestAuthorization() {
         healthStore.requestAuthorization(toShare: nil, read: authorizationTypes) { _, _ in
             return
         }
     }
 
-    func loadSamples<T>(for metric: UserMetric) async -> T {
+    func loadSamples<T>(for metric: UserMetric,
+                        timePredicate: TimePredicate = .weekly) async -> T {
         await withCheckedContinuation { continuation in
-            loadSamples(metric: metric) { (result: T) in
+            loadSamples(metric: metric,
+                        timePredicate: timePredicate) { (result: T) in
                 continuation.resume(returning: result)
             }
         }
@@ -61,10 +73,27 @@ class HealthKitManager: ObservableObject {
         }
     }
 
+    func loadBiologicalSex() async -> Sex {
+        await withCheckedContinuation { continuation in
+            loadBiologicalSex { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    func loadDateOfBirth() async -> Date {
+        await withCheckedContinuation { continuation in
+            loadDateOfBirth { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
     private func loadSamples<T>(metric: UserMetric,
+                                timePredicate: TimePredicate,
                                 completion: @escaping (T) -> Void) {
         let query = HKSampleQuery(sampleType: metric.sampleType,
-                                  predicate: weeklyPredicate,
+                                  predicate: timePredicate.predicate,
                                   limit: Int(HKObjectQueryNoLimit),
                                   sortDescriptors: nil) { [weak self] (_, results, _) in
             guard let self else {
@@ -77,22 +106,18 @@ class HealthKitManager: ObservableObject {
                 return
             }
 
-            guard let unit = metric.unit else {
-                self.logger
-                    .error("[HEALTH KIT LOADING] Atttempting retrieval of \(metric.sampleType) without specifying unit")
-                return
-            }
-
             let sampleValues = samples.map { sample in
-                sample.quantity.doubleValue(for: unit)
+                sample.quantity.doubleValue(for: metric.unit)
             }
 
             guard let castSampleValues = sampleValues as? T else {
-                self.logger.error("[HEALTH KIT LOADING] Error in casting \(sampleValues.self) to \(T.self)")
+                self.logger
+                    .error("[HEALTH KIT LOADING] Error in casting \(metric.sampleType) to \(T.self)")
                 return
             }
 
-            self.logger.info("[HEALTH KIT LOADING] Resource of type \(metric.sampleType) loaded successfully")
+            self.logger
+                .info("[HEALTH KIT LOADING] Resource of type \(metric.sampleType) loaded successfully")
             completion(castSampleValues)
         }
 
@@ -101,7 +126,7 @@ class HealthKitManager: ObservableObject {
 
     private func loadWorkouts(completion: @escaping ([HKWorkout]) -> Void) {
         let query = HKSampleQuery(sampleType: .workoutType(),
-                                  predicate: weeklyPredicate,
+                                  predicate: TimePredicate.weekly.predicate,
                                   limit: HKObjectQueryNoLimit,
                                   sortDescriptors: nil) { (_, samples, _) in
             guard let workouts = samples as? [HKWorkout] else {
@@ -110,9 +135,55 @@ class HealthKitManager: ObservableObject {
                 return
             }
 
+            self.logger
+                .info("[HEALTH KIT LOADING] Workouts loaded successfully")
             completion(workouts)
         }
 
         healthStore.execute(query)
+    }
+
+    private func loadBiologicalSex(completion: @escaping (Sex) -> Void) {
+        do {
+            let biologicalSexObject = try healthStore.biologicalSex()
+
+            self.logger
+                .info("[HEALTH KIT LOADING] Biological sex loaded successfully")
+
+            switch biologicalSexObject.biologicalSex {
+            case .female:
+                completion(.female)
+            case .male:
+                completion(.male)
+            case .other,
+                    .notSet:
+                completion(.unidentified)
+            @unknown default:
+                completion(.unidentified)
+            }
+        } catch let error {
+            self.logger
+                .error("[HEALTH KIT LOADING] Error in retrieving biological sex \(error.localizedDescription)")
+        }
+    }
+
+    private func loadDateOfBirth(completion: @escaping (Date) -> Void) {
+        do {
+            let dateOfBirthCOmponents = try healthStore.dateOfBirthComponents()
+            guard let dateOfBirth = Calendar.current.date(from: dateOfBirthCOmponents) else {
+                self.logger
+                    .error("[HEALTH KIT LOADING] Error when loading date of birth")
+                return
+            }
+
+            self.logger
+                .info("[HEALTH KIT LOADING] Date of birth loaded successfully")
+
+            completion(dateOfBirth)
+
+        } catch let error {
+            self.logger
+                .error("[HEALTH KIT LOADING] Error in retrieving date of birth \(error.localizedDescription)")
+        }
     }
 }

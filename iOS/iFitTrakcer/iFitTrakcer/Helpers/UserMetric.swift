@@ -9,17 +9,19 @@ import HealthKit
 import Foundation
 
 enum UserMetric {
+    case height
     case bodyMass
     case bmi
     case bodyFat
     case leanMass
-    case workouts
     case steps
     case distance
     case energyExpenditure
 
     var sampleType: HKSampleType {
         switch self {
+        case .height:
+            HKQuantityType.quantityType(forIdentifier: .height)!
         case .bodyMass:
             HKQuantityType.quantityType(forIdentifier: .bodyMass)!
         case .bmi:
@@ -28,8 +30,6 @@ enum UserMetric {
             HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage)!
         case .leanMass:
             HKQuantityType.quantityType(forIdentifier: .leanBodyMass)!
-        case .workouts:
-            HKObjectType.workoutType()
         case .steps:
             HKQuantityType.quantityType(forIdentifier: .stepCount)!
         case .distance:
@@ -39,8 +39,10 @@ enum UserMetric {
         }
     }
 
-    var unit: HKUnit? {
+    var unit: HKUnit {
         switch self {
+        case .height:
+            HKUnit.meterUnit(with: .centi)
         case .bodyMass:
             HKUnit.gramUnit(with: .kilo)
         case .bmi:
@@ -49,8 +51,6 @@ enum UserMetric {
             HKUnit.percent()
         case .leanMass:
             HKUnit.gramUnit(with: .kilo)
-        case .workouts:
-            nil
         case .steps:
             HKUnit.count()
         case .distance:

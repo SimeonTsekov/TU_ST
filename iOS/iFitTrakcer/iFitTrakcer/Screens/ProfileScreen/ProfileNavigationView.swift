@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct ProfileNavigationView: View {
+    @EnvironmentObject private var healthKitManager: HealthKitManager
     @StateObject private var router = ProfileRouter()
 
     var body: some View {
         NavigationStack(path: $router.path) {
-            profileView
+            profileContentView
 //                .navigationDestination(for: ProfileDestination.self) { $0 }
                 .navigationTitle("Profile")
         }
         .environmentObject(router)
     }
 
-    private var profileView: some View {
-        ProfileContentView(router: router)
+    private var profileContentView: some View {
+        ProfileContentView(viewModel: profileViewModel, router: router)
+    }
+
+    var profileViewModel: ProfileViewModel {
+        ProfileViewModel(healthKitManager: healthKitManager)
     }
 }

@@ -14,11 +14,8 @@ enum Sex: String, CaseIterable {
 }
 
 struct ProfileContentView: View {
+    @StateObject var viewModel: ProfileViewModel
     let router: ProfileRouter
-
-    @State private var sex: Sex = .unidentified
-    @State private var height: Int = 0
-    @State private var weight: Int = 0
 
     var body: some View {
         List {
@@ -35,9 +32,10 @@ struct ProfileContentView: View {
 
     private var dataSection: some View {
         Section(header: Text("Data")) {
+            dateOfBirthPicker
             sexPicker
             heightPicker
-            weightPicker
+//            weightPicker
         }
     }
 
@@ -51,8 +49,15 @@ struct ProfileContentView: View {
         }
     }
 
+    private var dateOfBirthPicker: some View {
+        DatePicker("Date of Birth",
+                   selection: $viewModel.userData.dateOfBirth,
+                   displayedComponents: .date)
+    }
+
     private var sexPicker: some View {
-        Picker(selection: $sex, label: Text("Sex").font(.system(.body, design: .rounded))) {
+        Picker(selection: $viewModel.userData.biologicalSex,
+               label: Text("Sex").font(.system(.body, design: .rounded))) {
             ForEach(Sex.allCases, id: \.self) {
                 Text($0.rawValue)
             }
@@ -60,17 +65,10 @@ struct ProfileContentView: View {
     }
 
     private var heightPicker: some View {
-        Picker(selection: $height, label: Text("Height").font(.system(.body, design: .rounded))) {
+        Picker(selection: $viewModel.userData.height,
+               label: Text("Height").font(.system(.body, design: .rounded))) {
             ForEach(0..<300, id: \.self) {
                 Text("\($0) cm")
-            }
-        }
-    }
-
-    private var weightPicker: some View {
-        Picker(selection: $weight, label: Text("Weight").font(.system(.body, design: .rounded))) {
-            ForEach(0..<300, id: \.self) {
-                Text("\($0) kg")
             }
         }
     }
