@@ -52,6 +52,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IHealthDataRepository, HealthDataRepository>();
+builder.Services.AddScoped<IHealthDataService, HealthDataService>();
 
 
 var app = builder.Build();

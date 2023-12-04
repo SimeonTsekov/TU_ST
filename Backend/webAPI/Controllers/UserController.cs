@@ -96,6 +96,8 @@ namespace webAPI.Controllers
 
             return Ok(allByUserId);
         }
+
+        //TODO Get the user's health data
     }
 }
  
