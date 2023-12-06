@@ -15,7 +15,7 @@ namespace webApi.Data.Models
 		public string Email { get; set; } = null!;
 
 		[Required]
-		public string Passwords { get; set; } = null!; 
+		public string Password { get; set; } = null!; 
 
 		[Required]
 		public int Age { get; set; }

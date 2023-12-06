@@ -1,4 +1,6 @@
-﻿namespace webAPI.DTOs
+﻿using webAPI.DTOs.Response;
+
+namespace webAPI.DTOs
 {
     public class UserDTO
     {
@@ -14,7 +16,7 @@
 
         public int? Height { get; set; }
         // Navigation property for related ActivityData records
-        public virtual ICollection<ActivityDataDTO>? ActivityData { get; set; }
+        public virtual ICollection<ActivityResponse>? ActivityData { get; set; }
         // Navigation property for related HealthData records
         public virtual ICollection<HealthDataDTO>? HealthData { get; set; }
     }

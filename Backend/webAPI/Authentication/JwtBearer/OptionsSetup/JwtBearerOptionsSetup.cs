@@ -21,7 +21,7 @@ namespace webAPI.Authentication.JwtBearer.OptionsSetup
             {
                 ValidIssuer = _jwtBearerSettings.Issuer,
                 ValidAudience = _jwtBearerSettings.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey)),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey ?? throw new InvalidOperationException())),
                 ClockSkew = TimeSpan.Zero,
                 ValidateIssuer = true,
                 ValidateAudience = true,
