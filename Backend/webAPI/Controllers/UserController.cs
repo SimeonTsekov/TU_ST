@@ -29,9 +29,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Updates an existing user", Description = "Requires authentication")]
         public IActionResult Update(int userId, [FromBody] UserModel updatedUser)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
                 var userToUpdate = _userRepository.GetUserById(userId);
@@ -43,7 +40,7 @@ namespace webAPI.Controllers
                 var updatedUserInfo = _userRepository.Update(userId, updatedUser);
                 return Ok(updatedUserInfo);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error updating user data");
             }
@@ -53,9 +50,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Deletes the user", Description = "Requires authentication")]
         public IActionResult Delete(int userId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             _userRepository.Delete(userId);
 
             return Ok();
@@ -65,9 +59,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets all users", Description = "Requires authentication")]
         public IActionResult GetAllUsers()
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var users = _userRepository.GetAllUsers();
 
             return Ok(users);
@@ -77,9 +68,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets a certain user", Description = "Requires authentication")]
         public IActionResult GetUser(int userId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var user = _userRepository.GetUserById(userId);
 
             return Ok(user);
@@ -89,9 +77,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets activities of a certain user", Description = "Requires authentication")]
         public IActionResult GetActivitiesForUser(int userId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var allByUserId = this._activityService.GetAllByUserId(userId);
 
             return Ok(allByUserId);

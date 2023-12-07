@@ -24,9 +24,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Creates health data for the current user", Description = "Requires authentication")]
         public IActionResult Create([FromBody] HealthDataRequest healthDataRequest)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var user = (UserModel)HttpContext.Items["currentUser"]!;
             var result = this._healthDataService.Create(healthDataRequest, user);
 
@@ -37,15 +34,12 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Updates the health data for the current user", Description = "Requires authentication")]
         public IActionResult Update(int healthDataId, [FromBody] HealthDataRequest healthDataRequest)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
                 var result = this._healthDataService.Update(healthDataId, healthDataRequest);
                 return Ok(result);
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return NotFound(exception.Message);
             }
@@ -55,9 +49,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Deletes the health data for the current user", Description = "Requires authentication")]
         public IActionResult Delete(int healthDataId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             this._healthDataService.Delete(healthDataId);
 
             return NoContent();
@@ -67,9 +58,6 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets all the health data for every user", Description = "Requires authentication")]
         public IActionResult GetAllHealthData()
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var result = this._healthDataService.GetAll();
 
             return Ok(result);
@@ -79,15 +67,12 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets spevific health data for the specific user", Description = "Requires authentication")]
         public IActionResult GetHealthDataById(int healthDataId)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
                 var result = this._healthDataService.GetById(healthDataId);
                 return Ok(result);
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return NotFound(exception.Message);
             }
