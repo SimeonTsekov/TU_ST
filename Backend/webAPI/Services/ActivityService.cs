@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Security.Claims;
 using webApi.Data.Models;
 using webAPI.DTOs.Response;
 using webAPI.Interfaces;

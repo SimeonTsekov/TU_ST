@@ -10,20 +10,15 @@ namespace webAPI.Controllers
     public class UserController : Controller
     {
         private readonly IActivityService _activityService;
+        private readonly IHealthDataService _healthService;
         private readonly IUserRepository _userRepository;
 
-        public UserController(IActivityService activityService, IUserRepository userRepository)
+        public UserController(IActivityService activityService, IUserRepository userRepository, IHealthDataService healthService)
         {
-            _activityService = activityService;
             _userRepository = userRepository;
+            _activityService = activityService;
+            _healthService = healthService;
         }
-
-        // [HttpPost]
-        // public IActionResult Create()
-        // {
-        //     throw new NotImplementedException();
-        //     //_userService.create()
-        // }
 
         [HttpPut("{userId}")]
         [SwaggerOperation(Summary = "Updates an existing user", Description = "Requires authentication")]
@@ -77,12 +72,19 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets activities of a certain user", Description = "Requires authentication")]
         public IActionResult GetActivitiesForUser(int userId)
         {
-            var allByUserId = this._activityService.GetAllByUserId(userId);
+            var activityDataById = this._activityService.GetAllByUserId(userId);
 
-            return Ok(allByUserId);
+            return Ok(activityDataById);
         }
 
-        //TODO Get the user's health data
+        [HttpGet("{userId}/healthData")]
+        [SwaggerOperation(Summary = "Gets health data of a certain user", Description = "Requires authentication")]
+        public IActionResult GetHealthDataForUser(int userId)
+        {
+            var healthDataById = _healthService.GetAllByUserId(userId);
+
+            return Ok(healthDataById);
+        }
     }
 }
  
