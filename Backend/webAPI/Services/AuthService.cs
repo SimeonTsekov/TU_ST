@@ -72,7 +72,7 @@ namespace webAPI.Services
             return new JwtResponse()
             {
                 AccessToken = jwt,
-                User = _mapper.Map<UserDTO>(user)
+                User = _mapper.Map<UserResponse>(user)
             };
         }
     }

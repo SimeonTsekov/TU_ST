@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using webApi.Data.Models;
+using webAPI.DTOs.Request;
 using webAPI.Interfaces;
 
 namespace webAPI.Controllers
@@ -11,28 +12,22 @@ namespace webAPI.Controllers
     {
         private readonly IActivityService _activityService;
         private readonly IHealthDataService _healthService;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UserController(IActivityService activityService, IUserRepository userRepository, IHealthDataService healthService)
+        public UserController(IActivityService activityService, IHealthDataService healthService, IUserService userService)
         {
-            _userRepository = userRepository;
             _activityService = activityService;
             _healthService = healthService;
+            _userService = userService;
         }
 
         [HttpPut("{userId}")]
         [SwaggerOperation(Summary = "Updates an existing user", Description = "Requires authentication")]
-        public IActionResult Update(int userId, [FromBody] UserModel updatedUser)
+        public IActionResult Update(int userId, [FromBody] UserRequest updatedUser)
         {
             try
             {
-                var userToUpdate = _userRepository.GetUserById(userId);
-                if (userToUpdate == null)
-                {
-                    return NotFound($"User with ID {userId} not found.");
-                }
-
-                var updatedUserInfo = _userRepository.Update(userId, updatedUser);
+                var updatedUserInfo = this._userService.Update(userId, updatedUser);
                 return Ok(updatedUserInfo);
             }
             catch (Exception)
@@ -45,8 +40,7 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Deletes the user", Description = "Requires authentication")]
         public IActionResult Delete(int userId)
         {
-            _userRepository.Delete(userId);
-
+            this._userService.Delete(userId);
             return Ok();
         }
 
@@ -54,8 +48,7 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets all users", Description = "Requires authentication")]
         public IActionResult GetAllUsers()
         {
-            var users = _userRepository.GetAllUsers();
-
+            var users = this._userService.GetAll();
             return Ok(users);
         }
 
@@ -63,8 +56,7 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Gets a certain user", Description = "Requires authentication")]
         public IActionResult GetUser(int userId)
         {
-            var user = _userRepository.GetUserById(userId);
-
+            var user = this._userService.GetById(userId);
             return Ok(user);
         }
 
@@ -73,7 +65,6 @@ namespace webAPI.Controllers
         public IActionResult GetActivitiesForUser(int userId)
         {
             var activityDataById = this._activityService.GetAllByUserId(userId);
-
             return Ok(activityDataById);
         }
 
@@ -82,7 +73,6 @@ namespace webAPI.Controllers
         public IActionResult GetHealthDataForUser(int userId)
         {
             var healthDataById = _healthService.GetAllByUserId(userId);
-
             return Ok(healthDataById);
         }
     }

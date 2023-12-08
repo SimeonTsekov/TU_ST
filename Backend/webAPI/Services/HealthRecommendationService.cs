@@ -1,9 +1,10 @@
 ﻿using webApi.Data.Models;
+using webAPI.DTOs.Response;
 using webAPI.Interfaces;
 
 namespace webAPI.Services
 {
-    public class HealthRecommendationService
+    public class HealthRecommendationService : IHealthRecommendationService
     {
         private readonly IHealthRecommendationRepository _healthRecommendationRepository;
 
@@ -12,5 +13,9 @@ namespace webAPI.Services
             _healthRecommendationRepository = healthRecommendationRepository;
         }
 
+        public RecommendationResponse GenerateRecommendation()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,7 +10,8 @@ namespace webAPI.Utils
     {
         public MappingProfiles()
         {
-            CreateMap<UserModel, UserDTO>();
+            CreateMap<UserRequest, UserModel>();
+            CreateMap<UserModel, UserResponse>();
             CreateMap<ActivityRequest, ActivityDataModel>();
             CreateMap<ActivityDataModel, ActivityResponse>();
             CreateMap<HealthDataRequest, HealthDataModel>();

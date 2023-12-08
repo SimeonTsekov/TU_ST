@@ -7,6 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace webAPI.Controllers
 {
+    [AllowAnonymousOnly]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -18,7 +19,6 @@ namespace webAPI.Controllers
         }
 
         [HttpPost("login")]
-        [AllowAnonymousOnly]
         [SwaggerOperation(Summary = "Logs the user", Description = "Requires authentication")]
         public IActionResult Login([FromBody] UserLoginRequest userLoginRequest)
         {
@@ -34,7 +34,6 @@ namespace webAPI.Controllers
         }
 
         [HttpPost("register")]
-        [AllowAnonymousOnly]
         [SwaggerOperation(Summary = "Registers the user", Description = "Requires authentication")]
         public IActionResult Register([FromBody] UserRegisterRequest userRegisterRequest)
         {

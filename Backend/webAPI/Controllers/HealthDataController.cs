@@ -64,7 +64,7 @@ namespace webAPI.Controllers
         }
 
         [HttpGet("{healthDataId}")]
-        [SwaggerOperation(Summary = "Gets spevific health data for the specific user", Description = "Requires authentication")]
+        [SwaggerOperation(Summary = "Gets specific health data for the specific user", Description = "Requires authentication")]
         public IActionResult GetHealthDataById(int healthDataId)
         {
             try

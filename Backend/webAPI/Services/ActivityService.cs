@@ -8,13 +8,11 @@ namespace webAPI.Services
     public class ActivityService : IActivityService
     {
         private readonly IActivityRepository _activityRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public ActivityService(IActivityRepository activityRepository, IUserRepository userRepository, IMapper mapper)
+        public ActivityService(IActivityRepository activityRepository, IMapper mapper)
         {
             _activityRepository = activityRepository;
-            _userRepository = userRepository;
             _mapper = mapper;
         }
 

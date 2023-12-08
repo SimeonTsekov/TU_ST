@@ -9,13 +9,11 @@ namespace webAPI.Services
     public class HealthDataService : IHealthDataService
     {
         private readonly IHealthDataRepository _healthDataRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public HealthDataService(IHealthDataRepository healthDataRepository, IUserRepository userRepository, IMapper mapper)
+        public HealthDataService(IHealthDataRepository healthDataRepository, IMapper mapper)
         {
             _healthDataRepository = healthDataRepository;
-            _userRepository = userRepository;   
             _mapper = mapper;
         }
 

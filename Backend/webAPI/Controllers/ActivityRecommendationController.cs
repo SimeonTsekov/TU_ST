@@ -1,51 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using webAPI.Interfaces;
 
 namespace webAPI.Controllers
 {
+	[Authorize]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ActivityRecommendationController : Controller
 	{
-		private IActivityRecommendationRepository _activityRecommendationRepository;
+		private readonly IActivityRecommendationService _activityRecommendationService;
 
-		public ActivityRecommendationController(IActivityRecommendationRepository activityRecommendationRepository)
+		public ActivityRecommendationController(IActivityRecommendationService activityRecommendationService)
 		{
-			_activityRecommendationRepository = activityRecommendationRepository;
+			_activityRecommendationService = activityRecommendationService;
 		}
-
-		[HttpPost]
-		public IActionResult Create()
+		
+		[HttpGet("data")]
+		[SwaggerOperation(Summary = "Gets activity recommendation", Description = "Requires authentication")]
+		public IActionResult GetActivityRecommendationData()
 		{
-			throw new NotImplementedException();
-		}
-
-		[HttpPut("{id}")]
-		public IActionResult Update(int id)
-		{
-			throw new NotImplementedException();
-
-		}
-
-		[HttpDelete("{id}")]
-		public IActionResult Delete(int id)
-		{
-			throw new NotImplementedException();
-
-		}
-
-		[HttpGet]
-		public IActionResult GetAllActivityRecommendations()
-		{
-			throw new NotImplementedException();
-
-		}
-
-		[HttpGet("{id}")]
-		public IActionResult GetActivityRecommendation(int id)
-		{
-			throw new NotImplementedException();
-
+			var result = this._activityRecommendationService.GenerateRecommendation();
+			return Ok(result);
 		}
 	}
 }

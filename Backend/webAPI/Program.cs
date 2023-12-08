@@ -48,12 +48,18 @@ builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IHealthDataRepository, HealthDataRepository>();
 builder.Services.AddScoped<IHealthDataService, HealthDataService>();
+
+builder.Services.AddScoped<IActivityRecommendationRepository, ActivityRecommendationRepository>();
+builder.Services.AddScoped<IActivityRecommendationService, ActivityRecommendationService>();
+builder.Services.AddScoped<IHealthRecommendationRepository, HealthRecommendationRepository>();
+builder.Services.AddScoped<IHealthRecommendationService, HealthRecommendationService>();
 
 
 var app = builder.Build();
