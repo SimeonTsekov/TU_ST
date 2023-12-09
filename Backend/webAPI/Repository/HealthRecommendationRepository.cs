@@ -28,9 +28,7 @@ namespace webAPI.Repository
 
             if (existingRecommendation != null)
             {
-                existingRecommendation.DietaryAdvice = updatedRecommendation.DietaryAdvice;
-                existingRecommendation.SleepAdvice = updatedRecommendation.SleepAdvice;
-                existingRecommendation.GeneralHealthAdvice = updatedRecommendation.GeneralHealthAdvice;
+                existingRecommendation.Recommendation = updatedRecommendation.Recommendation;
 
                 _dbContext.SaveChanges();
             }

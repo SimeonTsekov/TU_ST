@@ -28,7 +28,7 @@ namespace webAPI.Repository
             if (existingData != null)
             {
                 existingData.BodyMass = updatedHealthData.BodyMass;
-                existingData.BMI = updatedHealthData.BMI;
+                existingData.Bmi = updatedHealthData.Bmi;
                 existingData.BodyFat = updatedHealthData.BodyFat;
                 existingData.LeanBodyMass = updatedHealthData.LeanBodyMass;
                 existingData.SleepAnalysis = updatedHealthData.SleepAnalysis;

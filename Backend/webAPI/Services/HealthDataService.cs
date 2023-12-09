@@ -22,7 +22,7 @@ namespace webAPI.Services
             var data = this._mapper.Map<HealthDataModel>(newModel);
 
             data.UserId = user.UserId;
-            data.UserModel = user;
+            // data.UserModel = user;
 
             var result = this._healthDataRepository.Create(data);
 

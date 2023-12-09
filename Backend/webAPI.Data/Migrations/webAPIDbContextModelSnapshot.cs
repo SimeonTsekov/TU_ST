@@ -59,20 +59,12 @@ namespace webAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ActivityRecommendationId"));
 
-                    b.Property<string>("ActivityGoals")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomActivityAdvice")
+                    b.Property<string>("Recommendation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("WorkoutRecommendations")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ActivityRecommendationId");
 
@@ -89,8 +81,9 @@ namespace webAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HealthDataId"));
 
-                    b.Property<float>("BMI")
-                        .HasColumnType("real");
+                    b.Property<float>("Bmi")
+                        .HasColumnType("real")
+                        .HasColumnName("BMI");
 
                     b.Property<float>("BodyFat")
                         .HasColumnType("real");
@@ -123,15 +116,7 @@ namespace webAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HealthRecommendationId"));
 
-                    b.Property<string>("DietaryAdvice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GeneralHealthAdvice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SleepAdvice")
+                    b.Property<string>("Recommendation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -178,46 +163,57 @@ namespace webAPI.Data.Migrations
 
             modelBuilder.Entity("webApi.Data.Models.ActivityDataModel", b =>
                 {
-                    b.HasOne("webApi.Data.Models.UserModel", "UserModel")
-                        .WithMany()
+                    b.HasOne("webApi.Data.Models.UserModel", "User")
+                        .WithMany("ActivityDataModels")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserModel");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("webApi.Data.Models.ActivityRecommendationModel", b =>
                 {
-                    b.HasOne("webApi.Data.Models.UserModel", "UserModel")
-                        .WithMany()
+                    b.HasOne("webApi.Data.Models.UserModel", "User")
+                        .WithMany("ActivityRecommendationModels")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserModel");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("webApi.Data.Models.HealthDataModel", b =>
                 {
-                    b.HasOne("webApi.Data.Models.UserModel", "UserModel")
-                        .WithMany()
+                    b.HasOne("webApi.Data.Models.UserModel", "User")
+                        .WithMany("HealthDataModels")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserModel");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("webApi.Data.Models.HealthRecommendationModel", b =>
                 {
-                    b.HasOne("webApi.Data.Models.UserModel", "UserModel")
-                        .WithMany()
+                    b.HasOne("webApi.Data.Models.UserModel", "User")
+                        .WithMany("HealthRecommendationModels")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserModel");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("webApi.Data.Models.UserModel", b =>
+                {
+                    b.Navigation("ActivityDataModels");
+
+                    b.Navigation("ActivityRecommendationModels");
+
+                    b.Navigation("HealthDataModels");
+
+                    b.Navigation("HealthRecommendationModels");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,23 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace webApi.Data.Models
+namespace webApi.Data.Models;
+
+public partial class ActivityRecommendationModel
 {
-	public class ActivityRecommendationModel
-	{
-		[Key]
-		public int ActivityRecommendationId { get; set; }
+    [Key]
+    public int ActivityRecommendationId { get; set; }
 
-		public string WorkoutRecommendations { get; set; } = null!;
+    [Required]
+    public string Recommendation { get; set; }
 
-		public string ActivityGoals { get; set; } = null!;
+    public int UserId { get; set; }
 
-		public string CustomActivityAdvice { get; set; } = null!;
-
-		[ForeignKey(nameof(UserModel))]
-		public int UserId { get; set; }
-
-		[Required] 
-		public virtual UserModel UserModel { get; set; } = null!;
-	}
+    [ForeignKey("UserId")]
+    [InverseProperty("ActivityRecommendationModels")]
+    public virtual UserModel User { get; set; }
 }

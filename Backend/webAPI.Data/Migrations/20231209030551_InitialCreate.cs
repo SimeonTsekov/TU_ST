@@ -56,9 +56,7 @@ namespace webAPI.Data.Migrations
                 {
                     ActivityRecommendationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WorkoutRecommendations = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ActivityGoals = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomActivityAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Recommendation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -102,9 +100,7 @@ namespace webAPI.Data.Migrations
                 {
                     HealthRecommendationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DietaryAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SleepAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GeneralHealthAdvice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Recommendation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

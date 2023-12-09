@@ -54,10 +54,7 @@ namespace webAPI.Repository
 		{
 			var existingModel = this.GetActivityRecommendationById(activityRecommendationId);
 
-            existingModel.WorkoutRecommendations = updatedModel.WorkoutRecommendations;
-            existingModel.ActivityGoals = updatedModel.ActivityGoals;
-            existingModel.CustomActivityAdvice = updatedModel.CustomActivityAdvice;
-            existingModel.UserModel = updatedModel.UserModel;
+            existingModel.Recommendation = updatedModel.Recommendation;
 
 			return existingModel;
 		}

@@ -55,12 +55,18 @@ namespace webAPI.Repositories
 
         public UserModel GetUserById(int userId)
         {
-            return _dbContext.UserModels.Find(userId) ?? throw new NullReferenceException("The user with id '" + userId + "' was not found.");
+            return _dbContext.UserModels
+                .Include(u => u.ActivityDataModels)
+                .Include(u => u.HealthDataModels)
+                .FirstOrDefault(u => u.UserId == userId) ?? throw new NullReferenceException("The user with id '" + userId + "' was not found.");
         }
 
         public UserModel FindUserByEmail(string email)
         {
-            return _dbContext.UserModels.FirstOrDefault(u => u.Email == email) ?? throw new NullReferenceException("The user with email '" + email + "' was not found.");
+            return _dbContext.UserModels
+                .Include(u => u.ActivityDataModels)
+                .Include(u => u.HealthDataModels)
+                .FirstOrDefault(u => u.Email == email) ?? throw new NullReferenceException("The user with email '" + email + "' was not found.");
         }
     }
 }

@@ -11,7 +11,11 @@ namespace webAPI.Utils
         public MappingProfiles()
         {
             CreateMap<UserRequest, UserModel>();
-            CreateMap<UserModel, UserResponse>();
+            
+            CreateMap<UserModel, UserResponse>()
+                .ForMember(dest => dest.ActivityData, opt => opt.MapFrom(src => src.ActivityDataModels))
+                .ForMember(dest => dest.HealthData, opt => opt.MapFrom(src => src.HealthDataModels));
+            
             CreateMap<ActivityRequest, ActivityDataModel>();
             CreateMap<ActivityDataModel, ActivityResponse>();
             CreateMap<HealthDataRequest, HealthDataModel>();
