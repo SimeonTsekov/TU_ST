@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace webAPI.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,39 +15,41 @@ namespace webAPI.Data.Migrations
                 name: "UserModels",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    Height = table.Column<int>(type: "int", nullable: false)
+                    Height = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserModels", x => x.UserId);
+                    table.PrimaryKey("PK_UserModels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ActivityDataModels",
                 columns: table => new
                 {
-                    ActivityDataId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Workouts = table.Column<int>(type: "int", nullable: false),
                     DailySteps = table.Column<int>(type: "int", nullable: false),
                     DailyDistance = table.Column<float>(type: "real", nullable: false),
                     DailyEnergyBurned = table.Column<float>(type: "real", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityDataModels", x => x.ActivityDataId);
+                    table.PrimaryKey("PK_ActivityDataModels", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ActivityDataModels_UserModels_UserId",
                         column: x => x.UserId,
                         principalTable: "UserModels",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -54,19 +57,20 @@ namespace webAPI.Data.Migrations
                 name: "ActivityRecommendationModels",
                 columns: table => new
                 {
-                    ActivityRecommendationId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Recommendation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityRecommendationModels", x => x.ActivityRecommendationId);
+                    table.PrimaryKey("PK_ActivityRecommendationModels", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ActivityRecommendationModels_UserModels_UserId",
                         column: x => x.UserId,
                         principalTable: "UserModels",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -74,23 +78,24 @@ namespace webAPI.Data.Migrations
                 name: "HealthDataModels",
                 columns: table => new
                 {
-                    HealthDataId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BodyMass = table.Column<float>(type: "real", nullable: false),
                     BMI = table.Column<float>(type: "real", nullable: false),
                     BodyFat = table.Column<float>(type: "real", nullable: false),
                     LeanBodyMass = table.Column<float>(type: "real", nullable: false),
                     SleepAnalysis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HealthDataModels", x => x.HealthDataId);
+                    table.PrimaryKey("PK_HealthDataModels", x => x.Id);
                     table.ForeignKey(
                         name: "FK_HealthDataModels_UserModels_UserId",
                         column: x => x.UserId,
                         principalTable: "UserModels",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -98,19 +103,20 @@ namespace webAPI.Data.Migrations
                 name: "HealthRecommendationModels",
                 columns: table => new
                 {
-                    HealthRecommendationId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Recommendation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HealthRecommendationModels", x => x.HealthRecommendationId);
+                    table.PrimaryKey("PK_HealthRecommendationModels", x => x.Id);
                     table.ForeignKey(
                         name: "FK_HealthRecommendationModels_UserModels_UserId",
                         column: x => x.UserId,
                         principalTable: "UserModels",
-                        principalColumn: "UserId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

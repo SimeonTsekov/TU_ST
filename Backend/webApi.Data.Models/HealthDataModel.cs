@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webApi.Data.Models;
 
-public partial class HealthDataModel
+public partial class HealthDataModel : BaseModel
 {
-    [Key]
-    public int HealthDataId { get; set; }
-
     [Required]
     public float BodyMass { get; set; }
 

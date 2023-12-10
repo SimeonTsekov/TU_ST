@@ -20,8 +20,7 @@ namespace webAPI.Services
         {
             var data = this._mapper.Map<ActivityDataModel>(newModel);
 
-            data.UserId = user.UserId;
-            // data.UserModel = user;
+            data.UserId = user.Id;
 
             var result = this._activityRepository.Create(data);
 

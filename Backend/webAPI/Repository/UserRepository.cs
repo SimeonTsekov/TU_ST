@@ -22,7 +22,7 @@ namespace webAPI.Repositories
             return newUser;
         }
 
-        public UserModel Update(int userId, UserModel updatedUser)
+        public UserModel? Update(int userId, UserModel updatedUser)
         {
             var existingUser = this.GetUserById(userId);
 
@@ -58,7 +58,7 @@ namespace webAPI.Repositories
             return _dbContext.UserModels
                 .Include(u => u.ActivityDataModels)
                 .Include(u => u.HealthDataModels)
-                .FirstOrDefault(u => u.UserId == userId) ?? throw new NullReferenceException("The user with id '" + userId + "' was not found.");
+                .FirstOrDefault(u => u.Id == userId) ?? throw new NullReferenceException("The user with id '" + userId + "' was not found.");
         }
 
         public UserModel FindUserByEmail(string email)

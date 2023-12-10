@@ -2,5 +2,5 @@
 
 public class RecommendationResponse
 {
-    public string Recommendation { get; set; }
+    public string? Recommendation { get; set; }
 }

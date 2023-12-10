@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webApi.Data.Models;
 
-public partial class ActivityDataModel
+public partial class ActivityDataModel : BaseModel
 {
-    [Key]
-    public int ActivityDataId { get; set; }
-
     [Required]
     public int Workouts { get; set; }
 
@@ -24,5 +21,5 @@ public partial class ActivityDataModel
 
     [ForeignKey("UserId")]
     [InverseProperty("ActivityDataModels")]
-    public virtual UserModel User { get; set; }
+    public virtual UserModel? User { get; set; }
 }

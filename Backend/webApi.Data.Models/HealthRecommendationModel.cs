@@ -3,17 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webApi.Data.Models;
 
-public partial class HealthRecommendationModel
+public partial class HealthRecommendationModel : BaseModel
 {
-    [Key]
-    public int HealthRecommendationId { get; set; }
-
     [Required]
-    public string Recommendation { get; set; }
+    public string? Recommendation { get; set; }
 
     public int UserId { get; set; }
 
     [ForeignKey("UserId")]
     [InverseProperty("HealthRecommendationModels")]
-    public virtual UserModel User { get; set; }
+    public virtual UserModel? User { get; set; }
 }

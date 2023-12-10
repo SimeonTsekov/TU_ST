@@ -36,7 +36,7 @@ namespace webAPI.Repository
 
             _dbContext.SaveChanges();
 
-            return existingData;
+            return existingData!;
         }
 
         public void Delete(int healthDataId)

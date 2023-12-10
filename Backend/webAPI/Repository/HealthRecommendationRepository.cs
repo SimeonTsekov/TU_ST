@@ -33,7 +33,7 @@ namespace webAPI.Repository
                 _dbContext.SaveChanges();
             }
 
-            return existingRecommendation;
+            return existingRecommendation!;
         }
 
         public void Delete(int healthRecommendationId)
