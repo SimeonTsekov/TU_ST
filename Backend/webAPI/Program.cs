@@ -13,6 +13,7 @@ using webAPI.Services;
 using webAPI.Repositories;
 using webAPI.Repository;
 using Microsoft.OpenApi.Models;
+using webAPI.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,10 +45,14 @@ builder.Services.AddAuthentication(options =>
     })
     .AddJwtBearer();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
+
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -63,6 +68,7 @@ builder.Services.AddScoped<IActivityRecommendationService, ActivityRecommendatio
 builder.Services.AddScoped<IHealthRecommendationRepository, HealthRecommendationRepository>();
 builder.Services.AddScoped<IHealthRecommendationService, HealthRecommendationService>();
 
+builder.Services.AddScoped<IGPTService, GPTService>();
 
 var app = builder.Build();
 

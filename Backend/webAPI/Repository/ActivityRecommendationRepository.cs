@@ -2,16 +2,19 @@
 using webApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using webAPI.Interfaces;
+using webAPI.Utils;
 
 namespace webAPI.Repository
 {
 	public class ActivityRecommendationRepository : IActivityRecommendationRepository
 	{
 		private readonly webAPIDbContext _dbContext;
+        private readonly ICurrentUserService _currentUserService;
 
-		public ActivityRecommendationRepository(webAPIDbContext dbContext)
+        public ActivityRecommendationRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
 		{
 			_dbContext = dbContext;
+			_currentUserService = currentUserService;
 		}
 
 		public ActivityRecommendationModel Create(ActivityRecommendationModel newModel)
@@ -35,28 +38,28 @@ namespace webAPI.Repository
 
 		public ActivityRecommendationModel GetActivityRecommendationById(int activityRecommendationId)
 		{
-			var activityRecommendation = _dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
-
-			if (activityRecommendation != null)
-			{
-				return activityRecommendation;
-			}
-
-			throw new NullReferenceException();
+			return _dbContext.ActivityRecommendationModels.Find(activityRecommendationId) ?? throw new NullReferenceException("The activity recommendation with id '" + activityRecommendationId + "' was not found.");
 		}
 
-		public List<ActivityRecommendationModel> GetAllActivityRecommendations()
+		public List<ActivityRecommendationModel> GetAllActivityRecommendationsDesc()
 		{
-			return _dbContext.ActivityRecommendationModels.ToList();
+			var userId = _currentUserService.GetCurrentUser().Id;
+
+			return _dbContext.ActivityRecommendationModels
+				.Where(a => a.UserId == userId)
+				.OrderByDescending(a => a.CreatedDate)
+				.ToList();
 		}
 
-		public ActivityRecommendationModel Update(int activityRecommendationId, ActivityRecommendationModel updatedModel)
+		public List<ActivityRecommendationModel> GetLastNRecommendations(int lastActivityRecommendationsNumber)
 		{
-			var existingModel = this.GetActivityRecommendationById(activityRecommendationId);
+            var userId = _currentUserService.GetCurrentUser().Id;
 
-            existingModel.Recommendation = updatedModel.Recommendation;
-
-			return existingModel;
-		}
+			return _dbContext.ActivityRecommendationModels
+				.Where(a => a.UserId == userId)
+				.OrderByDescending(a => a.CreatedDate)
+				.Take(lastActivityRecommendationsNumber)
+				.ToList();
+        }
 	}
 }

@@ -8,19 +8,21 @@ namespace webAPI.Services
     public class ActivityService : IActivityService
     {
         private readonly IActivityRepository _activityRepository;
+        private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
 
-        public ActivityService(IActivityRepository activityRepository, IMapper mapper)
+        public ActivityService(IActivityRepository activityRepository, IMapper mapper, ICurrentUserService currentUserService)
         {
             _activityRepository = activityRepository;
+            _currentUserService = currentUserService;
             _mapper = mapper;
         }
 
-        public ActivityResponse Create(ActivityRequest newModel, UserModel user)
+        public ActivityResponse Create(ActivityRequest newModel)
         {
             var data = this._mapper.Map<ActivityDataModel>(newModel);
 
-            data.UserId = user.Id;
+            data.UserId = this._currentUserService.GetCurrentUser().Id;
 
             var result = this._activityRepository.Create(data);
 

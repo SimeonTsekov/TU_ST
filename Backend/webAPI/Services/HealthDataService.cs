@@ -9,19 +9,21 @@ namespace webAPI.Services
     public class HealthDataService : IHealthDataService
     {
         private readonly IHealthDataRepository _healthDataRepository;
+        private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
 
-        public HealthDataService(IHealthDataRepository healthDataRepository, IMapper mapper)
+        public HealthDataService(IHealthDataRepository healthDataRepository, IMapper mapper, ICurrentUserService currentUserService)
         {
             _healthDataRepository = healthDataRepository;
+            _currentUserService = currentUserService;
             _mapper = mapper;
         }
 
-        public HealthDataResponse Create(HealthDataRequest newModel, UserModel user)
+        public HealthDataResponse Create(HealthDataRequest newModel)
         {
             var data = this._mapper.Map<HealthDataModel>(newModel);
 
-            data.UserId = user.Id;
+            data.UserId = this._currentUserService.GetCurrentUser().Id;
 
             var result = this._healthDataRepository.Create(data);
 

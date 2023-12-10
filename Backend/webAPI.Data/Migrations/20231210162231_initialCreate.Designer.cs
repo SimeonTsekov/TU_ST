@@ -12,7 +12,7 @@ using webAPI.Data;
 namespace webAPI.Data.Migrations
 {
     [DbContext(typeof(webAPIDbContext))]
-    [Migration("20231210153326_initialCreate")]
+    [Migration("20231210162231_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -71,7 +71,7 @@ namespace webAPI.Data.Migrations
 
                     b.Property<string>("Recommendation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -134,7 +134,7 @@ namespace webAPI.Data.Migrations
 
                     b.Property<string>("Recommendation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

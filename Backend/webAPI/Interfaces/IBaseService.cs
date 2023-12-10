@@ -5,7 +5,7 @@ namespace webAPI.Interfaces
 {
     public interface IBaseService<in TP, TR>
     {
-        TR Create(TP newModel, UserModel user);
+        TR Create(TP newModel);
         TR Update(int id, TP updatedModel);
         void Delete(int id);
         List<TR> GetAll();

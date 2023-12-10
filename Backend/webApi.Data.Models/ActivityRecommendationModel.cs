@@ -6,6 +6,7 @@ namespace webApi.Data.Models;
 public partial class ActivityRecommendationModel : BaseModel
 {
     [Required]
+    [Column(TypeName = "text")]
     public string? Recommendation { get; set; }
 
     public int UserId { get; set; }

@@ -23,8 +23,7 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Creates a new activity", Description = "Requires authentication")]
         public IActionResult Create([FromBody] ActivityRequest activityRequest)
         { 
-            var user = (UserModel) HttpContext.Items["currentUser"]!;
-            var result = this._activityService.Create(activityRequest, user);
+            var result = this._activityService.Create(activityRequest);
             return Ok(result);
         }
 

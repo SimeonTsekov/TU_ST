@@ -24,8 +24,7 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Creates health data for the current user", Description = "Requires authentication")]
         public IActionResult Create([FromBody] HealthDataRequest healthDataRequest)
         {
-            var user = (UserModel)HttpContext.Items["currentUser"]!;
-            var result = this._healthDataService.Create(healthDataRequest, user);
+            var result = this._healthDataService.Create(healthDataRequest);
 
             return Ok(result);
         }

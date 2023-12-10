@@ -10,5 +10,6 @@ namespace webAPI.Interfaces
         List<ActivityDataModel> GetAll();
         List<ActivityDataModel> GetAllByUserId(int userId);
         ActivityDataModel GetById(int activityDataId);
+        ActivityDataModel GetLatestActivity();
     }
 }

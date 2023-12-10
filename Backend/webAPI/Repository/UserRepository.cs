@@ -2,7 +2,6 @@
 using webApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using webAPI.Interfaces;
-using BCrypt.Net;
 
 namespace webAPI.Repositories
 {

@@ -1,4 +1,5 @@
 ﻿using webApi.Data.Models;
+using webAPI.DTOs.Response;
 
 namespace webAPI.Interfaces
 {
@@ -6,12 +7,12 @@ namespace webAPI.Interfaces
 	{
 		ActivityRecommendationModel Create(ActivityRecommendationModel newModel);
 
-		ActivityRecommendationModel Update(int activityRecommendationId, ActivityRecommendationModel updatedModel);
-
 		void Delete(int activityRecommendationId);
 
-		List<ActivityRecommendationModel> GetAllActivityRecommendations();
+		List<ActivityRecommendationModel> GetAllActivityRecommendationsDesc();
 
 		ActivityRecommendationModel GetActivityRecommendationById(int activityRecommendationId);
+
+		List<ActivityRecommendationModel> GetLastNRecommendations(int lastActivityRecommendationsNumber);
 	}
 }
