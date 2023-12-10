@@ -1,47 +1,79 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using webApi.Data.Models;
+using webAPI.DTOs.Request;
+using webAPI.Interfaces;
 
 namespace webAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    // UserController -> UserService -> UserRepository
-    // Controller -> Service -> Repository
     public class UserController : Controller
     {
-        [HttpPost]
-        public IActionResult Create()
+        private readonly IActivityService _activityService;
+        private readonly IHealthDataService _healthService;
+        private readonly IUserService _userService;
+
+        public UserController(IActivityService activityService, IHealthDataService healthService, IUserService userService)
         {
-            throw new NotImplementedException();
-            //_userService.create()
+            _activityService = activityService;
+            _healthService = healthService;
+            _userService = userService;
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id)
+        [HttpPut("{userId}")]
+        [SwaggerOperation(Summary = "Updates an existing user", Description = "Requires authentication")]
+        public IActionResult Update(int userId, [FromBody] UserRequest updatedUser)
         {
-            throw new NotImplementedException();
-
+            try
+            {
+                var updatedUserInfo = this._userService.Update(userId, updatedUser);
+                return Ok(updatedUserInfo);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating user data");
+            }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{userId}")]
+        [SwaggerOperation(Summary = "Deletes the user", Description = "Requires authentication")]
+        public IActionResult Delete(int userId)
         {
-            throw new NotImplementedException();
-
+            this._userService.Delete(userId);
+            return Ok();
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Gets all users", Description = "Requires authentication")]
         public IActionResult GetAllUsers()
         {
-            throw new NotImplementedException();
-
+            var users = this._userService.GetAll();
+            return Ok(users);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetUser(int id)
+        [HttpGet("{userId}")]
+        [SwaggerOperation(Summary = "Gets a certain user", Description = "Requires authentication")]
+        public IActionResult GetUser(int userId)
         {
-            throw new NotImplementedException();
+            var user = this._userService.GetById(userId);
+            return Ok(user);
+        }
 
+        [HttpGet("{userId}/activities")]
+        [SwaggerOperation(Summary = "Gets activities of a certain user", Description = "Requires authentication")]
+        public IActionResult GetActivitiesForUser(int userId)
+        {
+            var activityDataById = this._activityService.GetAllByUserId(userId);
+            return Ok(activityDataById);
+        }
+
+        [HttpGet("{userId}/healthData")]
+        [SwaggerOperation(Summary = "Gets health data of a certain user", Description = "Requires authentication")]
+        public IActionResult GetHealthDataForUser(int userId)
+        {
+            var healthDataById = _healthService.GetAllByUserId(userId);
+            return Ok(healthDataById);
         }
     }
 }

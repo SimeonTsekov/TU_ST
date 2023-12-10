@@ -1,8 +1,6 @@
-﻿using webAPI.DTOs.Request;
-
-namespace webAPI.DTOs
+﻿namespace webAPI.DTOs.Response
 {
-    public class HealthDataDTO
+    public class HealthDataResponse
     {
         public int HealthDataId { get; set; }
         public int UserId { get; set; }
@@ -10,8 +8,6 @@ namespace webAPI.DTOs
         public float BMI { get; set; }
         public float BodyFat { get; set; }
         public float LeanBodyMass { get; set; }
-        public string? SleepAnalysis { get; set; }
-        // Navigation property to the User
-        public virtual UserDTO? User { get; set; }
+        public string SleepAnalysis { get; set; } = null!;
     }
 }

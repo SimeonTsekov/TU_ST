@@ -1,57 +1,51 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using webAPI.Interfaces;
 using webAPI.DTOs.Request;
+using webAPI.Identity;
+using webAPI.Utils;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace webAPI.Controllers
 {
+    [AllowAnonymousOnly]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-
         public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
 
         [HttpPost("login")]
+        [SwaggerOperation(Summary = "Logs the user", Description = "Requires authentication")]
         public IActionResult Login([FromBody] UserLoginRequest userLoginRequest)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var result = _authService.Login(userLoginRequest);
+                return Ok(result);
             }
-
-            var result = _authService.Login(userLoginRequest);
-
-            if (result == null)
+            catch (Exception exception)
             {
-                return Unauthorized("Invalid credentials");
+                return Unauthorized(exception.Message);
             }
-
-            return Ok(result);
         }
 
         [HttpPost("register")]
+        [SwaggerOperation(Summary = "Registers the user", Description = "Requires authentication")]
         public IActionResult Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
-            // TODO: 1. Validate the UserRegisterRequest.
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var result = _authService.Register(userRegisterRequest);
+                return Ok(result);
             }
-
-            // TODO: 2. Attempt to register the user.
-            var result = _authService.Register(userRegisterRequest);
-
-            if (result == null)
+            catch (Exception exception)
             {
-                return Conflict("Username already taken");
+                return Conflict(exception.Message);
             }
-
-            // TODO: 3. Return the JWT token.
-            return Ok(result);
         }
     }
 }

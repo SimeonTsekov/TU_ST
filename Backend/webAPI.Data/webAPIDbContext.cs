@@ -1,30 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webApi.Data.Models;
 
-namespace webAPI.Data
+namespace webAPI.Data;
+
+public partial class webAPIDbContext : DbContext
 {
-	public class webAPIDbContext : DbContext
-	{
-		public webAPIDbContext(DbContextOptions<webAPIDbContext> options) 
-			:base(options)
-		{
-				
-		}
+    public webAPIDbContext(DbContextOptions<webAPIDbContext> options)
+        : base(options)
+    {
+    }
 
-		public DbSet<UserModel> UserModels { get; set; } = null!;
+    public virtual DbSet<ActivityDataModel> ActivityDataModels { get; set; }
 
-		public DbSet<HealthDataModel> HealthDataModels { get; set; } = null!;
+    public virtual DbSet<ActivityRecommendationModel> ActivityRecommendationModels { get; set; }
 
-		public DbSet<ActivityDataModel> ActivityDataModels { get; set; } = null!;
+    public virtual DbSet<HealthDataModel> HealthDataModels { get; set; }
 
-		public DbSet<ActivityRecommendationModel> ActivityRecommendationModels { get; set; } = null!;
+    public virtual DbSet<HealthRecommendationModel> HealthRecommendationModels { get; set; }
 
-		public DbSet<HealthRecommendationModel> HealthRecommendationModels { get; set; } = null!;
+    public virtual DbSet<UserModel> UserModels { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        OnModelCreatingPartial(modelBuilder);
+    }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			base.OnModelCreating(modelBuilder);
-		}
-	}
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public override int SaveChanges()
+    {
+        var entries = ChangeTracker
+            .Entries()
+            .Where(e => e.Entity is BaseModel && e.State == EntityState.Added);
+
+        foreach (var entityEntry in entries)
+        {
+            ((BaseModel) entityEntry.Entity).CreatedDate = DateTime.Now;
+        }
+
+        return base.SaveChanges();
+    }
+
 }

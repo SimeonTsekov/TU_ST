@@ -2,6 +2,7 @@
 using webApi.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using webAPI.Interfaces;
+using BCrypt.Net;
 
 namespace webAPI.Repositories
 {
@@ -21,30 +22,30 @@ namespace webAPI.Repositories
             return newUser;
         }
 
-        public UserModel Update(int userId, UserModel updatedUser)
+        public UserModel? Update(int userId, UserModel updatedUser)
         {
-            var existingUser = _dbContext.UserModels.Find(userId);
+            var existingUser = this.GetUserById(userId);
+
             if (existingUser != null)
             {
                 existingUser.Username = updatedUser.Username;
                 existingUser.Email = updatedUser.Email;
-                existingUser.Passwords = updatedUser.Passwords;
+                existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
                 existingUser.Age = updatedUser.Age;
                 existingUser.Height = updatedUser.Height;
-
-                _dbContext.SaveChanges();
             }
+
+            _dbContext.SaveChanges();
+
             return existingUser;
         }
 
         public void Delete(int userId)
         {
-            var userToRemove = _dbContext.UserModels.Find(userId);
-            if (userToRemove != null)
-            {
-                _dbContext.UserModels.Remove(userToRemove);
-                _dbContext.SaveChanges();
-            }
+            var userToRemove = this.GetUserById(userId);
+
+            _dbContext.UserModels.Remove(userToRemove);
+            _dbContext.SaveChanges();
         }
 
         public List<UserModel> GetAllUsers()
@@ -54,12 +55,18 @@ namespace webAPI.Repositories
 
         public UserModel GetUserById(int userId)
         {
-            return _dbContext.UserModels.Find(userId);
+            return _dbContext.UserModels
+                .Include(u => u.ActivityDataModels)
+                .Include(u => u.HealthDataModels)
+                .FirstOrDefault(u => u.Id == userId) ?? throw new NullReferenceException("The user with id '" + userId + "' was not found.");
         }
 
         public UserModel FindUserByEmail(string email)
         {
-            return _dbContext.UserModels.FirstOrDefault(u => u.Email == email);
+            return _dbContext.UserModels
+                .Include(u => u.ActivityDataModels)
+                .Include(u => u.HealthDataModels)
+                .FirstOrDefault(u => u.Email == email) ?? throw new NullReferenceException("The user with email '" + email + "' was not found.");
         }
     }
 }
