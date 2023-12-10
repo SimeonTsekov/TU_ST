@@ -14,6 +14,11 @@ using webAPI.Repositories;
 using webAPI.Repository;
 using Microsoft.OpenApi.Models;
 using webAPI.Utils;
+using webAPI.Interfaces.ActivityRecommendation;
+using webAPI.Interfaces.ActivityRepository;
+using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.HealthRecommendation;
+using webAPI.Interfaces.User;
 
 var builder = WebApplication.CreateBuilder(args);
 

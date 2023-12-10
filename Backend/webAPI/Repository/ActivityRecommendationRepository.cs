@@ -1,12 +1,11 @@
 ﻿using webAPI.Data;
 using webApi.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using webAPI.Interfaces;
-using webAPI.Utils;
+using webAPI.Interfaces.ActivityRecommendation;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Repository
 {
-	public class ActivityRecommendationRepository : IActivityRecommendationRepository
+    public class ActivityRecommendationRepository : IActivityRecommendationRepository
 	{
 		private readonly webAPIDbContext _dbContext;
         private readonly ICurrentUserService _currentUserService;

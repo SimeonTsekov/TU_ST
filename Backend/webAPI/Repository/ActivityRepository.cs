@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using webAPI.Data;
+﻿using webAPI.Data;
 using webApi.Data.Models;
-using webAPI.Interfaces;
-using webAPI.Utils;
+using webAPI.Interfaces.ActivityRepository;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Repository
 {

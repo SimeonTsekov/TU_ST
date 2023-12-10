@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using webAPI.Interfaces;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Middlewares
 {

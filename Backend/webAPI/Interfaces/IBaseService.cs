@@ -1,14 +1,11 @@
-﻿using System.Security.Claims;
-using webApi.Data.Models;
-
-namespace webAPI.Interfaces
+﻿namespace webAPI.Interfaces
 {
     public interface IBaseService<in TP, TR>
     {
         TR Create(TP newModel);
         TR Update(int id, TP updatedModel);
-        void Delete(int id);
-        List<TR> GetAll();
         TR GetById(int id);
+        List<TR> GetAll();
+        void Delete(int id);
     }
 }

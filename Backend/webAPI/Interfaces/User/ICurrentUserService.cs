@@ -1,6 +1,6 @@
 ﻿using webApi.Data.Models;
 
-namespace webAPI.Interfaces
+namespace webAPI.Interfaces.User
 {
     public interface ICurrentUserService
     {

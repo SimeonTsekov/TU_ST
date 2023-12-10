@@ -1,6 +1,6 @@
 ﻿using webAPI.Data;
 using webApi.Data.Models;
-using webAPI.Interfaces;
+using webAPI.Interfaces.HealthData;
 
 namespace webAPI.Repository
 {

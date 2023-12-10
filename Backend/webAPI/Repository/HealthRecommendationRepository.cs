@@ -1,7 +1,6 @@
-﻿using webAPI.Interfaces;
-using webApi.Data.Models;
+﻿using webApi.Data.Models;
 using webAPI.Data;
-using Microsoft.EntityFrameworkCore;
+using webAPI.Interfaces.HealthRecommendation;
 
 namespace webAPI.Repository
 {
@@ -57,9 +56,7 @@ namespace webAPI.Repository
             var healthRecommendation = _dbContext.HealthRecommendationModels.Find(healthRecommendationId);
 
             if (healthRecommendation != null)
-            {
                 return healthRecommendation;
-            }
 
             throw new NullReferenceException();
         }

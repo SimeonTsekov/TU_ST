@@ -1,6 +1,5 @@
-﻿using webApi.Data.Models;
-using webAPI.DTOs.Response;
-using webAPI.Interfaces;
+﻿using webAPI.DTOs.Response;
+using webAPI.Interfaces.HealthRecommendation;
 
 namespace webAPI.Services
 {

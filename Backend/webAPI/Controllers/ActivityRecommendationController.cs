@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using webAPI.Interfaces;
+using webAPI.Interfaces.ActivityRecommendation;
 
 namespace webAPI.Controllers
 {
-	[Authorize]
+    [Authorize]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ActivityRecommendationController : Controller
@@ -17,8 +17,8 @@ namespace webAPI.Controllers
 			_activityRecommendationService = activityRecommendationService;
 		}
 		
-		[HttpGet("data")]
-		[SwaggerOperation(Summary = "Gets recommendation for the latest activity", Description = "Requires authentication")]
+		[HttpGet("generate")]
+		[SwaggerOperation(Summary = "Generates recommendation for the latest activity of the current user", Description = "Requires authentication")]
 		public async Task<IActionResult> GetActivityRecommendationData()
 		{
 			var result = await this._activityRecommendationService.GenerateRecommendationAsync();
@@ -34,7 +34,7 @@ namespace webAPI.Controllers
 		}
 
 		[HttpGet]
-		[SwaggerOperation(Summary = "Gets all activity recommendations of the current user in descending order", Description = "Requires authentication")]
+		[SwaggerOperation(Summary = "Gets all activity recommendations of the current user in descending order by date created", Description = "Requires authentication")]
 		public IActionResult GetLastActivityRecommendations()
 		{
 			var result = this._activityRecommendationService.GetLastRecommendationsDesc();

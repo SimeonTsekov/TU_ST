@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Components.Forms;
-using OpenAI_API;
-using OpenAI_API.Completions;
 using webApi.Data.Models;
 using webAPI.DTOs.Response;
 using webAPI.Interfaces;
+using webAPI.Interfaces.ActivityRecommendation;
+using webAPI.Interfaces.ActivityRepository;
 
 namespace webAPI.Services;
 

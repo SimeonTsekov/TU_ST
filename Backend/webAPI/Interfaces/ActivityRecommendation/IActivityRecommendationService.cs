@@ -1,8 +1,8 @@
 ﻿using webAPI.DTOs.Response;
 
-namespace webAPI.Interfaces;
+namespace webAPI.Interfaces.ActivityRecommendation;
 
-public interface IActivityRecommendationService 
+public interface IActivityRecommendationService
 {
     Task<RecommendationResponse> GenerateRecommendationAsync();
     List<RecommendationResponse> GetLastNRecommendations(int lastActivityRecommendationsNumber);

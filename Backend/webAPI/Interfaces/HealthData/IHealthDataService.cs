@@ -1,7 +1,7 @@
 ﻿using webAPI.DTOs.Request;
 using webAPI.DTOs.Response;
 
-namespace webAPI.Interfaces
+namespace webAPI.Interfaces.HealthData
 {
     public interface IHealthDataService : IBaseService<HealthDataRequest, HealthDataResponse>
     {

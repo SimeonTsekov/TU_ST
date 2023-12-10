@@ -1,6 +1,5 @@
 ﻿using OpenAI_API.Completions;
 using OpenAI_API;
-using webApi.Data.Models;
 using webAPI.DTOs.Response;
 using webAPI.Interfaces;
 

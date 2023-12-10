@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using webApi.Data.Models;
 using webAPI.DTOs.Response;
-using webAPI.Interfaces;
+using webAPI.Interfaces.ActivityRepository;
 
 namespace webAPI.Controllers
 {

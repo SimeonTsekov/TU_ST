@@ -1,5 +1,5 @@
 ﻿using webApi.Data.Models;
-using webAPI.Interfaces;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Utils
 {

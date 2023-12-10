@@ -2,7 +2,8 @@
 using webApi.Data.Models;
 using webAPI.DTOs.Request;
 using webAPI.DTOs.Response;
-using webAPI.Interfaces;
+using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Services
 {

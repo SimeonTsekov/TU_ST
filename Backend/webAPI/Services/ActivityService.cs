@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using webApi.Data.Models;
 using webAPI.DTOs.Response;
-using webAPI.Interfaces;
+using webAPI.Interfaces.ActivityRepository;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Services
 {

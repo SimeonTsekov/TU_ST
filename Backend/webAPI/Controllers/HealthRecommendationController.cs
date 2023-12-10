@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using webApi.Data.Models;
 using webAPI.Services;
 
 namespace webAPI.Controllers

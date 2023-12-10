@@ -2,7 +2,6 @@
 using webAPI.Interfaces;
 using webAPI.DTOs.Request;
 using webAPI.Identity;
-using webAPI.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace webAPI.Controllers

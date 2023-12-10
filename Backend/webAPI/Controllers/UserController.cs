@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using webApi.Data.Models;
 using webAPI.DTOs.Request;
-using webAPI.Interfaces;
+using webAPI.Interfaces.ActivityRepository;
+using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Controllers
 {
@@ -13,20 +14,24 @@ namespace webAPI.Controllers
         private readonly IActivityService _activityService;
         private readonly IHealthDataService _healthService;
         private readonly IUserService _userService;
+        private readonly ICurrentUserService _currentUserService;
 
-        public UserController(IActivityService activityService, IHealthDataService healthService, IUserService userService)
+        public UserController(IActivityService activityService, IHealthDataService healthService, 
+            IUserService userService, ICurrentUserService currentUserService)
         {
             _activityService = activityService;
             _healthService = healthService;
             _userService = userService;
+            _currentUserService = currentUserService;
         }
 
-        [HttpPut("{userId}")]
-        [SwaggerOperation(Summary = "Updates an existing user", Description = "Requires authentication")]
-        public IActionResult Update(int userId, [FromBody] UserRequest updatedUser)
+        [HttpPut()]
+        [SwaggerOperation(Summary = "Updates the current user", Description = "Requires authentication")]
+        public IActionResult Update([FromBody] UserRequest updatedUser)
         {
             try
             {
+                var userId = this._currentUserService.GetCurrentUser().Id;
                 var updatedUserInfo = this._userService.Update(userId, updatedUser);
                 return Ok(updatedUserInfo);
             }
@@ -36,11 +41,11 @@ namespace webAPI.Controllers
             }
         }
 
-        [HttpDelete("{userId}")]
-        [SwaggerOperation(Summary = "Deletes the user", Description = "Requires authentication")]
-        public IActionResult Delete(int userId)
+        [HttpDelete()]
+        [SwaggerOperation(Summary = "Deletes the current user", Description = "Requires authentication")]
+        public IActionResult Delete()
         {
-            this._userService.Delete(userId);
+            this._userService.Delete(_currentUserService.GetCurrentUser().Id);
             return Ok();
         }
 
@@ -52,27 +57,27 @@ namespace webAPI.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{userId}")]
-        [SwaggerOperation(Summary = "Gets a certain user", Description = "Requires authentication")]
-        public IActionResult GetUser(int userId)
+        [HttpGet("current-user")]
+        [SwaggerOperation(Summary = "Returns the current user", Description = "Requires authentication")]
+        public IActionResult GetUser()
         {
-            var user = this._userService.GetById(userId);
+            var user = this._userService.GetById(_currentUserService.GetCurrentUser().Id);
             return Ok(user);
         }
 
-        [HttpGet("{userId}/activities")]
-        [SwaggerOperation(Summary = "Gets activities of a certain user", Description = "Requires authentication")]
-        public IActionResult GetActivitiesForUser(int userId)
+        [HttpGet("activities")]
+        [SwaggerOperation(Summary = "Gets activities of the current user", Description = "Requires authentication")]
+        public IActionResult GetActivitiesForUser()
         {
-            var activityDataById = this._activityService.GetAllByUserId(userId);
+            var activityDataById = this._activityService.GetAllByUserId(_currentUserService.GetCurrentUser().Id);
             return Ok(activityDataById);
         }
 
-        [HttpGet("{userId}/healthData")]
-        [SwaggerOperation(Summary = "Gets health data of a certain user", Description = "Requires authentication")]
-        public IActionResult GetHealthDataForUser(int userId)
+        [HttpGet("healthData")]
+        [SwaggerOperation(Summary = "Gets health data of the current user", Description = "Requires authentication")]
+        public IActionResult GetHealthDataForUser()
         {
-            var healthDataById = _healthService.GetAllByUserId(userId);
+            var healthDataById = _healthService.GetAllByUserId(_currentUserService.GetCurrentUser().Id);
             return Ok(healthDataById);
         }
     }

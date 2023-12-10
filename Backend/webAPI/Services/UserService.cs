@@ -2,7 +2,7 @@
 using webApi.Data.Models;
 using webAPI.DTOs;
 using webAPI.DTOs.Request;
-using webAPI.Interfaces;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Services;
 
