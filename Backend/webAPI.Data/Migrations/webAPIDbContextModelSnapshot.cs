@@ -52,7 +52,7 @@ namespace webAPI.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ActivityDataModels");
+                    b.ToTable("ActivityDataModels", (string)null);
                 });
 
             modelBuilder.Entity("webApi.Data.Models.ActivityRecommendationModel", b =>
@@ -77,7 +77,7 @@ namespace webAPI.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ActivityRecommendationModels");
+                    b.ToTable("ActivityRecommendationModels", (string)null);
                 });
 
             modelBuilder.Entity("webApi.Data.Models.HealthDataModel", b =>
@@ -115,7 +115,7 @@ namespace webAPI.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthDataModels");
+                    b.ToTable("HealthDataModels", (string)null);
                 });
 
             modelBuilder.Entity("webApi.Data.Models.HealthRecommendationModel", b =>
@@ -140,7 +140,7 @@ namespace webAPI.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("HealthRecommendationModels");
+                    b.ToTable("HealthRecommendationModels", (string)null);
                 });
 
             modelBuilder.Entity("webApi.Data.Models.UserModel", b =>
@@ -174,7 +174,7 @@ namespace webAPI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserModels");
+                    b.ToTable("UserModels", (string)null);
                 });
 
             modelBuilder.Entity("webApi.Data.Models.ActivityDataModel", b =>

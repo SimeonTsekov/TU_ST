@@ -9,6 +9,8 @@ namespace webAPI.Interfaces.HealthData
         HealthDataModel GetHealthDataById(int healthDataId);
         List<HealthDataModel> GetAllHealthData();
         List<HealthDataModel> GetAllHealthDataByUserId(int userId);
-        void Delete(int healthDataId);
+
+        HealthDataModel GetLatestHealthData();
+		void Delete(int healthDataId);
     }
 }

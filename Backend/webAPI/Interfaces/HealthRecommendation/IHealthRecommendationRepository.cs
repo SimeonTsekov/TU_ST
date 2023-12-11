@@ -4,10 +4,10 @@ namespace webAPI.Interfaces.HealthRecommendation
 {
     public interface IHealthRecommendationRepository
     {
-        HealthRecommendationModel Create(HealthRecommendationModel newRecommendation);
-        HealthRecommendationModel Update(int healthRecommendationId, HealthRecommendationModel updatedRecommendation);
-        HealthRecommendationModel GetHealthRecommendationById(int healthRecommendationId);
-        List<HealthRecommendationModel> GetAllHealthRecommendations();
-        void Delete(int healthRecommendationId);
-    }
+		HealthRecommendationModel Create(HealthRecommendationModel newModel);
+		List<HealthRecommendationModel> GetAllHealthRecommendationsDesc();
+		HealthRecommendationModel GetHealthRecommendationById(int healthRecommendationId);
+		List<HealthRecommendationModel> GetLastNRecommendations(int lastHealthRecommendationsNumber);
+		void Delete(int healthRecommendationId);
+	}
 }

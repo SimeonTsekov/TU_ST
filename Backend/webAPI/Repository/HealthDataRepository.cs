@@ -1,17 +1,20 @@
 ﻿using webAPI.Data;
 using webApi.Data.Models;
 using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Repository
 {
     public class HealthDataRepository : IHealthDataRepository
     {
         private readonly webAPIDbContext _dbContext;
+        private readonly ICurrentUserService _currentUserService;
 
-        public HealthDataRepository(webAPIDbContext dbContext)
+		public HealthDataRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
         {
             _dbContext = dbContext;
-        }
+            _currentUserService = currentUserService;
+		}
 
         public HealthDataModel Create(HealthDataModel newHealthData)
         {
@@ -64,5 +67,15 @@ namespace webAPI.Repository
         {
             return _dbContext.HealthDataModels.Find(healthDataId) ?? throw new NullReferenceException("The health data with id '" + healthDataId + "' was not found.");
         }
-    }
+
+		public HealthDataModel GetLatestHealthData()
+		{
+			var userId = _currentUserService.GetCurrentUser().Id;
+
+			return _dbContext.HealthDataModels
+				.Where(a => a.UserId == userId)
+				.OrderByDescending(a => a.CreatedDate)
+				.FirstOrDefault() ?? throw new NullReferenceException("There are no health data for the specified user in the database!");
+		}
+	}
 }

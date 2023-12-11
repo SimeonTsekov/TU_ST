@@ -1,17 +1,20 @@
 ﻿using webApi.Data.Models;
 using webAPI.Data;
 using webAPI.Interfaces.HealthRecommendation;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Repository
 {
     public class HealthRecommendationRepository : IHealthRecommendationRepository
     {
         private readonly webAPIDbContext _dbContext;
+        private readonly ICurrentUserService _currentUserService;
 
-        public HealthRecommendationRepository(webAPIDbContext dbContext)
+		public HealthRecommendationRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
         {
             _dbContext = dbContext;
-        }
+            _currentUserService = currentUserService;
+		}
 
         public HealthRecommendationModel Create(HealthRecommendationModel newRecommendation)
         {
@@ -60,5 +63,26 @@ namespace webAPI.Repository
 
             throw new NullReferenceException();
         }
-    }
+
+		public List<HealthRecommendationModel> GetAllHealthRecommendationsDesc()
+		{
+			var userId = _currentUserService.GetCurrentUser().Id;
+
+			return _dbContext.HealthRecommendationModels
+				.Where(a => a.UserId == userId)
+				.OrderByDescending(a => a.CreatedDate)
+				.ToList();
+		}
+
+		public List<HealthRecommendationModel> GetLastNRecommendations(int lastHealthRecommendationsNumber)
+		{
+			var userId = _currentUserService.GetCurrentUser().Id;
+
+			return _dbContext.HealthRecommendationModels
+				.Where(a => a.UserId == userId)
+				.OrderByDescending(a => a.CreatedDate)
+				.Take(lastHealthRecommendationsNumber)
+				.ToList();
+		}
+	}
 }
