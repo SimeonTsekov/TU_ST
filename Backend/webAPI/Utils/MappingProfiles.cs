@@ -17,6 +17,7 @@ namespace webAPI.Utils
             CreateMap<HealthDataRequest, HealthDataModel>();
             CreateMap<HealthDataModel, HealthDataResponse>();
             CreateMap<ActivityRecommendationModel, RecommendationResponse>();
+            CreateMap<HealthRecommendationModel, RecommendationResponse>();
         }
     }
 }
