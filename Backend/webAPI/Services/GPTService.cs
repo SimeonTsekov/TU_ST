@@ -11,13 +11,13 @@ namespace webAPI.Services
 
         public GPTService(IConfiguration configuration) 
         {
-            _configuration = configuration;
+            this._configuration = configuration;
         }
 
         public async Task<GPTResponse> Ask(string prompt)
         {
-            var apiKey = _configuration.GetSection("Appsettings:GChatAPIKEY").Value;
-            var apiModel = _configuration.GetSection("Appsettings:Model").Value;
+            var apiKey = this._configuration.GetSection("Appsettings:GChatAPIKEY").Value;
+            var apiModel = this._configuration.GetSection("Appsettings:Model").Value;
 
             var api = new OpenAIAPI(apiKey);
 
@@ -34,14 +34,14 @@ namespace webAPI.Services
 
             var result = await api.Completions.CreateCompletionsAsync(completionRequest);
 
-            Random rng = new Random();
+            var rng = new Random();
             var randomResult = rng.Next(0, result.Completions.Count);
 
             var choice = result.Completions[randomResult];
 
             return new GPTResponse
             {
-                Text = choice.Text.Trim(),
+                Answer = choice.Text.Trim(),
             };
         }
     }

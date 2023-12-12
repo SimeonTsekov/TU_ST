@@ -1,28 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using webAPI.DTOs.Request;
+using webAPI.Interfaces.ActivityRecommendation;
 using webAPI.Interfaces.ActivityRepository;
 using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.HealthRecommendation;
 using webAPI.Interfaces.User;
 
 namespace webAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
-        private readonly IActivityService _activityService;
+        private readonly IActivityDataService _activityService;
         private readonly IHealthDataService _healthService;
         private readonly IUserService _userService;
-        private readonly ICurrentUserService _currentUserService;
+        private readonly IActivityRecommendationService _activityRecommendationService;
+        private readonly IHealthRecommendationService _healthRecommendationService;
+        private readonly int _currentUserId;
 
-        public UserController(IActivityService activityService, IHealthDataService healthService, 
-            IUserService userService, ICurrentUserService currentUserService)
+        public UserController(IActivityDataService activityService, IHealthDataService healthService, 
+            IUserService userService, ICurrentUserService currentUserService, IActivityRecommendationService activityRecommendationService,
+            IHealthRecommendationService healthRecommendationService)
         {
-            _activityService = activityService;
-            _healthService = healthService;
-            _userService = userService;
-            _currentUserService = currentUserService;
+            this._activityService = activityService;
+            this._healthService = healthService;
+            this._userService = userService;
+            this._activityRecommendationService = activityRecommendationService;
+            this._healthRecommendationService = healthRecommendationService;
+            this._currentUserId = currentUserService.GetCurrentUser().Id;
         }
 
         [HttpPut()]
@@ -31,13 +41,12 @@ namespace webAPI.Controllers
         {
             try
             {
-                var userId = this._currentUserService.GetCurrentUser().Id;
-                var updatedUserInfo = this._userService.Update(userId, updatedUser);
+                var updatedUserInfo = this._userService.Update(this._currentUserId, updatedUser);
                 return Ok(updatedUserInfo);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating user data");
+                return NotFound(exception.Message);
             }
         }
 
@@ -45,40 +54,101 @@ namespace webAPI.Controllers
         [SwaggerOperation(Summary = "Deletes the current user", Description = "Requires authentication")]
         public IActionResult Delete()
         {
-            this._userService.Delete(_currentUserService.GetCurrentUser().Id);
+            this._userService.Delete(this._currentUserId);
             return Ok();
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Gets all users", Description = "Requires authentication")]
-        public IActionResult GetAllUsers()
+        [SwaggerOperation(Summary = "Retrieves users", Description = "Requires authentication")]
+        public IActionResult GetUsers(
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
         {
-            var users = this._userService.GetAll();
-            return Ok(users);
+            try
+            {
+                var users = this._userService.Get(order, count);
+                return Ok(users);
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception.Message);
+            }
         }
 
         [HttpGet("current-user")]
         [SwaggerOperation(Summary = "Returns the current user", Description = "Requires authentication")]
         public IActionResult GetUser()
         {
-            var user = this._userService.GetById(_currentUserService.GetCurrentUser().Id);
+            var user = this._userService.GetById(this._currentUserId);
             return Ok(user);
         }
 
-        [HttpGet("activities")]
-        [SwaggerOperation(Summary = "Gets activities of the current user", Description = "Requires authentication")]
-        public IActionResult GetActivitiesForUser()
+        [HttpGet("activityData")]
+        [SwaggerOperation(Summary = "Retrieves activities of the current user", Description = "Requires authentication")]
+        public IActionResult GetActivitiesForUser(
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
         {
-            var activityDataById = this._activityService.GetAllByUserId(_currentUserService.GetCurrentUser().Id);
-            return Ok(activityDataById);
+            try
+            {
+                var activityDataById = this._activityService.GetByUserId(this._currentUserId, order, count);
+                return Ok(activityDataById);
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception.Message);
+            }
         }
 
         [HttpGet("healthData")]
-        [SwaggerOperation(Summary = "Gets health data of the current user", Description = "Requires authentication")]
-        public IActionResult GetHealthDataForUser()
+        [SwaggerOperation(Summary = "Retrieves health data of the current user", Description = "Requires authentication")]
+        public IActionResult GetHealthDataForUser(
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
         {
-            var healthDataById = _healthService.GetAllByUserId(_currentUserService.GetCurrentUser().Id);
-            return Ok(healthDataById);
+            try
+            {
+                var healthDataById = this._healthService.GetByUserId(this._currentUserId, order, count);
+                return Ok(healthDataById);
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception.Message);
+            }
+        }
+
+        [HttpGet("activityRecommendations")]
+        [SwaggerOperation(Summary = "Retrieves activity recommendations of the current user", Description = "Requires authentication")]
+        public IActionResult GetActivityRecommendations(
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
+        {
+            try
+            {
+                var result = this._activityRecommendationService.GetActivityRecommendationsForTheCurrentUser(order, count);
+                return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                return Conflict(exception.Message);
+            }
+        }
+
+        [HttpGet("healthRecommendations")]
+        [SwaggerOperation(Summary = "Retrieves health recommendations of the current user", Description = "Requires authentication")]
+        public IActionResult GetHealthRecommendations(        
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
+        {
+            try
+            {
+                var result = this._healthRecommendationService.GetHealthRecommendationsForTheCurrentUser(order, count);
+                return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                return Conflict(exception.Message);
+            }
         }
     }
 }

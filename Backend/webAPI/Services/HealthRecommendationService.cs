@@ -17,20 +17,20 @@ namespace webAPI.Services
 		public HealthRecommendationService(IHealthRecommendationRepository healthRecommendationRepository,
 			IHealthDataRepository healthRepository, IMapper mapper, IGPTService gptService)
         {
-            _healthRecommendationRepository = healthRecommendationRepository;
-            _healthRepository = healthRepository;
-            _gptService = gptService;
-            _mapper = mapper;
+            this._healthRecommendationRepository = healthRecommendationRepository;
+            this._healthRepository = healthRepository;
+            this._gptService = gptService;
+            this._mapper = mapper;
 		}
 
-		public void Delete(int healthRecommendationId)
+        public void Delete(int healthRecommendationId)
 		{
-			_healthRecommendationRepository.Delete(healthRecommendationId);
+            this._healthRecommendationRepository.Delete(healthRecommendationId);
 		}
 
 		public async Task<RecommendationResponse> GenerateRecommendationAsync()
 		{
-			var healthData = this._healthRepository.GetLatestHealthData();
+			var healthData = this._healthRepository.GetLatestHealthDataForTheCurrentUser();
 
 			var prompt = "Based on this data, what would you recommend? " +
 			             $"Data: {healthData.Bmi} BMI, {healthData.BodyFat} body fat, {healthData.BodyMass} body mass, {healthData.LeanBodyMass} lean body mass, {healthData.SleepAnalysis} sleep analysis.";
@@ -39,7 +39,7 @@ namespace webAPI.Services
 
 			var recommendation = new HealthRecommendationModel
 			{
-				Recommendation = result.Text,
+				Recommendation = result.Answer,
 				UserId = healthData.UserId
 			};
 
@@ -48,19 +48,19 @@ namespace webAPI.Services
 			return this._mapper.Map<RecommendationResponse>(recommendation);
 		}
 
-		public List<RecommendationResponse> GetLastNRecommendations(int lastHealthRecommendationsNumber)
-		{
-			return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.GetLastNRecommendations(lastHealthRecommendationsNumber));
-		}
-
-		public List<RecommendationResponse> GetLastRecommendationsDesc()
-		{
-			return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.GetAllHealthRecommendationsDesc());
-		}
-
 		public RecommendationResponse GetRecommendationById(int id)
 		{
 			return this._mapper.Map<RecommendationResponse>(this._healthRecommendationRepository.GetHealthRecommendationById(id));
 		}
+
+        public List<RecommendationResponse> GetHealthRecommendationsForTheCurrentUser(string order, int count)
+        {
+            return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.GetHealthRecommendationsForTheCurrentUser(order, count));
+        }
+
+        public List<RecommendationResponse> Get(string order, int count)
+        {
+            return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.Get(order, count));
+        }
 	}
 }

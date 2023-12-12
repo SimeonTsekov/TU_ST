@@ -15,9 +15,9 @@ namespace webAPI.Services
 
         public HealthDataService(IHealthDataRepository healthDataRepository, IMapper mapper, ICurrentUserService currentUserService)
         {
-            _healthDataRepository = healthDataRepository;
-            _currentUserService = currentUserService;
-            _mapper = mapper;
+            this._healthDataRepository = healthDataRepository;
+            this._currentUserService = currentUserService;
+            this._mapper = mapper;
         }
 
         public HealthDataResponse Create(HealthDataRequest newModel)
@@ -44,9 +44,9 @@ namespace webAPI.Services
             this._healthDataRepository.Delete(id);
         }
 
-        public List<HealthDataResponse> GetAll()
+        public List<HealthDataResponse> Get(string order, int count)
         {
-            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.GetAllHealthData());
+            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.Get(order, count));
         }
 
         public HealthDataResponse GetById(int id)
@@ -54,9 +54,9 @@ namespace webAPI.Services
             return this._mapper.Map<HealthDataResponse>(this._healthDataRepository.GetHealthDataById(id));
         }
 
-        public List<HealthDataResponse> GetAllByUserId(int userId)
+        public List<HealthDataResponse> GetByUserId(int userId, string order, int count)
         {
-            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.GetAllHealthDataByUserId(userId));
+            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.GetByUserId(userId, order, count));
         }
     }
 }

@@ -10,22 +10,22 @@ namespace webAPI.Services;
 public class ActivityRecommendationService : IActivityRecommendationService
 {
     private readonly IActivityRecommendationRepository _activityRecommendationRepository;
-    private readonly IActivityRepository _activityRepository;
+    private readonly IActivityDataRepository _activityRepository;
     private readonly IGPTService _gptService;
     private readonly IMapper _mapper;
 
     public ActivityRecommendationService(IActivityRecommendationRepository activityRecommendationRepository, 
-        IActivityRepository activityRepository, IMapper mapper, IGPTService gptService)
+        IActivityDataRepository activityRepository, IMapper mapper, IGPTService gptService)
     {
-        _activityRecommendationRepository = activityRecommendationRepository;
-        _activityRepository = activityRepository;
-        _gptService = gptService;
-        _mapper = mapper;
+        this._activityRecommendationRepository = activityRecommendationRepository;
+        this._activityRepository = activityRepository;
+        this._gptService = gptService;
+        this._mapper = mapper;
     }
 
     public async Task<RecommendationResponse> GenerateRecommendationAsync()
     {
-        var activity = this._activityRepository.GetLatestActivity();
+        var activity = this._activityRepository.GetLatestActivityDataForTheCurrentUser();
 
         var prompt = "Based on this data, what would you recommend? " +
             $"Data: {activity.DailyDistance} daily distance, {activity.DailySteps} daily steps, {activity.Workouts} workouts for the day, {activity.DailyEnergyBurned} daily energy burned.";
@@ -34,7 +34,7 @@ public class ActivityRecommendationService : IActivityRecommendationService
 
         var recommendation = new ActivityRecommendationModel
         {
-            Recommendation = result.Text,
+            Recommendation = result.Answer,
             UserId = activity.UserId
         };
 
@@ -43,23 +43,23 @@ public class ActivityRecommendationService : IActivityRecommendationService
         return this._mapper.Map<RecommendationResponse>(recommendation);
     }
 
-    public List<RecommendationResponse> GetLastNRecommendations(int lastActivityRecommendationsNumber)
+    public List<RecommendationResponse> GetActivityRecommendationsForTheCurrentUser(string order, int count)
     {
-        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.GetLastNRecommendations(lastActivityRecommendationsNumber));
-    }
-
-    public List<RecommendationResponse> GetLastRecommendationsDesc()
-    {
-        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.GetAllActivityRecommendationsDesc());
+        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.GetActivityRecommendationsForTheCurrentUser(order, count));
     }
 
     public void Delete(int activityRecommendationId)
     {
-        _activityRecommendationRepository.Delete(activityRecommendationId);
+        this._activityRecommendationRepository.Delete(activityRecommendationId);
     }
 
     public RecommendationResponse GetRecommendationById(int id)
     {
         return this._mapper.Map<RecommendationResponse>(this._activityRecommendationRepository.GetActivityRecommendationById(id));
+    }
+
+    public List<RecommendationResponse> Get(string order, int count)
+    {
+        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.Get(order, count));
     }
 }

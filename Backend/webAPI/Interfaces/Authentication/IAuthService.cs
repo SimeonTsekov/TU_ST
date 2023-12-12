@@ -1,7 +1,7 @@
 ﻿using webAPI.DTOs.Request;
 using webAPI.DTOs.Response;
 
-namespace webAPI.Interfaces
+namespace webAPI.Interfaces.Authentication
 {
     public interface IAuthService
     {

@@ -7,6 +7,6 @@ public interface IUserService
 {
     UserResponse Update(int id, UserRequest updatedModel);
     UserResponse GetById(int id);
-    List<UserResponse> GetAll();
+    List<UserResponse> Get(string order, int count);
     void Delete(int id);
 }

@@ -4,19 +4,19 @@ namespace webAPI.DTOs.Request
 {
     public class HealthDataRequest
     {
-        [Required]
+        [Range(0, float.MaxValue, ErrorMessage = "BodyMass must be a positive number.")]
         public float BodyMass { get; set; }
 
-        [Required]
+        [Range(0, float.MaxValue, ErrorMessage = "Bmi must be a positive number.")]
         public float Bmi { get; set; }
 
-        [Required]
+        [Range(0, float.MaxValue, ErrorMessage = "BodyFat must be a positive number.")]
         public float BodyFat { get; set; }
 
-        [Required]
+        [Range(0, float.MaxValue, ErrorMessage = "LeanBodyMass must be a positive number.")]
         public float LeanBodyMass { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "SleepAnalysis is required.")]
         public string? SleepAnalysis { get; set; }
     }
 }

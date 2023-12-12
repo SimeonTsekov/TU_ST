@@ -2,14 +2,14 @@
 
 namespace webAPI.Interfaces.ActivityRepository
 {
-    public interface IActivityRepository
+    public interface IActivityDataRepository
     {
         ActivityDataModel Create(ActivityDataModel newModel);
         ActivityDataModel Update(int activityDataId, ActivityDataModel updatedModel);
-        List<ActivityDataModel> GetAll();
-        List<ActivityDataModel> GetAllByUserId(int userId);
+        List<ActivityDataModel> Get(string order, int count);
+        List<ActivityDataModel> GetByUserId(int userId, string order, int count);
         ActivityDataModel GetById(int activityDataId);
-        ActivityDataModel GetLatestActivity();
+        ActivityDataModel GetLatestActivityDataForTheCurrentUser();
         void Delete(int activityDataId);
     }
 }

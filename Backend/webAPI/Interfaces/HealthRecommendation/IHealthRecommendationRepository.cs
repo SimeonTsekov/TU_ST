@@ -5,9 +5,9 @@ namespace webAPI.Interfaces.HealthRecommendation
     public interface IHealthRecommendationRepository
     {
 		HealthRecommendationModel Create(HealthRecommendationModel newModel);
-		List<HealthRecommendationModel> GetAllHealthRecommendationsDesc();
 		HealthRecommendationModel GetHealthRecommendationById(int healthRecommendationId);
-		List<HealthRecommendationModel> GetLastNRecommendations(int lastHealthRecommendationsNumber);
+        List<HealthRecommendationModel> GetHealthRecommendationsForTheCurrentUser(string order, int count);
+        List<HealthRecommendationModel> Get(string order, int count);
 		void Delete(int healthRecommendationId);
 	}
 }

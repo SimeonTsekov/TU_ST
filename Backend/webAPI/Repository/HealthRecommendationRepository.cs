@@ -12,77 +12,72 @@ namespace webAPI.Repository
 
 		public HealthRecommendationRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
         {
-            _dbContext = dbContext;
-            _currentUserService = currentUserService;
+            this._dbContext = dbContext;
+            this._currentUserService = currentUserService;
 		}
 
         public HealthRecommendationModel Create(HealthRecommendationModel newRecommendation)
         {
-            _dbContext.HealthRecommendationModels.Add(newRecommendation);
-            _dbContext.SaveChanges();
-
+            this._dbContext.HealthRecommendationModels.Add(newRecommendation);
+            this._dbContext.SaveChanges();
             return newRecommendation;
-        }
-
-        public HealthRecommendationModel Update(int healthRecommendationId, HealthRecommendationModel updatedRecommendation)
-        {
-            var existingRecommendation = _dbContext.HealthRecommendationModels.Find(healthRecommendationId);
-
-            if (existingRecommendation != null)
-            {
-                existingRecommendation.Recommendation = updatedRecommendation.Recommendation;
-
-                _dbContext.SaveChanges();
-            }
-
-            return existingRecommendation!;
         }
 
         public void Delete(int healthRecommendationId)
         {
             var recommendationToRemove = _dbContext.HealthRecommendationModels.Find(healthRecommendationId);
 
-            if (recommendationToRemove != null)
+            if (recommendationToRemove == null)
             {
-                _dbContext.HealthRecommendationModels.Remove(recommendationToRemove);
-                _dbContext.SaveChanges();
+                return;
             }
-        }
 
-        public List<HealthRecommendationModel> GetAllHealthRecommendations()
-        {
-            return _dbContext.HealthRecommendationModels.ToList();
+            this._dbContext.HealthRecommendationModels.Remove(recommendationToRemove);
+            this._dbContext.SaveChanges();
         }
 
         public HealthRecommendationModel GetHealthRecommendationById(int healthRecommendationId)
         {
-            var healthRecommendation = _dbContext.HealthRecommendationModels.Find(healthRecommendationId);
-
-            if (healthRecommendation != null)
-                return healthRecommendation;
-
-            throw new NullReferenceException();
+            return this._dbContext.HealthRecommendationModels.Find(healthRecommendationId) ?? throw new NullReferenceException("The health recommendation with id '" + healthRecommendationId + "' was not found.");
         }
 
-		public List<HealthRecommendationModel> GetAllHealthRecommendationsDesc()
-		{
-			var userId = _currentUserService.GetCurrentUser().Id;
+        public List<HealthRecommendationModel> GetHealthRecommendationsForTheCurrentUser(string order, int count)
+        {
+            var userId = _currentUserService.GetCurrentUser().Id;
+            var query = this._dbContext.HealthRecommendationModels.Where(a => a.UserId == userId);
 
-			return _dbContext.HealthRecommendationModels
-				.Where(a => a.UserId == userId)
-				.OrderByDescending(a => a.CreatedDate)
-				.ToList();
-		}
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
 
-		public List<HealthRecommendationModel> GetLastNRecommendations(int lastHealthRecommendationsNumber)
-		{
-			var userId = _currentUserService.GetCurrentUser().Id;
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
 
-			return _dbContext.HealthRecommendationModels
-				.Where(a => a.UserId == userId)
-				.OrderByDescending(a => a.CreatedDate)
-				.Take(lastHealthRecommendationsNumber)
-				.ToList();
-		}
+            return query.ToList();
+        }
+
+        public List<HealthRecommendationModel> Get(string order, int count)
+        {
+            var query = this._dbContext.HealthRecommendationModels.AsQueryable();
+
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
+
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
+
+            return query.ToList();
+        }
 	}
 }

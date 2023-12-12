@@ -7,10 +7,10 @@ namespace webAPI.Interfaces.HealthData
         HealthDataModel Create(HealthDataModel newHealthData);
         HealthDataModel Update(int healthDataId, HealthDataModel updatedHealthData);
         HealthDataModel GetHealthDataById(int healthDataId);
-        List<HealthDataModel> GetAllHealthData();
-        List<HealthDataModel> GetAllHealthDataByUserId(int userId);
+        List<HealthDataModel> Get(string order, int count);
+        List<HealthDataModel> GetByUserId(int userId, string order, int count);
 
-        HealthDataModel GetLatestHealthData();
+        HealthDataModel GetLatestHealthDataForTheCurrentUser();
 		void Delete(int healthDataId);
     }
 }

@@ -12,15 +12,14 @@ namespace webAPI.Repository
 
 		public HealthDataRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
             _currentUserService = currentUserService;
 		}
 
         public HealthDataModel Create(HealthDataModel newHealthData)
         {
-            _dbContext.HealthDataModels.Add(newHealthData);
-            _dbContext.SaveChanges();
-
+            this._dbContext.HealthDataModels.Add(newHealthData);
+            this._dbContext.SaveChanges();
             return newHealthData;
         }
 
@@ -28,16 +27,13 @@ namespace webAPI.Repository
         {
             var existingData = GetHealthDataById(healthDataId);
 
-            if (existingData != null)
-            {
-                existingData.BodyMass = updatedHealthData.BodyMass;
-                existingData.Bmi = updatedHealthData.Bmi;
-                existingData.BodyFat = updatedHealthData.BodyFat;
-                existingData.LeanBodyMass = updatedHealthData.LeanBodyMass;
-                existingData.SleepAnalysis = updatedHealthData.SleepAnalysis;
-            }
+            existingData.BodyMass = updatedHealthData.BodyMass;
+            existingData.Bmi = updatedHealthData.Bmi;
+            existingData.BodyFat = updatedHealthData.BodyFat;
+            existingData.LeanBodyMass = updatedHealthData.LeanBodyMass;
+            existingData.SleepAnalysis = updatedHealthData.SleepAnalysis;
 
-            _dbContext.SaveChanges();
+            this._dbContext.SaveChanges();
 
             return existingData!;
         }
@@ -47,32 +43,62 @@ namespace webAPI.Repository
             var modelToRemove = _dbContext.HealthDataModels.Find(healthDataId);
 
             if (modelToRemove == null)
+            {
                 return;
+            }
 
-            _dbContext.HealthDataModels.Remove(modelToRemove);
-            _dbContext.SaveChanges();
+            this._dbContext.HealthDataModels.Remove(modelToRemove);
+            this._dbContext.SaveChanges();
         }
 
-        public List<HealthDataModel> GetAllHealthData()
+        public List<HealthDataModel> Get(string order, int count)
         {
-            return _dbContext.HealthDataModels.ToList();
+            var query = this._dbContext.HealthDataModels.AsQueryable();
+
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
+
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
+
+            return query.ToList();
         }
 
-        public List<HealthDataModel> GetAllHealthDataByUserId(int userId)
+        public List<HealthDataModel> GetByUserId(int userId, string order, int count)
         {
-            return _dbContext.HealthDataModels.Where(u => u.UserId == userId).ToList();
+            var query = this._dbContext.HealthDataModels.Where(a => a.UserId == userId);
+
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
+
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
+
+            return query.ToList();
         }
 
         public HealthDataModel GetHealthDataById(int healthDataId)
         {
-            return _dbContext.HealthDataModels.Find(healthDataId) ?? throw new NullReferenceException("The health data with id '" + healthDataId + "' was not found.");
+            return this._dbContext.HealthDataModels.Find(healthDataId) ?? throw new NullReferenceException("The health data with id '" + healthDataId + "' was not found.");
         }
 
-		public HealthDataModel GetLatestHealthData()
+		public HealthDataModel GetLatestHealthDataForTheCurrentUser()
 		{
 			var userId = _currentUserService.GetCurrentUser().Id;
 
-			return _dbContext.HealthDataModels
+			return this._dbContext.HealthDataModels
 				.Where(a => a.UserId == userId)
 				.OrderByDescending(a => a.CreatedDate)
 				.FirstOrDefault() ?? throw new NullReferenceException("There are no health data for the specified user in the database!");

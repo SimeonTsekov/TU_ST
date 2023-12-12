@@ -15,40 +15,48 @@ namespace webAPI.Controllers
 
 		public HealthRecommendationController(IHealthRecommendationService healthRecommendationService)
 		{
-			_healthRecommendationService = healthRecommendationService;
+            this._healthRecommendationService = healthRecommendationService;
 		}
 
 		[HttpGet("generate")]
 		[SwaggerOperation(Summary = "Generates recommendation for the latest health state of the current user", Description = "Requires authentication")]
-		public async Task<IActionResult> GetHealthRecommendationData()
+		public async Task<IActionResult> GenerateHealthRecommendation()
 		{
-			var result = await this._healthRecommendationService.GenerateRecommendationAsync();
-			return Ok(result);
-		}
-
-		[HttpGet("last/{lastHealthRecommendationsNumber}")]
-		[SwaggerOperation(Summary = "Gets last N health recommendations of the current user", Description = "Requires authentication")]
-		public IActionResult GetLastNHealthRecommendations(int lastHealthRecommendationsNumber)
-		{
-			var result = this._healthRecommendationService.GetLastNRecommendations(lastHealthRecommendationsNumber);
-			return Ok(result);
+            try
+            {
+                var result = await this._healthRecommendationService.GenerateRecommendationAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
 		}
 
 		[HttpGet]
-		[SwaggerOperation(Summary = "Gets all health recommendations of the current user in descending order by date created", Description = "Requires authentication")]
-		public IActionResult GetLastActivityRecommendations()
-		{
-			var result = this._healthRecommendationService.GetLastRecommendationsDesc();
-			return Ok(result);
+		[SwaggerOperation(Summary = "Retrieves health recommendations", Description = "Requires authentication")]
+		public IActionResult GetHealthRecommendations(        
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
+        {
+            try
+            {
+                var result = this._healthRecommendationService.Get(order, count);
+                return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                return Conflict(exception.Message);
+            }
 		}
 
-		[HttpGet("{healthRecommendationId}")]
+		[HttpGet("{id}")]
 		[SwaggerOperation(Summary = "Gets health recommendation by id", Description = "Requires authentication")]
-		public IActionResult GetHealthRecommendationById(int healthRecommendationId)
+		public IActionResult GetHealthRecommendationById(int id)
 		{
 			try
 			{
-				var result = this._healthRecommendationService.GetRecommendationById(healthRecommendationId);
+				var result = this._healthRecommendationService.GetRecommendationById(id);
 				return Ok(result);
 			}
 			catch (Exception ex)
@@ -57,11 +65,11 @@ namespace webAPI.Controllers
 			}
 		}
 
-		[HttpDelete("{healthRecommendationId}")]
+		[HttpDelete("{id}")]
 		[SwaggerOperation(Summary = "Deletes one recommendation of the current user", Description = "Requires authentication")]
-		public IActionResult DeleteHealthRecommendations(int healthRecommendationId)
+		public IActionResult DeleteHealthRecommendationById(int id)
 		{
-			_healthRecommendationService.Delete(healthRecommendationId);
+			this._healthRecommendationService.Delete(id);
 			return NoContent();
 		}
 	}

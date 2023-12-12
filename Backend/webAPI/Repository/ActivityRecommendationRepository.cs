@@ -12,53 +12,72 @@ namespace webAPI.Repository
 
         public ActivityRecommendationRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
 		{
-			_dbContext = dbContext;
+			this._dbContext = dbContext;
 			_currentUserService = currentUserService;
 		}
 
 		public ActivityRecommendationModel Create(ActivityRecommendationModel newModel)
 		{
-			_dbContext.ActivityRecommendationModels.Add(newModel);
-			_dbContext.SaveChanges();
-
+            this._dbContext.ActivityRecommendationModels.Add(newModel);
+            this._dbContext.SaveChanges();
 			return newModel;
 		}
 
-		public void Delete(int activityRecommendationId)
+        public void Delete(int activityRecommendationId)
 		{
-			var modelToRemove = _dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
+			var modelToRemove = this._dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
 
-			if (modelToRemove != null)
-			{
-				_dbContext.ActivityRecommendationModels.Remove(modelToRemove);
-				_dbContext.SaveChanges();
-			}
-		}
+            if (modelToRemove == null)
+            {
+                return;
+            }
+
+            this._dbContext.ActivityRecommendationModels.Remove(modelToRemove);
+            this._dbContext.SaveChanges();
+        }
 
 		public ActivityRecommendationModel GetActivityRecommendationById(int activityRecommendationId)
 		{
-			return _dbContext.ActivityRecommendationModels.Find(activityRecommendationId) ?? throw new NullReferenceException("The activity recommendation with id '" + activityRecommendationId + "' was not found.");
+			return this._dbContext.ActivityRecommendationModels.Find(activityRecommendationId) ?? throw new NullReferenceException("The activity recommendation with id '" + activityRecommendationId + "' was not found.");
 		}
 
-		public List<ActivityRecommendationModel> GetAllActivityRecommendationsDesc()
-		{
-			var userId = _currentUserService.GetCurrentUser().Id;
-
-			return _dbContext.ActivityRecommendationModels
-				.Where(a => a.UserId == userId)
-				.OrderByDescending(a => a.CreatedDate)
-				.ToList();
-		}
-
-		public List<ActivityRecommendationModel> GetLastNRecommendations(int lastActivityRecommendationsNumber)
-		{
+        public List<ActivityRecommendationModel> GetActivityRecommendationsForTheCurrentUser(string order, int count)
+        {
             var userId = _currentUserService.GetCurrentUser().Id;
+            var query = this._dbContext.ActivityRecommendationModels.Where(a => a.UserId == userId);
 
-			return _dbContext.ActivityRecommendationModels
-				.Where(a => a.UserId == userId)
-				.OrderByDescending(a => a.CreatedDate)
-				.Take(lastActivityRecommendationsNumber)
-				.ToList();
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
+
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
+
+            return query.ToList();
+        }
+
+        public List<ActivityRecommendationModel> Get(string order, int count)
+        {
+            var query = this._dbContext.ActivityRecommendationModels.AsQueryable();
+
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
+
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
+
+            return query.ToList();
         }
 	}
 }

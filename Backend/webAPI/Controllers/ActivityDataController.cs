@@ -11,15 +11,15 @@ namespace webAPI.Controllers
     [ApiController]
     public class ActivityController : ControllerBase
     {
-        private readonly IActivityService _activityService;
+        private readonly IActivityDataService _activityService;
 
-        public ActivityController(IActivityService activityService)
+        public ActivityController(IActivityDataService activityService)
         {
-            _activityService = activityService;
+            this._activityService = activityService;
         }
 
         [HttpPost]
-        [SwaggerOperation(Summary = "Creates a new activity", Description = "Requires authentication")]
+        [SwaggerOperation(Summary = "Creates a new activity for the current user", Description = "Requires authentication")]
         public IActionResult Create([FromBody] ActivityRequest activityRequest)
         { 
             var result = this._activityService.Create(activityRequest);
@@ -50,16 +50,25 @@ namespace webAPI.Controllers
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Retrieves all activities", Description = "Requires authentication")]
-        public IActionResult GetAllActivities()
+        [SwaggerOperation(Summary = "Retrieves activities", Description = "Requires authentication")]
+        public IActionResult GetAllActivitiesData(
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
         {
-            var result = this._activityService.GetAll();
-            return Ok(result);
+            try
+            {
+                var result = this._activityService.Get(order, count);
+                return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                return Conflict(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Retrieves activity by ID", Description = "Requires authentication")]
-        public IActionResult GetActivity(int id)
+        public IActionResult GetActivityData(int id)
         {
             try
             {

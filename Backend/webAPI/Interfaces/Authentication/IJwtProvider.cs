@@ -1,6 +1,6 @@
 ﻿using webApi.Data.Models;
 
-namespace webAPI.Authentication.JwtBearer
+namespace webAPI.Interfaces.Authentication
 {
     public interface IJwtProvider
     {

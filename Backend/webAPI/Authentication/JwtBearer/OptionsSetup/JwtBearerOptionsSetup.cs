@@ -1,5 +1,7 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,7 +13,7 @@ namespace webAPI.Authentication.JwtBearer.OptionsSetup
 
         public JwtBearerOptionsSetup(IOptions<JwtBearerSettings> settings)
         {
-            _jwtBearerSettings = settings.Value;
+            this._jwtBearerSettings = settings.Value;
         }
 
         public void Configure(string? name, JwtBearerOptions options)
@@ -19,9 +21,10 @@ namespace webAPI.Authentication.JwtBearer.OptionsSetup
             options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters()
             {
-                ValidIssuer = _jwtBearerSettings.Issuer,
-                ValidAudience = _jwtBearerSettings.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey ?? throw new InvalidOperationException())),
+                ValidIssuer = this._jwtBearerSettings.Issuer,
+                ValidAudience = this._jwtBearerSettings.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._jwtBearerSettings.SigningKey
+                    ?? throw new InvalidOperationException("Missing JWT signing key!"))),
                 ClockSkew = TimeSpan.Zero,
                 ValidateIssuer = true,
                 ValidateAudience = true,

@@ -3,8 +3,8 @@ using webAPI.DTOs.Response;
 
 namespace webAPI.Interfaces.HealthData
 {
-    public interface IHealthDataService : IBaseService<HealthDataRequest, HealthDataResponse>
+    public interface IHealthDataService : ICrudService<HealthDataRequest, HealthDataResponse>
     {
-        List<HealthDataResponse> GetAllByUserId(int userId);
+        List<HealthDataResponse> GetByUserId(int userId, string order, int count);
     }
 }

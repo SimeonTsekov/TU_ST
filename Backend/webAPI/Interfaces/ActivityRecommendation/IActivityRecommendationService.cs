@@ -5,8 +5,8 @@ namespace webAPI.Interfaces.ActivityRecommendation;
 public interface IActivityRecommendationService
 {
     Task<RecommendationResponse> GenerateRecommendationAsync();
-    List<RecommendationResponse> GetLastNRecommendations(int lastActivityRecommendationsNumber);
-    List<RecommendationResponse> GetLastRecommendationsDesc();
     RecommendationResponse GetRecommendationById(int id);
+    List<RecommendationResponse> GetActivityRecommendationsForTheCurrentUser(string order, int count);
+    List<RecommendationResponse> Get(string order, int count);
     void Delete(int activityRecommendationId);
 }

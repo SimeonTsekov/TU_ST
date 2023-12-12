@@ -6,17 +6,17 @@ using webAPI.Interfaces.User;
 
 namespace webAPI.Services
 {
-    public class ActivityService : IActivityService
+    public class ActivityDataService : IActivityDataService
     {
-        private readonly IActivityRepository _activityRepository;
+        private readonly IActivityDataRepository _activityRepository;
         private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
 
-        public ActivityService(IActivityRepository activityRepository, IMapper mapper, ICurrentUserService currentUserService)
+        public ActivityDataService(IActivityDataRepository activityRepository, IMapper mapper, ICurrentUserService currentUserService)
         {
-            _activityRepository = activityRepository;
-            _currentUserService = currentUserService;
-            _mapper = mapper;
+            this._activityRepository = activityRepository;
+            this._currentUserService = currentUserService;
+            this._mapper = mapper;
         }
 
         public ActivityResponse Create(ActivityRequest newModel)
@@ -43,9 +43,9 @@ namespace webAPI.Services
             this._activityRepository.Delete(id);
         }
 
-        public List<ActivityResponse> GetAll()
+        public List<ActivityResponse> Get(string order, int count)
         {
-            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.GetAll());
+            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.Get(order, count));
         }
 
         public ActivityResponse GetById(int id)
@@ -53,9 +53,9 @@ namespace webAPI.Services
             return this._mapper.Map<ActivityResponse>(this._activityRepository.GetById(id));
         }
 
-        public List<ActivityResponse> GetAllByUserId(int userId)
+        public List<ActivityResponse> GetByUserId(int userId, string order, int count)
         {
-            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.GetAllByUserId(userId));
+            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.GetByUserId(userId, order, count));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace webAPI.Controllers
 
         public HealthDataController(IHealthDataService healthDataService)
         {
-            _healthDataService = healthDataService;
+            this._healthDataService = healthDataService;
         }
 
         [HttpPost]
@@ -23,17 +23,16 @@ namespace webAPI.Controllers
         public IActionResult Create([FromBody] HealthDataRequest healthDataRequest)
         {
             var result = this._healthDataService.Create(healthDataRequest);
-
             return Ok(result);
         }
 
-        [HttpPut("{healthDataId}")]
-        [SwaggerOperation(Summary = "Updates the health data for the current user", Description = "Requires authentication")]
-        public IActionResult Update(int healthDataId, [FromBody] HealthDataRequest healthDataRequest)
+        [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Updates the health data by ID", Description = "Requires authentication")]
+        public IActionResult Update(int id, [FromBody] HealthDataRequest healthDataRequest)
         {
             try
             {
-                var result = this._healthDataService.Update(healthDataId, healthDataRequest);
+                var result = this._healthDataService.Update(id, healthDataRequest);
                 return Ok(result);
             }
             catch (Exception exception)
@@ -42,31 +41,38 @@ namespace webAPI.Controllers
             }
         }
 
-        [HttpDelete("{healthDataId}")]
-        [SwaggerOperation(Summary = "Deletes the health data for the current user", Description = "Requires authentication")]
-        public IActionResult Delete(int healthDataId)
+        [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Deletes the health data by ID", Description = "Requires authentication")]
+        public IActionResult Delete(int id)
         {
-            this._healthDataService.Delete(healthDataId);
-
+            this._healthDataService.Delete(id);
             return NoContent();
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Gets all the health data for every user", Description = "Requires authentication")]
-        public IActionResult GetAllHealthData()
-        {
-            var result = this._healthDataService.GetAll();
-
-            return Ok(result);
-        }
-
-        [HttpGet("{healthDataId}")]
-        [SwaggerOperation(Summary = "Gets specific health data for the specific user", Description = "Requires authentication")]
-        public IActionResult GetHealthDataById(int healthDataId)
+        [SwaggerOperation(Summary = "Retrieves the health data", Description = "Requires authentication")]
+        public IActionResult GetHealthData(
+            [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
+            [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")
         {
             try
             {
-                var result = this._healthDataService.GetById(healthDataId);
+                var result = this._healthDataService.Get(order, count);
+                return Ok(result);
+            }
+            catch (Exception exception)
+            {
+                return Conflict(exception.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Gets specific health data by ID", Description = "Requires authentication")]
+        public IActionResult GetHealthDataById(int id)
+        {
+            try
+            {
+                var result = this._healthDataService.GetById(id);
                 return Ok(result);
             }
             catch (Exception exception)

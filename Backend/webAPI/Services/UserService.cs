@@ -13,8 +13,8 @@ public class UserService : IUserService
 
     public UserService(IMapper mapper, IUserRepository userRepository)
     {
-        _mapper = mapper;
-        _userRepository = userRepository;
+        this._mapper = mapper;
+        this._userRepository = userRepository;
     }
 
     public UserResponse Update(int id, UserRequest updatedModel)
@@ -29,9 +29,9 @@ public class UserService : IUserService
         this._userRepository.Delete(id);
     }
 
-    public List<UserResponse> GetAll()
+    public List<UserResponse> Get(string order, int count)
     {
-        return this._mapper.Map<List<UserResponse>>(this._userRepository.GetAllUsers());
+        return this._mapper.Map<List<UserResponse>>(this._userRepository.Get(order, count));
     }
 
     public UserResponse GetById(int id)
