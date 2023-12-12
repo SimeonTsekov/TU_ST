@@ -16,19 +16,13 @@ struct GenericActionButton: View {
             action()
         } label: {
             Text(label)
-                .padding()
+                .padding([.leading, .trailing], 16)
+                .frame(maxWidth: .infinity, minHeight: 48)
                 .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
                 .background(Color.accentColor)
                 .font(.system(.headline, design: .rounded))
                 .fontWeight(.bold)
                 .cornerRadius(8)
         }
-    }
-}
-
-#Preview {
-    GenericActionButton(label: "Register") {
-        return
     }
 }

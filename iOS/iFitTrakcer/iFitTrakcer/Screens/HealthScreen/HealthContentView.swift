@@ -35,8 +35,6 @@ struct HealthContentView: View {
                 SimpleListCell(title: "Lean Mass",
                                value: String(format: "%.2f", weeklyAverageLeanMass) + " kg")
             }
-            SimpleListCell(title: "Sleep Time",
-                           value: "6 hours")
         }
     }
 }

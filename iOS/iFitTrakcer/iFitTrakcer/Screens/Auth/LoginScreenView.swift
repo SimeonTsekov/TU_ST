@@ -13,6 +13,10 @@ struct LoginScreenView: View {
     @State private var username = ""
     @State private var password = ""
 
+    var loginIsDisabled: Bool {
+        username.isEmpty || password.isEmpty
+    }
+
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             titleText
@@ -42,6 +46,7 @@ struct LoginScreenView: View {
         GenericActionButton(label: "Log In") {
             return
         }
+        .disabled(loginIsDisabled)
     }
 
     private var registerButton: some View {

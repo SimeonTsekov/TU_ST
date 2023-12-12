@@ -13,7 +13,9 @@ struct GenericTextField: View {
 
     var body: some View {
         TextField(placeholder, text: text)
-            .padding()
+            .textInputAutocapitalization(.never)
+            .padding([.leading, .trailing], 16)
+            .frame(minHeight: 48)
             .background(Color.gray.opacity(0.1))
             .cornerRadius(8)
     }

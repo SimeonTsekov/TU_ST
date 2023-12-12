@@ -10,10 +10,7 @@ import SwiftUI
 
 struct RegisterScreenView: View {
     @EnvironmentObject private var profileRouter: ProfileRouter
-    @State private var username = ""
-    @State private var email = ""
-    @State private var password = ""
-    @State private var confirmPassword = ""
+    @StateObject private var viewModel = RegisterViewModel()
 
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
@@ -22,6 +19,7 @@ struct RegisterScreenView: View {
             emailInputField
             passwordInputField
             confirmPasswordInputField
+            errorMessage
             registerButton
         }
         .padding([.leading, .trailing], 16)
@@ -34,24 +32,34 @@ struct RegisterScreenView: View {
     }
 
     private var usernameInputField: some View {
-        GenericTextField(placeholder: "Username", text: $username)
+        GenericTextField(placeholder: "Username", text: $viewModel.username)
     }
 
     private var emailInputField: some View {
-        GenericTextField(placeholder: "Email", text: $email)
+        GenericTextField(placeholder: "Email", text: $viewModel.email)
     }
 
     private var passwordInputField: some View {
-        GenericSecureField(placeholder: "Password", text: $password)
+        GenericSecureField(placeholder: "Password", text: $viewModel.password)
     }
 
     private var confirmPasswordInputField: some View {
-        GenericSecureField(placeholder: "Confirm Password", text: $confirmPassword)
+        GenericSecureField(placeholder: "Confirm Password", text: $viewModel.confirmPassword)
+    }
+
+    @ViewBuilder
+    private var errorMessage: some View {
+        if let error = viewModel.errorMessage {
+            Text(error)
+                .foregroundColor(.red)
+                .font(.system(.caption, design: .rounded))
+        }
     }
 
     private var registerButton: some View {
         GenericActionButton(label: "Register") {
-            return
+            _ = viewModel.validateFields()
         }
+        .disabled(viewModel.registerIsDisabled)
     }
 }
