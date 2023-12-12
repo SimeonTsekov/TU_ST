@@ -35,6 +35,7 @@
 		EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88332B14DC51003196DB /* NumericArray+Average.swift */; };
 		EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */; };
 		EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */; };
+		EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */; };
 		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
 		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,7 @@
 		EC3D88332B14DC51003196DB /* NumericArray+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumericArray+Average.swift"; sourceTree = "<group>"; };
 		EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
 		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
 		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +178,7 @@
 		EC2018412B0B718500C69150 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EC7F32E92B281A9D005A4F90 /* Auth */,
 				EC2018432B0B71B500C69150 /* ActivityScreen */,
 				EC2018422B0B71AA00C69150 /* HealthScreen */,
 				EC2018442B0B71C000C69150 /* ProfileScreen */,
@@ -292,6 +295,14 @@
 				EC3D88332B14DC51003196DB /* NumericArray+Average.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EC7F32E92B281A9D005A4F90 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,6 +444,7 @@
 				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
 				EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */,
+				EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
 				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,

@@ -15,7 +15,7 @@ enum Sex: String, CaseIterable {
 
 struct ProfileContentView: View {
     @StateObject var viewModel: ProfileViewModel
-    let router: ProfileRouter
+    let router: ProfileRouting
 
     var body: some View {
         List {
@@ -41,9 +41,9 @@ struct ProfileContentView: View {
 
     private var authButton: some View {
         Button {
-            print("Auth button tapped")
+            router.pushLogin()
         } label: {
-            Text("Login")
+            Text("Log In")
                 .foregroundColor(Color.accentColor)
                 .font(.system(.headline, design: .rounded))
         }

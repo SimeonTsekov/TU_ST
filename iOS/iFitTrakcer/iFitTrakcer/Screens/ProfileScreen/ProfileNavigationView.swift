@@ -14,7 +14,7 @@ struct ProfileNavigationView: View {
     var body: some View {
         NavigationStack(path: $router.path) {
             profileContentView
-//                .navigationDestination(for: ProfileDestination.self) { $0 }
+                .navigationDestination(for: ProfileDestination.self) { $0 }
                 .navigationTitle("Profile")
         }
         .environmentObject(router)

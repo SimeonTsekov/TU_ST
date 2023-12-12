@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum ProfileDestination {
+    case login
+//    case register
 }
 
 extension ProfileDestination: Hashable {
@@ -16,6 +19,20 @@ extension ProfileDestination: Hashable {
     }
 
     static func == (lhs: ProfileDestination, rhs: ProfileDestination) -> Bool {
-        return true
+        switch (lhs, rhs) {
+        case(.login, .login):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+extension ProfileDestination: View {
+    var body: some View {
+        switch self {
+        case .login:
+            LoginScreenView()
+        }
     }
 }
