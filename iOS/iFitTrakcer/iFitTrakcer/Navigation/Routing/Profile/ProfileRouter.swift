@@ -21,6 +21,6 @@ class ProfileRouter: ProfileRouting, ObservableObject {
     }
 
     func pushRegister() {
-//        path.append(.register)
+        path.append(.register)
     }
 }

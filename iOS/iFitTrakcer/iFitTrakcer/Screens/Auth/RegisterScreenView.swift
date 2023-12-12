@@ -1,5 +1,5 @@
 //
-//  LoginScreenView.swift
+//  RegisterScreenView.swift
 //  iFitTrakcer
 //
 //  Created by Simeon Tsekov on 12.12.23.
@@ -8,24 +8,27 @@
 import Foundation
 import SwiftUI
 
-struct LoginScreenView: View {
-    @EnvironmentObject private var router: ProfileRouter
+struct RegisterScreenView: View {
+    @EnvironmentObject private var profileRouter: ProfileRouter
     @State private var username = ""
+    @State private var email = ""
     @State private var password = ""
+    @State private var confirmPassword = ""
 
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             titleText
             usernameInputField
+            emailInputField
             passwordInputField
-            loginButton
+            confirmPasswordInputField
             registerButton
         }
         .padding([.leading, .trailing], 16)
     }
 
     private var titleText: some View {
-        Text("Login")
+        Text("Register")
             .font(.system(.largeTitle, design: .rounded))
             .fontWeight(.bold)
     }
@@ -34,23 +37,21 @@ struct LoginScreenView: View {
         GenericTextField(placeholder: "Username", text: $username)
     }
 
+    private var emailInputField: some View {
+        GenericTextField(placeholder: "Email", text: $email)
+    }
+
     private var passwordInputField: some View {
         GenericSecureField(placeholder: "Password", text: $password)
     }
 
-    private var loginButton: some View {
-        GenericActionButton(label: "Log In") {
-            return
-        }
+    private var confirmPasswordInputField: some View {
+        GenericSecureField(placeholder: "Confirm Password", text: $confirmPassword)
     }
 
     private var registerButton: some View {
-        Button {
-            router.pushRegister()
-        } label: {
-            Text("Don't have an account? Register instead.")
-                .foregroundColor(Color.accentColor)
-                .font(.system(.headline, design: .rounded))
+        GenericActionButton(label: "Register") {
+            return
         }
     }
 }

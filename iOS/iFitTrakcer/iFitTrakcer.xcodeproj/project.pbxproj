@@ -36,6 +36,10 @@
 		EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */; };
 		EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */; };
 		EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */; };
+		EC7F32ED2B28DD5C005A4F90 /* RegisterScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EC2B28DD5C005A4F90 /* RegisterScreenView.swift */; };
+		EC7F32EF2B28DEEB005A4F90 /* GenericActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EE2B28DEEB005A4F90 /* GenericActionButton.swift */; };
+		EC7F32F12B28E003005A4F90 /* GenericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F02B28E003005A4F90 /* GenericTextField.swift */; };
+		EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */; };
 		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
 		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +87,10 @@
 		EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
+		EC7F32EC2B28DD5C005A4F90 /* RegisterScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenView.swift; sourceTree = "<group>"; };
+		EC7F32EE2B28DEEB005A4F90 /* GenericActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericActionButton.swift; sourceTree = "<group>"; };
+		EC7F32F02B28E003005A4F90 /* GenericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTextField.swift; sourceTree = "<group>"; };
+		EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSecureField.swift; sourceTree = "<group>"; };
 		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
 		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +277,9 @@
 			isa = PBXGroup;
 			children = (
 				EC3D88212B13E07C003196DB /* SimpleListCell.swift */,
+				EC7F32EE2B28DEEB005A4F90 /* GenericActionButton.swift */,
+				EC7F32F02B28E003005A4F90 /* GenericTextField.swift */,
+				EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -301,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */,
+				EC7F32EC2B28DD5C005A4F90 /* RegisterScreenView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -428,13 +440,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC7F32F12B28E003005A4F90 /* GenericTextField.swift in Sources */,
 				EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */,
+				EC7F32EF2B28DEEB005A4F90 /* GenericActionButton.swift in Sources */,
 				EC2018112B0B6C5400C69150 /* ContentView.swift in Sources */,
 				EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */,
 				EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */,
 				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
 				EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */,
+				EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
 				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
@@ -446,6 +461,7 @@
 				EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */,
 				EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
+				EC7F32ED2B28DD5C005A4F90 /* RegisterScreenView.swift in Sources */,
 				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
