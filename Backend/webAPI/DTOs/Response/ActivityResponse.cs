@@ -1,8 +1,8 @@
-﻿using webAPI.Models.Request;
+﻿using webAPI.DTOs.Request;
 
-namespace webAPI.Models
+namespace webAPI.DTOs.Response
 {
-    public class ActivityDataModel
+    public class ActivityResponse
     {
         public int ActivityDataId { get; set; }
         public int UserId { get; set; }
@@ -10,7 +10,5 @@ namespace webAPI.Models
         public int DailySteps { get; set; }
         public float DailyDistance { get; set; }
         public float DailyEnergyBurned { get; set; }
-        // Navigation property to the User
-        public virtual UserRegisterRequest User { get; set; }
     }
 }

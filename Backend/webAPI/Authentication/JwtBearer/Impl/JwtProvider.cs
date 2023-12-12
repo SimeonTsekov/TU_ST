@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using webAPI.Models;
+using webApi.Data.Models;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace webAPI.Authentication.JwtBearer.impl
@@ -23,13 +23,13 @@ namespace webAPI.Authentication.JwtBearer.impl
 
             var now = DateTime.UtcNow;
             var expiry = now.Add(TimeSpan.FromHours(_jwtBearerSettings.LifeSpan));
-            var key = Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey);
+            var key = Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey ?? throw new InvalidOperationException());
 
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email!),
             };
 
             var signingCredentials = new SigningCredentials
