@@ -35,19 +35,23 @@ class ActivityViewModel: ObservableObject {
     }
 
     private func loadActivityData() {
-        let userActivity = UserActivityhModel()
-
         Task { @MainActor [weak self] in
             guard let self else {
                 return
             }
 
-            userActivity.workoutEntries = await healthKitManager.loadWorkouts()
-            userActivity.dailyStepsEntries = await healthKitManager.loadSamples(for: .steps)
-            userActivity.dailyDistanceEntries = await healthKitManager.loadSamples(for: .distance)
-            userActivity.dailyEnergyExpenditureEntries = await healthKitManager.loadSamples(for: .energyExpenditure)
-
-            self.userActivity = userActivity
+            self.userActivity = await fetchActivityData()
         }
+    }
+
+    private func fetchActivityData() async -> UserActivityhModel {
+        let userActivity = UserActivityhModel()
+
+        userActivity.workoutEntries = await healthKitManager.loadWorkouts()
+        userActivity.dailyStepsEntries = await healthKitManager.loadSamples(for: .steps)
+        userActivity.dailyDistanceEntries = await healthKitManager.loadSamples(for: .distance)
+        userActivity.dailyEnergyExpenditureEntries = await healthKitManager.loadSamples(for: .energyExpenditure)
+
+        return userActivity
     }
 }

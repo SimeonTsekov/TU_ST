@@ -9,6 +9,6 @@ import Foundation
 
 class UserDataModel: ObservableObject {
     @Published var biologicalSex: Sex = .unidentified
-    @Published var height: Double = 0
+    @Published var height: Int = 0
     @Published var dateOfBirth: Date = Date.now
 }

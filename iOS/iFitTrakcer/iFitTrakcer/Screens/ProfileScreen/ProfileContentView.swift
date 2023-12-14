@@ -35,7 +35,6 @@ struct ProfileContentView: View {
             dateOfBirthPicker
             sexPicker
             heightPicker
-//            weightPicker
         }
     }
 
@@ -67,7 +66,7 @@ struct ProfileContentView: View {
     private var heightPicker: some View {
         Picker(selection: $viewModel.userData.height,
                label: Text("Height").font(.system(.body, design: .rounded))) {
-            ForEach(0..<300, id: \.self) {
+            ForEach(0..<300) {
                 Text("\($0) cm")
             }
         }

@@ -34,19 +34,23 @@ class HealthViewModel: ObservableObject {
     }
 
     private func loadHealthData() {
-        let userHealth = UserHealthModel()
-
         Task { @MainActor [weak self] in
             guard let self else {
                 return
             }
 
-            userHealth.bodyMassEntries = await healthKitManager.loadSamples(for: .bodyMass)
-            userHealth.bmiEntries = await healthKitManager.loadSamples(for: .bmi)
-            userHealth.bodyFatEntries = await healthKitManager.loadSamples(for: .bodyFat)
-            userHealth.leanBodyMassEntries = await healthKitManager.loadSamples(for: .leanMass)
-
-            self.userHealth = userHealth
+            self.userHealth = await fetchHealthData()
         }
+    }
+
+    private func fetchHealthData() async -> UserHealthModel {
+        let userHealth = UserHealthModel()
+
+        userHealth.bodyMassEntries = await healthKitManager.loadSamples(for: .bodyMass)
+        userHealth.bmiEntries = await healthKitManager.loadSamples(for: .bmi)
+        userHealth.bodyFatEntries = await healthKitManager.loadSamples(for: .bodyFat)
+        userHealth.leanBodyMassEntries = await healthKitManager.loadSamples(for: .leanMass)
+
+        return userHealth
     }
 }

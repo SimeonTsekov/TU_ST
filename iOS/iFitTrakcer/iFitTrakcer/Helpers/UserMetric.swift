@@ -21,42 +21,42 @@ enum UserMetric {
     var sampleType: HKSampleType {
         switch self {
         case .height:
-            HKQuantityType.quantityType(forIdentifier: .height)!
+            .quantityType(forIdentifier: .height)!
         case .bodyMass:
-            HKQuantityType.quantityType(forIdentifier: .bodyMass)!
+            .quantityType(forIdentifier: .bodyMass)!
         case .bmi:
-            HKQuantityType.quantityType(forIdentifier: .bodyMassIndex)!
+            .quantityType(forIdentifier: .bodyMassIndex)!
         case .bodyFat:
-            HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage)!
+            .quantityType(forIdentifier: .bodyFatPercentage)!
         case .leanMass:
-            HKQuantityType.quantityType(forIdentifier: .leanBodyMass)!
+            .quantityType(forIdentifier: .leanBodyMass)!
         case .steps:
-            HKQuantityType.quantityType(forIdentifier: .stepCount)!
+            .quantityType(forIdentifier: .stepCount)!
         case .distance:
-            HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!
+            .quantityType(forIdentifier: .distanceWalkingRunning)!
         case .energyExpenditure:
-            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+            .quantityType(forIdentifier: .activeEnergyBurned)!
         }
     }
 
     var unit: HKUnit {
         switch self {
         case .height:
-            HKUnit.meterUnit(with: .centi)
+            .meterUnit(with: .centi)
         case .bodyMass:
-            HKUnit.gramUnit(with: .kilo)
+            .gramUnit(with: .kilo)
         case .bmi:
-            HKUnit.count()
+            .count()
         case .bodyFat:
-            HKUnit.percent()
+            .percent()
         case .leanMass:
-            HKUnit.gramUnit(with: .kilo)
+            .gramUnit(with: .kilo)
         case .steps:
-            HKUnit.count()
+            .count()
         case .distance:
-            HKUnit.meterUnit(with: .kilo)
+            .meterUnit(with: .kilo)
         case .energyExpenditure:
-            HKUnit.largeCalorie()
+            .largeCalorie()
         }
     }
 }

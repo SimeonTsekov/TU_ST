@@ -18,18 +18,28 @@ class ProfileViewModel: ObservableObject {
     }
 
     private func loadUserData() {
-        let userData = UserDataModel()
-
         Task { @MainActor [weak self] in
             guard let self else {
                 return
             }
 
-            userData.dateOfBirth = await healthKitManager.loadDateOfBirth()
-            userData.biologicalSex = await healthKitManager.loadBiologicalSex()
-//            userData.height = await healthKitManager.loadSamples(for: .height, timePredicate: .alltime)
-
-            self.userData = userData
+            self.userData = await fetchUserData()
         }
+    }
+
+    private func fetchUserData() async -> UserDataModel {
+        let userData = UserDataModel()
+
+        userData.dateOfBirth = await healthKitManager.loadDateOfBirth()
+        userData.biologicalSex = await healthKitManager.loadBiologicalSex()
+        userData.height = Int(await getUserHeight() ?? 0)
+
+        return userData
+    }
+
+    private func getUserHeight() async -> Double? {
+        var heightEntries: [Double]
+        heightEntries = await healthKitManager.loadSamples(for: .height, timePredicate: .alltime)
+        return heightEntries.last
     }
 }

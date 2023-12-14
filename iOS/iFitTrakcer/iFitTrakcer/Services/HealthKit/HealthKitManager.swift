@@ -34,18 +34,18 @@ class HealthKitManager: ObservableObject {
     let logger = Logger()
 
     var authorizationTypes: Set<HKObjectType> {
-        [HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!,
-            HKObjectType.characteristicType(forIdentifier: .biologicalSex)!,
-            HKObjectType.quantityType(forIdentifier: .height)!,
-            HKObjectType.quantityType(forIdentifier: .bodyMass)!,
-            HKObjectType.quantityType(forIdentifier: .bodyMassIndex)!,
-            HKObjectType.quantityType(forIdentifier: .bodyFatPercentage)!,
-            HKObjectType.quantityType(forIdentifier: .leanBodyMass)!,
-            HKObjectType.quantityType(forIdentifier: .stepCount)!,
-            HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
-            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
-            HKObjectType.categoryType(forIdentifier: .appleStandHour)!,
-            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+        [.characteristicType(forIdentifier: .dateOfBirth)!,
+            .characteristicType(forIdentifier: .biologicalSex)!,
+            .quantityType(forIdentifier: .height)!,
+            .quantityType(forIdentifier: .bodyMass)!,
+            .quantityType(forIdentifier: .bodyMassIndex)!,
+            .quantityType(forIdentifier: .bodyFatPercentage)!,
+            .quantityType(forIdentifier: .leanBodyMass)!,
+            .quantityType(forIdentifier: .stepCount)!,
+            .quantityType(forIdentifier: .distanceWalkingRunning)!,
+            .quantityType(forIdentifier: .activeEnergyBurned)!,
+            .categoryType(forIdentifier: .appleStandHour)!,
+            .categoryType(forIdentifier: .sleepAnalysis)!,
             .workoutType()]
     }
 
