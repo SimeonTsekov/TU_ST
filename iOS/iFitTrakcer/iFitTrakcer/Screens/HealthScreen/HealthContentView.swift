@@ -17,6 +17,7 @@ struct HealthContentView: View {
         }
     }
 
+    @ViewBuilder
     private var healthSection: some View {
         Section(header: Text("7-Day Summary")) {
             if let weeklyAverageWeight = viewModel.bodyMassEntries.average() {
@@ -34,6 +35,13 @@ struct HealthContentView: View {
             if let weeklyAverageLeanMass = viewModel.leanBodyMassEntries.average() {
                 SimpleListCell(title: "Lean Mass",
                                value: String(format: "%.2f", weeklyAverageLeanMass) + " kg")
+            }
+        }
+
+        if let userHealthRecommendation = viewModel.userHealthRecommendation {
+            Section(header: Text("Recommendation")) {
+                SimpleListCell(title: "ChatGPT Recommends",
+                               value: userHealthRecommendation)
             }
         }
     }

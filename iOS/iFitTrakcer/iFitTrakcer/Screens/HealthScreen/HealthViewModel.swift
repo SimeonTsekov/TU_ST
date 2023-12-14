@@ -10,6 +10,7 @@ import Foundation
 @MainActor
 class HealthViewModel: ObservableObject {
     @Published var userHealth = UserHealthModel()
+    @Published var userHealthRecommendation: String? = "Sample health recommendation"
     var healthKitManager: HealthKitManager
 
     var bodyMassEntries: [Double] {

@@ -17,6 +17,7 @@ struct ActivityContentView: View {
         }
     }
 
+    @ViewBuilder
     private var activitySection: some View {
         Section(header: Text("7-Day Summary")) {
             SimpleListCell(title: "Workouts",
@@ -32,6 +33,13 @@ struct ActivityContentView: View {
             if let weeklyAverageEnergyExpenditureEntries = viewModel.dailyEnergyExpenditureEntries.weeklyAverage() {
                 SimpleListCell(title: "Energy Burned",
                                value: String(format: "%.2f", weeklyAverageEnergyExpenditureEntries) + " kcal")
+            }
+        }
+
+        if let userActivityRecommendation = viewModel.userActivityRecommendation {
+            Section(header: Text("Recommendation")) {
+                SimpleListCell(title: "ChatGPT Recommends",
+                               value: userActivityRecommendation)
             }
         }
     }

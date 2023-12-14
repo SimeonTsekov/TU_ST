@@ -11,6 +11,7 @@ import HealthKit
 @MainActor
 class ActivityViewModel: ObservableObject {
     @Published var userActivity = UserActivityhModel()
+    @Published var userActivityRecommendation: String? = "Sample activity recommendation"
     var healthKitManager: HealthKitManager
 
     var dailyWorkoutEntries: [HKWorkout] {
