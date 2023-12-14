@@ -49,9 +49,11 @@ class HealthKitManager: ObservableObject {
             .workoutType()]
     }
 
-    func requestAuthorization() {
-        healthStore.requestAuthorization(toShare: nil, read: authorizationTypes) { _, _ in
-            return
+    func requestAuthorization() async {
+        await withCheckedContinuation { continuation in
+            requestAuthorization {
+                continuation.resume()
+            }
         }
     }
 
@@ -86,6 +88,12 @@ class HealthKitManager: ObservableObject {
             loadDateOfBirth { result in
                 continuation.resume(returning: result)
             }
+        }
+    }
+
+    private func requestAuthorization(completion: @escaping () -> Void) {
+        healthStore.requestAuthorization(toShare: nil, read: authorizationTypes) { _, _ in
+            completion()
         }
     }
 
