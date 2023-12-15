@@ -41,6 +41,8 @@
 		EC7F32F12B28E003005A4F90 /* GenericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F02B28E003005A4F90 /* GenericTextField.swift */; };
 		EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */; };
 		EC7F32F62B28EDC0005A4F90 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */; };
+		ECA15D1F2B2C9B5E00BEB489 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA15D1E2B2C9B5E00BEB489 /* Endpoint.swift */; };
+		ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */; };
 		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
 		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -93,6 +95,8 @@
 		EC7F32F02B28E003005A4F90 /* GenericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTextField.swift; sourceTree = "<group>"; };
 		EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSecureField.swift; sourceTree = "<group>"; };
 		EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		ECA15D1E2B2C9B5E00BEB489 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
 		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
 		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -289,6 +293,7 @@
 		EC3D88232B148C88003196DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ECA15D1D2B2C9B3400BEB489 /* RESTClient */,
 				EC3D88242B148C9C003196DB /* HealthKit */,
 			);
 			path = Services;
@@ -326,6 +331,15 @@
 				EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		ECA15D1D2B2C9B3400BEB489 /* RESTClient */ = {
+			isa = PBXGroup;
+			children = (
+				ECA15D1E2B2C9B5E00BEB489 /* Endpoint.swift */,
+				ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */,
+			);
+			path = RESTClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,6 +488,7 @@
 				EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
 				EC7F32ED2B28DD5C005A4F90 /* RegisterScreenView.swift in Sources */,
+				ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */,
 				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
@@ -483,6 +498,7 @@
 				EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */,
 				EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */,
 				EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */,
+				ECA15D1F2B2C9B5E00BEB489 /* Endpoint.swift in Sources */,
 				EC2018462B0B71FE00C69150 /* ActivityNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
