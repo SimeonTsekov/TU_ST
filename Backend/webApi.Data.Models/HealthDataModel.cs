@@ -5,25 +5,18 @@ namespace webApi.Data.Models;
 
 public partial class HealthDataModel : BaseModel
 {
-    [Required]
     public float BodyMass { get; set; }
 
-    [Required]
     [Column("BMI")]
     public float Bmi { get; set; }
 
-    [Required]
     public float BodyFat { get; set; }
 
-    [Required]
     public float LeanBodyMass { get; set; }
-
-    [Required]
-    public string SleepAnalysis { get; set; }
 
     public int UserId { get; set; }
 
     [ForeignKey("UserId")]
     [InverseProperty("HealthDataModels")]
-    public virtual UserModel User { get; set; }
+    public virtual UserModel? User { get; set; }
 }

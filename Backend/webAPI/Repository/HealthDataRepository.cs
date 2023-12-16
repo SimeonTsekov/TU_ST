@@ -31,7 +31,6 @@ namespace webAPI.Repository
             existingData.Bmi = updatedHealthData.Bmi;
             existingData.BodyFat = updatedHealthData.BodyFat;
             existingData.LeanBodyMass = updatedHealthData.LeanBodyMass;
-            existingData.SleepAnalysis = updatedHealthData.SleepAnalysis;
 
             this._dbContext.SaveChanges();
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using webApi.Data.Models;
 
 namespace webAPI.DTOs.Request
 {
@@ -23,5 +24,8 @@ namespace webAPI.DTOs.Request
 
         [Range(100, 250, ErrorMessage = "Height must be between 100 and 250.")]
         public int Height { get; set; }
+
+        [EnumDataType(typeof(SexEnum))]
+        public SexEnum? Sex { get; set; }
     }
 }

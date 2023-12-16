@@ -17,11 +17,12 @@ namespace webAPI.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Height = table.Column<int>(type: "int", nullable: false),
+                    Sex = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -59,7 +60,7 @@ namespace webAPI.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Recommendation = table.Column<string>(type: "text", nullable: false),
+                    Recommendation = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -84,7 +85,6 @@ namespace webAPI.Data.Migrations
                     BMI = table.Column<float>(type: "real", nullable: false),
                     BodyFat = table.Column<float>(type: "real", nullable: false),
                     LeanBodyMass = table.Column<float>(type: "real", nullable: false),
-                    SleepAnalysis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -105,7 +105,7 @@ namespace webAPI.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Recommendation = table.Column<string>(type: "text", nullable: false),
+                    Recommendation = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -114,6 +114,27 @@ namespace webAPI.Data.Migrations
                     table.PrimaryKey("PK_HealthRecommendationModels", x => x.Id);
                     table.ForeignKey(
                         name: "FK_HealthRecommendationModels_UserModels_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Roles = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Role_UserModels_UserId",
                         column: x => x.UserId,
                         principalTable: "UserModels",
                         principalColumn: "Id",
@@ -139,6 +160,11 @@ namespace webAPI.Data.Migrations
                 name: "IX_HealthRecommendationModels_UserId",
                 table: "HealthRecommendationModels",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Role_UserId",
+                table: "Role",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -155,6 +181,9 @@ namespace webAPI.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "HealthRecommendationModels");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "UserModels");

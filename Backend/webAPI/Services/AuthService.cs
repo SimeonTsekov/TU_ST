@@ -5,6 +5,7 @@ using webApi.Data.Models;
 using webAPI.DTOs;
 using webAPI.Interfaces.User;
 using webAPI.Interfaces.Authentication;
+using System;
 
 namespace webAPI.Services
 {
@@ -57,12 +58,13 @@ namespace webAPI.Services
                 Username = registerRequest.Username!,
                 Age = registerRequest.Age,
                 Height = registerRequest.Height,
+                //Sex = (SexEnum)Enum.Parse(typeof(SexEnum), registerRequest.Sex)
             };
 
             this._userRepository.Create(newUser);
 
             return CreateSession(newUser);
-        }
+    }
 
         private JwtResponse CreateSession(UserModel user)
         {

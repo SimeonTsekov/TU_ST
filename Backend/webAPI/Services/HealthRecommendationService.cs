@@ -33,7 +33,7 @@ namespace webAPI.Services
 			var healthData = this._healthRepository.GetLatestHealthDataForTheCurrentUser();
 
 			var prompt = "Based on this data, what would you recommend? " +
-			             $"Data: {healthData.Bmi} BMI, {healthData.BodyFat} body fat, {healthData.BodyMass} body mass, {healthData.LeanBodyMass} lean body mass, {healthData.SleepAnalysis} sleep analysis.";
+				$"Data: {healthData.Bmi} BMI, {healthData.BodyFat} body fat, {healthData.BodyMass} body mass, {healthData.LeanBodyMass} lean body mass.";
 
 			var result = await this._gptService.Ask(prompt);
 

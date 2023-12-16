@@ -5,7 +5,6 @@ namespace webApi.Data.Models;
 
 public partial class HealthRecommendationModel : BaseModel
 {
-    [Required]
     [Column(TypeName = "text")]
     public string? Recommendation { get; set; }
 

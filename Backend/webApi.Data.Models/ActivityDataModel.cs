@@ -5,16 +5,12 @@ namespace webApi.Data.Models;
 
 public partial class ActivityDataModel : BaseModel
 {
-    [Required]
     public int Workouts { get; set; }
 
-    [Required]
     public int DailySteps { get; set; }
 
-    [Required]
     public float DailyDistance { get; set; }
 
-    [Required]
     public float DailyEnergyBurned { get; set; }
 
     public int UserId { get; set; }

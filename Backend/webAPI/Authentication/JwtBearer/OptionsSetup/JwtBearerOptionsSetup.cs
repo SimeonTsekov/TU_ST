@@ -18,6 +18,16 @@ namespace webAPI.Authentication.JwtBearer.OptionsSetup
 
         public void Configure(string? name, JwtBearerOptions options)
         {
+            //TODO: 1) Add roles to the UserModel 
+
+            //TODO: 2) Seed admin and user roles in the DB
+
+            //TODO: 3) Create default admin user
+
+            //TODO: 4) In JWT provider, add claims for roler
+
+            //TODO: 5) Create attribute that checks the user's claims
+
             options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters()
             {
