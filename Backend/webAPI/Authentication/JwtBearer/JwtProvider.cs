@@ -4,17 +4,21 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using webApi.Data.Models;
+using webAPI.Interfaces.Authentication;
+using webAPI.Interfaces.User;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace webAPI.Authentication.JwtBearer.impl
+namespace webAPI.Authentication.JwtBearer
 {
     public class JwtProvider : IJwtProvider
     {
         private readonly JwtBearerSettings _jwtBearerSettings;
+        private readonly IUserRepository _userRepository;
 
-        public JwtProvider(IOptions<JwtBearerSettings> jwtBearerSettingsOptions)
+        public JwtProvider(IOptions<JwtBearerSettings> jwtBearerSettingsOptions, IUserRepository userRepository)
         {
-            _jwtBearerSettings = jwtBearerSettingsOptions.Value;
+            this._userRepository = userRepository;
+            this._jwtBearerSettings = jwtBearerSettingsOptions.Value;
         }
 
         public string Generate(UserModel user)
@@ -22,8 +26,8 @@ namespace webAPI.Authentication.JwtBearer.impl
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var now = DateTime.UtcNow;
-            var expiry = now.Add(TimeSpan.FromHours(_jwtBearerSettings.LifeSpan));
-            var key = Encoding.UTF8.GetBytes(_jwtBearerSettings.SigningKey ?? throw new InvalidOperationException());
+            var expiry = now.Add(TimeSpan.FromHours(this._jwtBearerSettings.LifeSpan));
+            var key = Encoding.UTF8.GetBytes(this._jwtBearerSettings.SigningKey ?? throw new InvalidOperationException("Missing JWT signing key!"));
 
             var claims = new List<Claim>
             {
@@ -31,6 +35,13 @@ namespace webAPI.Authentication.JwtBearer.impl
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email!),
             };
+
+            var userRoles = this._userRepository.GetRolesForUser(user.Id);
+
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            }
 
             var signingCredentials = new SigningCredentials
             (
@@ -42,8 +53,8 @@ namespace webAPI.Authentication.JwtBearer.impl
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = expiry,
-                Issuer = _jwtBearerSettings.Issuer,
-                Audience = _jwtBearerSettings.Audience,
+                Issuer = this._jwtBearerSettings.Issuer,
+                Audience = this._jwtBearerSettings.Audience,
                 SigningCredentials = signingCredentials,
                 IssuedAt = now,
                 NotBefore = now

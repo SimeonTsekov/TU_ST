@@ -1,8 +1,7 @@
-﻿using webAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using webAPI.Data;
 using webApi.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using webAPI.Interfaces;
-using BCrypt.Net;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Repositories
 {
@@ -12,30 +11,51 @@ namespace webAPI.Repositories
 
         public UserRepository(webAPIDbContext dbContext)
         {
-            _dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public UserModel Create(UserModel newUser)
         {
-            _dbContext.UserModels.Add(newUser);
-            _dbContext.SaveChanges();
+            this._dbContext.UserModels.Add(newUser);
+            this._dbContext.SaveChanges();
             return newUser;
         }
 
-        public UserModel? Update(int userId, UserModel updatedUser)
+        public UserModel Update(int userId, UserModel updatedUser)
         {
             var existingUser = this.GetUserById(userId);
 
-            if (existingUser != null)
+            if(updatedUser.Username != null)
             {
                 existingUser.Username = updatedUser.Username;
+            }
+
+            if (existingUser.Email != null)
+            {
                 existingUser.Email = updatedUser.Email;
+            }
+
+            if (existingUser.Password != null)
+            {
                 existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
+            }
+
+            if (existingUser.Age != 0)
+            {
                 existingUser.Age = updatedUser.Age;
+            }
+
+            if (existingUser.Height != 0)
+            {
                 existingUser.Height = updatedUser.Height;
             }
 
-            _dbContext.SaveChanges();
+            if (existingUser.SexId != Sex.Unidentified.Value)
+            {
+                existingUser.SexId = updatedUser.SexId;
+            }
+
+            this._dbContext.SaveChanges();
 
             return existingUser;
         }
@@ -44,29 +64,49 @@ namespace webAPI.Repositories
         {
             var userToRemove = this.GetUserById(userId);
 
-            _dbContext.UserModels.Remove(userToRemove);
-            _dbContext.SaveChanges();
+            this._dbContext.UserModels.Remove(userToRemove);
+            this._dbContext.SaveChanges();
         }
 
-        public List<UserModel> GetAllUsers()
+        public List<UserModel> Get(string order, int count)
         {
-            return _dbContext.UserModels.ToList();
+            var query = this._dbContext.UserModels.AsQueryable();
+
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
+
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
+
+            return query.ToList();
         }
 
         public UserModel GetUserById(int userId)
         {
-            return _dbContext.UserModels
-                .Include(u => u.ActivityDataModels)
-                .Include(u => u.HealthDataModels)
+            return this._dbContext.UserModels
                 .FirstOrDefault(u => u.Id == userId) ?? throw new NullReferenceException("The user with id '" + userId + "' was not found.");
         }
 
         public UserModel FindUserByEmail(string email)
         {
-            return _dbContext.UserModels
-                .Include(u => u.ActivityDataModels)
-                .Include(u => u.HealthDataModels)
+            return this._dbContext.UserModels
                 .FirstOrDefault(u => u.Email == email) ?? throw new NullReferenceException("The user with email '" + email + "' was not found.");
+        }
+
+        public List<Role> GetRolesForUser(int userId)
+        {
+            var roles = this._dbContext.UserRoles
+                .Where(ur => ur.UserId == userId)
+                .Select(ur => ur.Role)
+                .ToList();
+
+            return roles.Count == 0 ? new List<Role>() : roles!;
         }
     }
 }

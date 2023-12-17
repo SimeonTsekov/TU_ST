@@ -1,12 +1,12 @@
 ﻿using webAPI.DTOs;
 using webAPI.DTOs.Request;
 
-namespace webAPI.Interfaces;
+namespace webAPI.Interfaces.User;
 
 public interface IUserService
 {
     UserResponse Update(int id, UserRequest updatedModel);
-    void Delete(int id);
-    List<UserResponse> GetAll();
     UserResponse GetById(int id);
+    List<UserResponse> Get(string order, int count);
+    void Delete(int id);
 }

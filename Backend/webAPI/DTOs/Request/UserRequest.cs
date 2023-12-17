@@ -1,4 +1,6 @@
-﻿namespace webAPI.DTOs.Request;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace webAPI.DTOs.Request;
 
 public class UserRequest
 {
@@ -7,8 +9,10 @@ public class UserRequest
     public string? Email { get; set; }
 
     public string? Password { get; set; }
-    
+
     public int? Age { get; set; }
 
     public int? Height { get; set; }
+
+    public string? Sex { get; set; } = "Unidentified";
 }

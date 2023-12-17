@@ -1,6 +1,4 @@
-﻿using webApi.Data.Models;
-
-namespace webAPI.DTOs.Response
+﻿namespace webAPI.DTOs.Response
 {
     public class JwtResponse
     {
