@@ -32,13 +32,25 @@ namespace webAPI.Repository
                 return;
             }
 
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != recommendationToRemove.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
             this._dbContext.HealthRecommendationModels.Remove(recommendationToRemove);
             this._dbContext.SaveChanges();
         }
 
         public HealthRecommendationModel GetHealthRecommendationById(int healthRecommendationId)
         {
-            return this._dbContext.HealthRecommendationModels.Find(healthRecommendationId) ?? throw new NullReferenceException("The health recommendation with id '" + healthRecommendationId + "' was not found.");
+            var recommendation = this._dbContext.HealthRecommendationModels.Find(healthRecommendationId) ?? throw new NullReferenceException("The health recommendation with id '" + healthRecommendationId + "' was not found.");
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != recommendation.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
+            return recommendation;
         }
 
         public List<HealthRecommendationModel> GetHealthRecommendationsForTheCurrentUser(string order, int count)

@@ -50,7 +50,8 @@ namespace webAPI.Controllers
         }
 
         [HttpGet]
-        [SwaggerOperation(Summary = "Retrieves the health data", Description = "Requires authentication")]
+        [Authorize(Roles = "Admin")]
+        [SwaggerOperation(Summary = "Retrieves health data", Description = "Requires admin role")]
         public IActionResult GetHealthData(
             [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
             [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")

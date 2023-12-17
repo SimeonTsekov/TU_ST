@@ -32,13 +32,25 @@ namespace webAPI.Repository
                 return;
             }
 
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != modelToRemove.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
             this._dbContext.ActivityRecommendationModels.Remove(modelToRemove);
             this._dbContext.SaveChanges();
         }
 
 		public ActivityRecommendationModel GetActivityRecommendationById(int activityRecommendationId)
 		{
-			return this._dbContext.ActivityRecommendationModels.Find(activityRecommendationId) ?? throw new NullReferenceException("The activity recommendation with id '" + activityRecommendationId + "' was not found.");
+			var recommendation = this._dbContext.ActivityRecommendationModels.Find(activityRecommendationId) ?? throw new NullReferenceException("The activity recommendation with id '" + activityRecommendationId + "' was not found.");
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != recommendation.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
+            return recommendation;
 		}
 
         public List<ActivityRecommendationModel> GetActivityRecommendationsForTheCurrentUser(string order, int count)
