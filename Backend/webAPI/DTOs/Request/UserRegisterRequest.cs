@@ -19,13 +19,12 @@ namespace webAPI.DTOs.Request
         [NotMapped]
         public string? ConfirmPassword { get; set; }
 
-        [Range(18, 99, ErrorMessage = "Age must be between 19 and 99.")]
-        public int Age { get; set; }
+        [Range(0, 99, ErrorMessage = "Age must be between 19 and 99.")]
+        public int Age { get; set; } = 0;
 
-        [Range(100, 250, ErrorMessage = "Height must be between 100 and 250.")]
-        public int Height { get; set; }
+        [Range(0, 250, ErrorMessage = "Height must be between 100 and 250.")]
+        public int Height { get; set; } = 0;
 
-        [EnumDataType(typeof(SexEnum))]
-        public SexEnum? Sex { get; set; }
+        public string? Sex { get; set; }
     }
 }

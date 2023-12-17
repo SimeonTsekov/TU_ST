@@ -49,6 +49,7 @@ namespace webAPI.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [SwaggerOperation(Summary = "Retrieves activities", Description = "Requires authentication")]
         public IActionResult GetAllActivitiesData(

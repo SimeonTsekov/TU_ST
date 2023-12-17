@@ -22,34 +22,45 @@ public partial class webAPIDbContext : DbContext
 
     public virtual DbSet<UserModel> UserModels { get; set; }
 
+    public virtual DbSet<UserRole> UserRoles { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        OnModelCreatingPartial(modelBuilder);
-
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<UserModel>().HasData(
-            new UserModel
-            {
-                Id = 1, // Set the primary key
-                Email = "admin@gmail.com",
-                Username = "admin",
-                Password = "admin", // In a real-world scenario, this should be hashed
-                Age = 20,
-                Height = 180,
-                Sex = SexEnum.Male,
-                CreatedDate = DateTime.Now,
-            });
+        modelBuilder.Entity<UserRole>()
+            .ToTable("UserRoles")
+            .HasKey(ur => new { ur.UserId, ur.RoleId });
 
-        // Assuming Role has an Id property that serves as the primary key
-        modelBuilder.Entity<Role>().HasData(
-            new Role
-            {
-                Id = 1, // Set the primary key for the Role
-                UserId = 1, // This should match the UserId of the user you want to link this role to
-                Roles = RolesEnum.Admin
-            }
-        );
+        modelBuilder.Entity<UserRole>()
+            .HasOne(sc => sc.User)
+            .WithMany(s => s.UserRoles)
+            .HasForeignKey(sc => sc.UserId);
+
+        modelBuilder.Entity<UserRole>()
+            .HasOne(sc => sc.Role)
+            .WithMany(c => c.UserRoles)
+            .HasForeignKey(sc => sc.RoleId);
+
+        modelBuilder.Entity<Sex>().HasData(Sex.GetValues());
+
+        modelBuilder.Entity<Role>().HasData(Role.GetValues());
+
+        modelBuilder.Entity<UserRole>().HasData(new UserRole { UserId = 1, RoleId = 1 });
+
+        modelBuilder.Entity<UserModel>().HasData(
+                new UserModel
+                {
+                    Id = 1,
+                    Email = "admin@gmail.com",
+                    Username = "admin",
+                    Password = BCrypt.Net.BCrypt.HashPassword("password"),
+                    Age = 20,
+                    Height = 180,
+                    SexId = 1,
+                    CreatedDate = DateTime.Now
+                }
+            );
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

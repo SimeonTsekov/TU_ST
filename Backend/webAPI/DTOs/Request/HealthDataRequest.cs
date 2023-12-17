@@ -15,8 +15,5 @@ namespace webAPI.DTOs.Request
 
         [Range(0, float.MaxValue, ErrorMessage = "LeanBodyMass must be a positive number.")]
         public float LeanBodyMass { get; set; }
-
-        [Required(ErrorMessage = "SleepAnalysis is required.")]
-        public string? SleepAnalysis { get; set; }
     }
 }

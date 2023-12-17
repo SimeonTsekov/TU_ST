@@ -10,5 +10,6 @@ namespace webAPI.Interfaces.User
         UserModel GetUserById(int id);
         UserModel FindUserByEmail(string email);
         void Delete(int userId);
+        List<Role> GetRolesForUser(int userId);
     }
 }

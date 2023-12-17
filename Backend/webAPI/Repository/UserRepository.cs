@@ -1,4 +1,5 @@
-﻿using webAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using webAPI.Data;
 using webApi.Data.Models;
 using webAPI.Interfaces.User;
 
@@ -24,11 +25,35 @@ namespace webAPI.Repositories
         {
             var existingUser = this.GetUserById(userId);
 
-            existingUser.Username = updatedUser.Username;
-            existingUser.Email = updatedUser.Email;
-            existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
-            existingUser.Age = updatedUser.Age;
-            existingUser.Height = updatedUser.Height;
+            if(updatedUser.Username != null)
+            {
+                existingUser.Username = updatedUser.Username;
+            }
+
+            if (existingUser.Email != null)
+            {
+                existingUser.Email = updatedUser.Email;
+            }
+
+            if (existingUser.Password != null)
+            {
+                existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
+            }
+
+            if (existingUser.Age != 0)
+            {
+                existingUser.Age = updatedUser.Age;
+            }
+
+            if (existingUser.Height != 0)
+            {
+                existingUser.Height = updatedUser.Height;
+            }
+
+            if (existingUser.SexId != Sex.Unidentified.Value)
+            {
+                existingUser.SexId = updatedUser.SexId;
+            }
 
             this._dbContext.SaveChanges();
 
@@ -72,6 +97,16 @@ namespace webAPI.Repositories
         {
             return this._dbContext.UserModels
                 .FirstOrDefault(u => u.Email == email) ?? throw new NullReferenceException("The user with email '" + email + "' was not found.");
+        }
+
+        public List<Role> GetRolesForUser(int userId)
+        {
+            var roles = this._dbContext.UserRoles
+                .Where(ur => ur.UserId == userId)
+                .Select(ur => ur.Role)
+                .ToList();
+
+            return roles.Count == 0 ? new List<Role>() : roles!;
         }
     }
 }

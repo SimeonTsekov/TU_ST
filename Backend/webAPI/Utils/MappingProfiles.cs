@@ -10,8 +10,12 @@ namespace webAPI.Utils
     {
         public MappingProfiles()
         {
-            CreateMap<UserRequest, UserModel>();
-            CreateMap<UserModel, UserResponse>();
+            CreateMap<UserRequest, UserModel>()
+                .AfterMap((src, dest) => dest.SexId = Sex.FromName(src.Sex ?? Sex.Unidentified.Name)!.Value);
+
+            CreateMap<UserModel, UserResponse>()
+                .AfterMap((src, dest) => dest.Sex = Sex.FromValue(src.SexId)?.Name);
+
             CreateMap<ActivityRequest, ActivityDataModel>();
             CreateMap<ActivityDataModel, ActivityResponse>();
             CreateMap<HealthDataRequest, HealthDataModel>();
@@ -19,5 +23,6 @@ namespace webAPI.Utils
             CreateMap<ActivityRecommendationModel, RecommendationResponse>();
             CreateMap<HealthRecommendationModel, RecommendationResponse>();
         }
+
     }
 }

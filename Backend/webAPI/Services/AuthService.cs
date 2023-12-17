@@ -56,10 +56,30 @@ namespace webAPI.Services
                 Email = registerRequest.Email!,
                 Password = hashedPassword,
                 Username = registerRequest.Username!,
-                Age = registerRequest.Age,
-                Height = registerRequest.Height,
-                //Sex = (SexEnum)Enum.Parse(typeof(SexEnum), registerRequest.Sex)
+                UserRoles = new HashSet<UserRole>()
+                {
+                    new()
+                    {
+                        RoleId = Role.UserRole.Value
+                    }
+                }
             };
+
+            if (registerRequest.Age != 0)
+            {
+                newUser.Age = registerRequest.Age;
+            }
+
+            if (registerRequest.Height != 0)
+            {
+                newUser.Height = registerRequest.Height;
+            }
+
+            if (registerRequest.Sex is not null)
+            {
+                var sex = Sex.FromName(registerRequest.Sex) ?? throw new InvalidOperationException("Invalid sex value" + registerRequest.Sex);
+                newUser.SexId = sex.Value;
+            }
 
             this._userRepository.Create(newUser);
 

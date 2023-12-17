@@ -16,9 +16,10 @@ public partial class UserModel : BaseModel
 
     public int Height { get; set; }
 
-    [Column(TypeName = "nvarchar(20)")] 
-    [EnumDataType(typeof(SexEnum))]    
-    public SexEnum? Sex { get; set; }
+    [ForeignKey("SexId")]
+    public Sex? Sex { get; set; }
+
+    public int SexId { get; set; } 
 
     [InverseProperty("User")]
     public virtual ICollection<ActivityDataModel> ActivityDataModels { get; set; } = new List<ActivityDataModel>();
@@ -32,6 +33,5 @@ public partial class UserModel : BaseModel
     [InverseProperty("User")]
     public virtual ICollection<HealthRecommendationModel> HealthRecommendationModels { get; set; } = new List<HealthRecommendationModel>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<Role> Roles { get; set; } = new HashSet<Role>();
+    public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
 }

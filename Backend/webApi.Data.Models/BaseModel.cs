@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace webApi.Data.Models;
+
 public abstract class BaseModel
 {
     [Key]

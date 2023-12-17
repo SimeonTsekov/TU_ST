@@ -64,7 +64,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 

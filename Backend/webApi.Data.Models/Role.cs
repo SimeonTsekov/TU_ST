@@ -2,13 +2,15 @@
 
 namespace webApi.Data.Models
 {
-    public class Role : BaseModel
+    public class Role : SmartEnum<Role>
     {
-        public int UserId { get; set; }
+        public static readonly Role AdminRole = new("Admin", 1);
+        public static readonly Role UserRole = new("User", 2);
 
-        [ForeignKey("UserId")]
-        [InverseProperty("Roles")]
-        public virtual UserModel? User { get; set; }
-        public RolesEnum? Roles { get; set; }
+        public Role(string name, int value) : base(name, value)
+        {
+        }
+
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using webApi.Data.Models;
 using webAPI.Interfaces.Authentication;
+using webAPI.Interfaces.User;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace webAPI.Authentication.JwtBearer
@@ -12,9 +13,11 @@ namespace webAPI.Authentication.JwtBearer
     public class JwtProvider : IJwtProvider
     {
         private readonly JwtBearerSettings _jwtBearerSettings;
+        private readonly IUserRepository _userRepository;
 
-        public JwtProvider(IOptions<JwtBearerSettings> jwtBearerSettingsOptions)
+        public JwtProvider(IOptions<JwtBearerSettings> jwtBearerSettingsOptions, IUserRepository userRepository)
         {
+            this._userRepository = userRepository;
             this._jwtBearerSettings = jwtBearerSettingsOptions.Value;
         }
 
@@ -32,6 +35,13 @@ namespace webAPI.Authentication.JwtBearer
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email!),
             };
+
+            var userRoles = this._userRepository.GetRolesForUser(user.Id);
+
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Name));
+            }
 
             var signingCredentials = new SigningCredentials
             (
