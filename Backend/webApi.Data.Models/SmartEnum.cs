@@ -17,6 +17,7 @@ namespace webApi.Data.Models
             Name = name;
             Value = value;
             Id = Value;
+            base.CreatedDate = DateTime.Now;
         }
 
         public static TEnum? FromValue(int value)

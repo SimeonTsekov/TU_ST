@@ -4,6 +4,7 @@ using webAPI.DTOs.Response;
 using webAPI.Interfaces;
 using webAPI.Interfaces.HealthData;
 using webAPI.Interfaces.HealthRecommendation;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Services
 {
@@ -13,13 +14,15 @@ namespace webAPI.Services
         private readonly IHealthDataRepository _healthRepository;
         private readonly IGPTService _gptService;
         private readonly IMapper _mapper;
+		private readonly ICurrentUserService _currentUserService;
 
 		public HealthRecommendationService(IHealthRecommendationRepository healthRecommendationRepository,
-			IHealthDataRepository healthRepository, IMapper mapper, IGPTService gptService)
+			IHealthDataRepository healthRepository, IMapper mapper, IGPTService gptService, ICurrentUserService currentUserService)
         {
             this._healthRecommendationRepository = healthRecommendationRepository;
             this._healthRepository = healthRepository;
             this._gptService = gptService;
+            this._currentUserService = currentUserService;
             this._mapper = mapper;
 		}
 
@@ -55,12 +58,12 @@ namespace webAPI.Services
 
         public List<RecommendationResponse> GetHealthRecommendationsForTheCurrentUser(string order, int count)
         {
-            return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.GetHealthRecommendationsForTheCurrentUser(order, count));
+            return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.Get(this._currentUserService.GetCurrentUser().Id, order, count));
         }
 
         public List<RecommendationResponse> Get(string order, int count)
         {
-            return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.Get(order, count));
+            return this._mapper.Map<List<RecommendationResponse>>(this._healthRecommendationRepository.Get(-1, order, count));
         }
 	}
 }

@@ -42,11 +42,11 @@ public partial class webAPIDbContext : DbContext
             .WithMany(c => c.UserRoles)
             .HasForeignKey(sc => sc.RoleId);
 
-        modelBuilder.Entity<Sex>().HasData(Sex.GetValues());
-
         modelBuilder.Entity<Role>().HasData(Role.GetValues());
 
-        modelBuilder.Entity<UserRole>().HasData(new UserRole { UserId = 1, RoleId = 1 });
+        modelBuilder.Entity<UserRole>().HasData(
+            new UserRole { UserId = 1, RoleId = 1 },
+            new UserRole { UserId = 1, RoleId = 2 });
 
         modelBuilder.Entity<UserModel>().HasData(
                 new UserModel
@@ -57,7 +57,7 @@ public partial class webAPIDbContext : DbContext
                     Password = BCrypt.Net.BCrypt.HashPassword("password"),
                     Age = 20,
                     Height = 180,
-                    SexId = 1,
+                    Sex = Sex.Male,
                     CreatedDate = DateTime.Now
                 }
             );

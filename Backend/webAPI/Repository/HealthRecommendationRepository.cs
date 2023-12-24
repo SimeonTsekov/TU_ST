@@ -41,29 +41,10 @@ namespace webAPI.Repository
             return this._dbContext.HealthRecommendationModels.Find(healthRecommendationId) ?? throw new NullReferenceException("The health recommendation with id '" + healthRecommendationId + "' was not found.");
         }
 
-        public List<HealthRecommendationModel> GetHealthRecommendationsForTheCurrentUser(string order, int count)
+        public List<HealthRecommendationModel> Get(int userId, string order, int count)
         {
-            var userId = _currentUserService.GetCurrentUser().Id;
-            var query = this._dbContext.HealthRecommendationModels.Where(a => a.UserId == userId);
-
-            query = order.ToLower() switch
-            {
-                "asc" => query.OrderBy(a => a.CreatedDate),
-                "desc" => query.OrderByDescending(a => a.CreatedDate),
-                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
-            };
-
-            if (count > 0)
-            {
-                query = query.Take(count);
-            }
-
-            return query.ToList();
-        }
-
-        public List<HealthRecommendationModel> Get(string order, int count)
-        {
-            var query = this._dbContext.HealthRecommendationModels.AsQueryable();
+            var query = userId > 0 ? this._dbContext.HealthRecommendationModels.Where(a => a.UserId == userId)
+                : this._dbContext.HealthRecommendationModels.AsQueryable();
 
             query = order.ToLower() switch
             {

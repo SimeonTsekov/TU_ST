@@ -50,28 +50,9 @@ namespace webAPI.Repository
             this._dbContext.SaveChanges();
         }
 
-        public List<ActivityDataModel> Get(string order, int count)
+        public List<ActivityDataModel> Get(int userId, string order, int count)
         {
-            var query = this._dbContext.ActivityDataModels.AsQueryable();
-
-            query = order.ToLower() switch
-            {
-                "asc" => query.OrderBy(a => a.CreatedDate),
-                "desc" => query.OrderByDescending(a => a.CreatedDate),
-                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
-            };
-
-            if (count > 0)
-            {
-                query = query.Take(count);
-            }
-
-            return query.ToList();
-        }
-
-        public List<ActivityDataModel> GetByUserId(int userId, string order, int count)
-        {
-            var query = this._dbContext.ActivityDataModels.Where(a => a.UserId == userId);
+            var query = userId > 0 ? this._dbContext.ActivityDataModels.Where(a => a.UserId == userId) : this._dbContext.ActivityDataModels.AsQueryable();
 
             query = order.ToLower() switch
             {

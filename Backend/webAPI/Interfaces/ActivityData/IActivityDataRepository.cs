@@ -6,8 +6,7 @@ namespace webAPI.Interfaces.ActivityRepository
     {
         ActivityDataModel Create(ActivityDataModel newModel);
         ActivityDataModel Update(int activityDataId, ActivityDataModel updatedModel);
-        List<ActivityDataModel> Get(string order, int count);
-        List<ActivityDataModel> GetByUserId(int userId, string order, int count);
+        List<ActivityDataModel> Get(int userId, string order, int count);
         ActivityDataModel GetById(int activityDataId);
         ActivityDataModel GetLatestActivityDataForTheCurrentUser();
         void Delete(int activityDataId);

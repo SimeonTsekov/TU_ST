@@ -25,34 +25,34 @@ namespace webAPI.Repositories
         {
             var existingUser = this.GetUserById(userId);
 
-            if(updatedUser.Username != null)
+            if(updatedUser.Username != null && !updatedUser.Username.Equals(""))
             {
                 existingUser.Username = updatedUser.Username;
             }
 
-            if (existingUser.Email != null)
+            if (updatedUser.Email != null && !updatedUser.Email.Equals(""))
             {
                 existingUser.Email = updatedUser.Email;
             }
 
-            if (existingUser.Password != null)
+            if (updatedUser.Password != null && !updatedUser.Password.Equals(""))
             {
                 existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
             }
 
-            if (existingUser.Age != 0)
+            if (updatedUser.Age != -1)
             {
                 existingUser.Age = updatedUser.Age;
             }
 
-            if (existingUser.Height != 0)
+            if (updatedUser.Height != -1)
             {
                 existingUser.Height = updatedUser.Height;
             }
 
-            if (existingUser.SexId != Sex.Unidentified.Value)
+            if (updatedUser.Sex != Sex.None)
             {
-                existingUser.SexId = updatedUser.SexId;
+                existingUser.Sex = updatedUser.Sex;
             }
 
             this._dbContext.SaveChanges();

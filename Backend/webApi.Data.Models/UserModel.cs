@@ -16,10 +16,17 @@ public partial class UserModel : BaseModel
 
     public int Height { get; set; }
 
-    [ForeignKey("SexId")]
-    public Sex? Sex { get; set; }
 
-    public int SexId { get; set; } 
+    [Column(TypeName = "varchar(20)")]
+    public string? SexString { get; set; }
+
+    [NotMapped]
+    public Sex Sex
+    {
+        get => (Sex) Enum.Parse(typeof(Sex), SexString ?? throw new InvalidOperationException("Invalid sex enum value!"), true);
+        set => SexString = value.ToString();
+    }
+
 
     [InverseProperty("User")]
     public virtual ICollection<ActivityDataModel> ActivityDataModels { get; set; } = new List<ActivityDataModel>();

@@ -7,8 +7,7 @@ namespace webAPI.Interfaces.ActivityRecommendation
     {
         ActivityRecommendationModel Create(ActivityRecommendationModel newModel);
         ActivityRecommendationModel GetActivityRecommendationById(int activityRecommendationId);
-        List<ActivityRecommendationModel> GetActivityRecommendationsForTheCurrentUser(string order, int count);
-        List<ActivityRecommendationModel> Get(string order, int count);
+        List<ActivityRecommendationModel> Get(int userId, string order, int count);
         void Delete(int activityRecommendationId);
     }
 }
