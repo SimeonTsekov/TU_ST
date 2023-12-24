@@ -49,5 +49,18 @@ namespace webApi.Data.Models
         {
             return GetValues().ToDictionary(x => x.Value);
         }
+
+        public bool Equals(SmartEnum<TEnum>? smartEnum) 
+        {
+            if (smartEnum is null)
+                return false;
+
+            return GetType() == smartEnum.GetType() && Value == smartEnum.Value; 
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is SmartEnum<TEnum> smartEnum && Equals(smartEnum);
+        }
     }
 }

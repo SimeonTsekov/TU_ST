@@ -35,7 +35,7 @@ namespace webAPI.Controllers
                 var result = this._activityService.Update(id, activityRequest);
                 return Ok(result);
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 return NotFound(exception.Message);
             }  
@@ -49,9 +49,9 @@ namespace webAPI.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
-        [SwaggerOperation(Summary = "Retrieves activities", Description = "Requires authentication")]
+        [Authorize(Roles = "Admin")]
+        [SwaggerOperation(Summary = "Retrieves activities", Description = "Requires admin role")]
         public IActionResult GetAllActivitiesData(
             [FromQuery] [SwaggerParameter( Description = "The count of items to be returned. Use 0 for all items.", Required = false)] int count = 0,
             [FromQuery] [SwaggerParameter( Description = "The order of arrangement of items by date created. Possible values are 'asc' and 'desc'.", Required = false)] string order = "desc")

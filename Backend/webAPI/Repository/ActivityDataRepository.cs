@@ -28,6 +28,11 @@ namespace webAPI.Repository
         {
             var existingModel = this.GetById(activityDataId);
 
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != existingModel.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
             existingModel.DailyDistance = updatedModel.DailyDistance;
             existingModel.DailySteps = updatedModel.DailySteps;
             existingModel.DailyEnergyBurned = updatedModel.DailyEnergyBurned;
@@ -44,6 +49,11 @@ namespace webAPI.Repository
             if (modelToRemove == null)
             {
                 return;
+            }
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != modelToRemove.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
             }
 
             this._dbContext.ActivityDataModels.Remove(modelToRemove);
@@ -71,7 +81,14 @@ namespace webAPI.Repository
 
         public ActivityDataModel GetById(int activityDataId)
         {
-            return this._dbContext.ActivityDataModels.Find(activityDataId) ?? throw new NullReferenceException("The activity with id '" + activityDataId + "' was not found.");
+            var activity = this._dbContext.ActivityDataModels.Find(activityDataId) ?? throw new NullReferenceException("The activity with id '" + activityDataId + "' was not found."); ;
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != activity.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
+            return activity;
         }
 
         public ActivityDataModel GetLatestActivityDataForTheCurrentUser()

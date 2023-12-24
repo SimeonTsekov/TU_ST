@@ -5,5 +5,6 @@ namespace webAPI.Interfaces.User
     public interface ICurrentUserService
     {
         public UserModel GetCurrentUser();
+        public bool IsAdmin();
     }
 }

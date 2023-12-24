@@ -27,6 +27,11 @@ namespace webAPI.Repository
         {
             var existingData = GetHealthDataById(healthDataId);
 
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != existingData.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
             existingData.BodyMass = updatedHealthData.BodyMass;
             existingData.Bmi = updatedHealthData.Bmi;
             existingData.BodyFat = updatedHealthData.BodyFat;
@@ -44,6 +49,11 @@ namespace webAPI.Repository
             if (modelToRemove == null)
             {
                 return;
+            }
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != modelToRemove.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
             }
 
             this._dbContext.HealthDataModels.Remove(modelToRemove);
@@ -72,7 +82,14 @@ namespace webAPI.Repository
 
         public HealthDataModel GetHealthDataById(int healthDataId)
         {
-            return this._dbContext.HealthDataModels.Find(healthDataId) ?? throw new NullReferenceException("The health data with id '" + healthDataId + "' was not found.");
+            var healthData = this._dbContext.HealthDataModels.Find(healthDataId) ?? throw new NullReferenceException("The health data with id '" + healthDataId + "' was not found.");
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != healthData.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
+            return healthData;
         }
 
 		public HealthDataModel GetLatestHealthDataForTheCurrentUser()
