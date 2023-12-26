@@ -46,7 +46,7 @@ namespace webAPI.Services
 
         public List<HealthDataResponse> Get(string order, int count)
         {
-            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.Get(order, count));
+            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.Get(-1,order, count));
         }
 
         public HealthDataResponse GetById(int id)
@@ -56,7 +56,7 @@ namespace webAPI.Services
 
         public List<HealthDataResponse> GetByUserId(int userId, string order, int count)
         {
-            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.GetByUserId(userId, order, count));
+            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.Get(userId, order, count));
         }
     }
 }

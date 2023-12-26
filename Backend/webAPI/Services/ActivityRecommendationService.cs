@@ -4,6 +4,8 @@ using webAPI.DTOs.Response;
 using webAPI.Interfaces;
 using webAPI.Interfaces.ActivityRecommendation;
 using webAPI.Interfaces.ActivityRepository;
+using webAPI.Interfaces.User;
+using webAPI.Utils;
 
 namespace webAPI.Services;
 
@@ -13,13 +15,15 @@ public class ActivityRecommendationService : IActivityRecommendationService
     private readonly IActivityDataRepository _activityRepository;
     private readonly IGPTService _gptService;
     private readonly IMapper _mapper;
+    private readonly ICurrentUserService _currentUserService;    
 
     public ActivityRecommendationService(IActivityRecommendationRepository activityRecommendationRepository, 
-        IActivityDataRepository activityRepository, IMapper mapper, IGPTService gptService)
+        IActivityDataRepository activityRepository, IMapper mapper, IGPTService gptService, ICurrentUserService currentUserService)
     {
         this._activityRecommendationRepository = activityRecommendationRepository;
         this._activityRepository = activityRepository;
         this._gptService = gptService;
+        this._currentUserService = currentUserService;
         this._mapper = mapper;
     }
 
@@ -45,7 +49,7 @@ public class ActivityRecommendationService : IActivityRecommendationService
 
     public List<RecommendationResponse> GetActivityRecommendationsForTheCurrentUser(string order, int count)
     {
-        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.GetActivityRecommendationsForTheCurrentUser(order, count));
+        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.Get(this._currentUserService.GetCurrentUser().Id, order, count));
     }
 
     public void Delete(int activityRecommendationId)
@@ -60,6 +64,6 @@ public class ActivityRecommendationService : IActivityRecommendationService
 
     public List<RecommendationResponse> Get(string order, int count)
     {
-        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.Get(order, count));
+        return this._mapper.Map<List<RecommendationResponse>>(this._activityRecommendationRepository.Get(-1, order, count));
     }
 }

@@ -163,62 +163,16 @@ namespace webAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 12, 24, 5, 9, 6, 462, DateTimeKind.Local).AddTicks(6953),
                             Name = "Admin",
                             Value = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 12, 24, 5, 9, 6, 464, DateTimeKind.Local).AddTicks(4317),
                             Name = "User",
                             Value = 2
-                        });
-                });
-
-            modelBuilder.Entity("webApi.Data.Models.Sex", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sex");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Male",
-                            Value = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Female",
-                            Value = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Unidentified",
-                            Value = 3
                         });
                 });
 
@@ -245,15 +199,13 @@ namespace webAPI.Data.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SexId")
-                        .HasColumnType("int");
+                    b.Property<string>("SexString")
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SexId");
 
                     b.ToTable("UserModels");
 
@@ -262,11 +214,11 @@ namespace webAPI.Data.Migrations
                         {
                             Id = 1,
                             Age = 20,
-                            CreatedDate = new DateTime(2023, 12, 17, 20, 58, 47, 486, DateTimeKind.Local).AddTicks(9559),
+                            CreatedDate = new DateTime(2023, 12, 24, 5, 9, 7, 261, DateTimeKind.Local).AddTicks(3249),
                             Email = "admin@gmail.com",
                             Height = 180,
-                            Password = "$2a$11$EjMS3iQU.rUIeqoOVm7k5ecWPM9Ku7eenXUxnbkye3r1t51AeeVly",
-                            SexId = 1,
+                            Password = "$2a$11$sMPkMD4HGG.wWdErrHo/yuuF4OXAq1EeB/WS2QGL0g1kajUuW.1Ze",
+                            SexString = "Male",
                             Username = "admin"
                         });
                 });
@@ -290,6 +242,11 @@ namespace webAPI.Data.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 2
                         });
                 });
 
@@ -335,17 +292,6 @@ namespace webAPI.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("webApi.Data.Models.UserModel", b =>
-                {
-                    b.HasOne("webApi.Data.Models.Sex", "Sex")
-                        .WithMany()
-                        .HasForeignKey("SexId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sex");
                 });
 
             modelBuilder.Entity("webApi.Data.Models.UserRole", b =>

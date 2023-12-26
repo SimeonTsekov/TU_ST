@@ -53,29 +53,10 @@ namespace webAPI.Repository
             return recommendation;
 		}
 
-        public List<ActivityRecommendationModel> GetActivityRecommendationsForTheCurrentUser(string order, int count)
+        public List<ActivityRecommendationModel> Get(int userId, string order, int count)
         {
-            var userId = _currentUserService.GetCurrentUser().Id;
-            var query = this._dbContext.ActivityRecommendationModels.Where(a => a.UserId == userId);
-
-            query = order.ToLower() switch
-            {
-                "asc" => query.OrderBy(a => a.CreatedDate),
-                "desc" => query.OrderByDescending(a => a.CreatedDate),
-                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
-            };
-
-            if (count > 0)
-            {
-                query = query.Take(count);
-            }
-
-            return query.ToList();
-        }
-
-        public List<ActivityRecommendationModel> Get(string order, int count)
-        {
-            var query = this._dbContext.ActivityRecommendationModels.AsQueryable();
+            var query = userId > 0 ? this._dbContext.ActivityRecommendationModels.Where(a => a.UserId == userId)
+                : this._dbContext.ActivityRecommendationModels.AsQueryable();
 
             query = order.ToLower() switch
             {

@@ -60,28 +60,10 @@ namespace webAPI.Repository
             this._dbContext.SaveChanges();
         }
 
-        public List<HealthDataModel> Get(string order, int count)
+        public List<HealthDataModel> Get(int userId, string order, int count)
         {
-            var query = this._dbContext.HealthDataModels.AsQueryable();
-
-            query = order.ToLower() switch
-            {
-                "asc" => query.OrderBy(a => a.CreatedDate),
-                "desc" => query.OrderByDescending(a => a.CreatedDate),
-                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
-            };
-
-            if (count > 0)
-            {
-                query = query.Take(count);
-            }
-
-            return query.ToList();
-        }
-
-        public List<HealthDataModel> GetByUserId(int userId, string order, int count)
-        {
-            var query = this._dbContext.HealthDataModels.Where(a => a.UserId == userId);
+            var query = userId > 0 ? this._dbContext.HealthDataModels.Where(a => a.UserId == userId)
+                : this._dbContext.HealthDataModels.AsQueryable();
 
             query = order.ToLower() switch
             {

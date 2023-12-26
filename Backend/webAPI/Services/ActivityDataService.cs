@@ -45,7 +45,7 @@ namespace webAPI.Services
 
         public List<ActivityResponse> Get(string order, int count)
         {
-            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.Get(order, count));
+            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.Get(-1, order, count));
         }
 
         public ActivityResponse GetById(int id)
@@ -55,7 +55,7 @@ namespace webAPI.Services
 
         public List<ActivityResponse> GetByUserId(int userId, string order, int count)
         {
-            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.GetByUserId(userId, order, count));
+            return this._mapper.Map<List<ActivityResponse>>(this._activityRepository.Get(userId, order, count));
         }
     }
 }

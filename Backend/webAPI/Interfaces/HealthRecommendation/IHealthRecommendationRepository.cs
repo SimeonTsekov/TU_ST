@@ -6,8 +6,7 @@ namespace webAPI.Interfaces.HealthRecommendation
     {
 		HealthRecommendationModel Create(HealthRecommendationModel newModel);
 		HealthRecommendationModel GetHealthRecommendationById(int healthRecommendationId);
-        List<HealthRecommendationModel> GetHealthRecommendationsForTheCurrentUser(string order, int count);
-        List<HealthRecommendationModel> Get(string order, int count);
+        List<HealthRecommendationModel> Get(int userId, string order, int count);
 		void Delete(int healthRecommendationId);
 	}
 }
