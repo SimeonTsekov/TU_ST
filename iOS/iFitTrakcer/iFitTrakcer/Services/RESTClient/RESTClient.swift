@@ -11,14 +11,14 @@ class RESTClient {
     private var baseURL: URL
     private let session: URLSession
 
-    public init?(basePath: String, timeoutInterval: TimeInterval = 60) {
+    init(basePath: String, timeoutInterval: TimeInterval = 60) {
         guard let url = URL(string: basePath) else { fatalError("Couldn't create base url") }
 
         baseURL = url
         session = URLSession(configuration: .default)
     }
 
-    public func call<T: Endpoint>(_ endpoint: T, completion completionHandler: @escaping (Result<T.ResponseModel, Error>) -> Void) {
+    func call<T: Endpoint>(_ endpoint: T, completion completionHandler: @escaping (Result<T.ResponseModel, Error>) -> Void) {
         guard let request = endpoint.request(relativeTo: baseURL) else {
             completionHandler(.failure(NSError(domain: baseURL.absoluteString, code: -1, userInfo: ["Message": "Couldn't create URLRequest"])))
             return

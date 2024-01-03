@@ -30,8 +30,8 @@ enum TimePredicate {
 }
 
 class HealthKitManager: ObservableObject {
-    let healthStore = HKHealthStore()
-    let logger = Logger()
+    private let healthStore = HKHealthStore()
+    private let logger = Logger()
 
     var authorizationTypes: Set<HKObjectType> {
         [.characteristicType(forIdentifier: .dateOfBirth)!,
