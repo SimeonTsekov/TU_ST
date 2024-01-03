@@ -12,8 +12,6 @@
 		EC2018132B0B6C5500C69150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC2018122B0B6C5500C69150 /* Assets.xcassets */; };
 		EC2018162B0B6C5500C69150 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC2018152B0B6C5500C69150 /* Preview Assets.xcassets */; };
 		EC2018202B0B6C5500C69150 /* iFitTrakcerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20181F2B0B6C5500C69150 /* iFitTrakcerTests.swift */; };
-		EC20182A2B0B6C5500C69150 /* iFitTrakcerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018292B0B6C5500C69150 /* iFitTrakcerUITests.swift */; };
-		EC20182C2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20182B2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift */; };
 		EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018392B0B6E1800C69150 /* TabDestination.swift */; };
 		EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20183C2B0B6E8800C69150 /* Icon.swift */; };
 		EC2018402B0B712200C69150 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20183F2B0B712200C69150 /* TabRouter.swift */; };
@@ -29,17 +27,26 @@
 		EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20185D2B0B764400C69150 /* ProfileContentView.swift */; };
 		EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018602B0B768F00C69150 /* ProfileRouter.swift */; };
 		EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018622B0B76BB00C69150 /* ProfileDestination.swift */; };
+		EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88212B13E07C003196DB /* SimpleListCell.swift */; };
+		EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88252B148CAE003196DB /* HealthKitManager.swift */; };
+		EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */; };
+		EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D882E2B14C3BB003196DB /* UserMetric.swift */; };
+		EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88302B14D99F003196DB /* UserHealthModel.swift */; };
+		EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D88332B14DC51003196DB /* NumericArray+Average.swift */; };
+		EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */; };
+		EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */; };
+		EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */; };
+		EC7F32ED2B28DD5C005A4F90 /* RegisterScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EC2B28DD5C005A4F90 /* RegisterScreenView.swift */; };
+		EC7F32EF2B28DEEB005A4F90 /* GenericActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32EE2B28DEEB005A4F90 /* GenericActionButton.swift */; };
+		EC7F32F12B28E003005A4F90 /* GenericTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F02B28E003005A4F90 /* GenericTextField.swift */; };
+		EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */; };
+		EC7F32F62B28EDC0005A4F90 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */; };
+		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
+		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		EC20181C2B0B6C5500C69150 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC2018032B0B6C5400C69150 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC20180A2B0B6C5400C69150;
-			remoteInfo = iFitTrakcer;
-		};
-		EC2018262B0B6C5500C69150 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC2018032B0B6C5400C69150 /* Project object */;
 			proxyType = 1;
@@ -56,9 +63,6 @@
 		EC2018152B0B6C5500C69150 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EC20181B2B0B6C5500C69150 /* iFitTrakcerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFitTrakcerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC20181F2B0B6C5500C69150 /* iFitTrakcerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerTests.swift; sourceTree = "<group>"; };
-		EC2018252B0B6C5500C69150 /* iFitTrakcerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iFitTrakcerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EC2018292B0B6C5500C69150 /* iFitTrakcerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerUITests.swift; sourceTree = "<group>"; };
-		EC20182B2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EC2018392B0B6E1800C69150 /* TabDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDestination.swift; sourceTree = "<group>"; };
 		EC20183C2B0B6E8800C69150 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		EC20183F2B0B712200C69150 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
@@ -74,6 +78,23 @@
 		EC20185D2B0B764400C69150 /* ProfileContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContentView.swift; sourceTree = "<group>"; };
 		EC2018602B0B768F00C69150 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		EC2018622B0B76BB00C69150 /* ProfileDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDestination.swift; sourceTree = "<group>"; };
+		EC3D88212B13E07C003196DB /* SimpleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListCell.swift; sourceTree = "<group>"; };
+		EC3D88252B148CAE003196DB /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iFitTrakcer.entitlements; sourceTree = "<group>"; };
+		EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewModel.swift; sourceTree = "<group>"; };
+		EC3D882E2B14C3BB003196DB /* UserMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetric.swift; sourceTree = "<group>"; };
+		EC3D88302B14D99F003196DB /* UserHealthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHealthModel.swift; sourceTree = "<group>"; };
+		EC3D88332B14DC51003196DB /* NumericArray+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumericArray+Average.swift"; sourceTree = "<group>"; };
+		EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
+		EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenView.swift; sourceTree = "<group>"; };
+		EC7F32EC2B28DD5C005A4F90 /* RegisterScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenView.swift; sourceTree = "<group>"; };
+		EC7F32EE2B28DEEB005A4F90 /* GenericActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericActionButton.swift; sourceTree = "<group>"; };
+		EC7F32F02B28E003005A4F90 /* GenericTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTextField.swift; sourceTree = "<group>"; };
+		EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSecureField.swift; sourceTree = "<group>"; };
+		EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
+		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,13 +112,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC2018222B0B6C5500C69150 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -106,7 +120,6 @@
 			children = (
 				EC20180D2B0B6C5400C69150 /* iFitTrakcer */,
 				EC20181E2B0B6C5500C69150 /* iFitTrakcerTests */,
-				EC2018282B0B6C5500C69150 /* iFitTrakcerUITests */,
 				EC20180C2B0B6C5400C69150 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,7 +129,6 @@
 			children = (
 				EC20180B2B0B6C5400C69150 /* iFitTrakcer.app */,
 				EC20181B2B0B6C5500C69150 /* iFitTrakcerTests.xctest */,
-				EC2018252B0B6C5500C69150 /* iFitTrakcerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,11 +136,13 @@
 		EC20180D2B0B6C5400C69150 /* iFitTrakcer */ = {
 			isa = PBXGroup;
 			children = (
+				EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */,
 				EC20183B2B0B6E5A00C69150 /* Helpers */,
 				EC2018382B0B6E0100C69150 /* Navigation */,
 				EC2018412B0B718500C69150 /* Screens */,
-				EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */,
+				EC3D88232B148C88003196DB /* Services */,
 				EC2018102B0B6C5400C69150 /* ContentView.swift */,
+				EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */,
 				EC2018122B0B6C5500C69150 /* Assets.xcassets */,
 				EC2018142B0B6C5500C69150 /* Preview Content */,
 			);
@@ -151,15 +165,6 @@
 			path = iFitTrakcerTests;
 			sourceTree = "<group>";
 		};
-		EC2018282B0B6C5500C69150 /* iFitTrakcerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				EC2018292B0B6C5500C69150 /* iFitTrakcerUITests.swift */,
-				EC20182B2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift */,
-			);
-			path = iFitTrakcerUITests;
-			sourceTree = "<group>";
-		};
 		EC2018382B0B6E0100C69150 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +177,10 @@
 		EC20183B2B0B6E5A00C69150 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EC3D88322B14DC0D003196DB /* Extensions */,
+				EC3D88202B13E04D003196DB /* UIComponents */,
 				EC20183C2B0B6E8800C69150 /* Icon.swift */,
+				EC3D882E2B14C3BB003196DB /* UserMetric.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -180,6 +188,7 @@
 		EC2018412B0B718500C69150 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EC7F32E92B281A9D005A4F90 /* Auth */,
 				EC2018432B0B71B500C69150 /* ActivityScreen */,
 				EC2018422B0B71AA00C69150 /* HealthScreen */,
 				EC2018442B0B71C000C69150 /* ProfileScreen */,
@@ -192,6 +201,8 @@
 			children = (
 				EC2018522B0B749F00C69150 /* HealthContentView.swift */,
 				EC2018502B0B746D00C69150 /* HealthNavigationView.swift */,
+				EC3D882A2B14A1E3003196DB /* HealthViewModel.swift */,
+				EC3D88302B14D99F003196DB /* UserHealthModel.swift */,
 			);
 			path = HealthScreen;
 			sourceTree = "<group>";
@@ -201,6 +212,8 @@
 			children = (
 				EC2018472B0B720F00C69150 /* ActivityContentView.swift */,
 				EC2018452B0B71FE00C69150 /* ActivityNavigationView.swift */,
+				ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */,
+				ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */,
 			);
 			path = ActivityScreen;
 			sourceTree = "<group>";
@@ -210,6 +223,8 @@
 			children = (
 				EC20185D2B0B764400C69150 /* ProfileContentView.swift */,
 				EC20185B2B0B760900C69150 /* ProfileNavigationView.swift */,
+				EC7F32E72B1C7284005A4F90 /* ProfileViewModel.swift */,
+				EC7F32E52B1C71DA005A4F90 /* UserDataModel.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -260,6 +275,59 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		EC3D88202B13E04D003196DB /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88212B13E07C003196DB /* SimpleListCell.swift */,
+				EC7F32EE2B28DEEB005A4F90 /* GenericActionButton.swift */,
+				EC7F32F02B28E003005A4F90 /* GenericTextField.swift */,
+				EC7F32F22B28E06D005A4F90 /* GenericSecureField.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		EC3D88232B148C88003196DB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88242B148C9C003196DB /* HealthKit */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		EC3D88242B148C9C003196DB /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88252B148CAE003196DB /* HealthKitManager.swift */,
+			);
+			path = HealthKit;
+			sourceTree = "<group>";
+		};
+		EC3D88322B14DC0D003196DB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EC3D88332B14DC51003196DB /* NumericArray+Average.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EC7F32E92B281A9D005A4F90 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				EC7F32F42B28EDA9005A4F90 /* Register */,
+				EC7F32EA2B281AB4005A4F90 /* LoginScreenView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		EC7F32F42B28EDA9005A4F90 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				EC7F32EC2B28DD5C005A4F90 /* RegisterScreenView.swift */,
+				EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -299,24 +367,6 @@
 			productReference = EC20181B2B0B6C5500C69150 /* iFitTrakcerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		EC2018242B0B6C5500C69150 /* iFitTrakcerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EC2018352B0B6C5500C69150 /* Build configuration list for PBXNativeTarget "iFitTrakcerUITests" */;
-			buildPhases = (
-				EC2018212B0B6C5500C69150 /* Sources */,
-				EC2018222B0B6C5500C69150 /* Frameworks */,
-				EC2018232B0B6C5500C69150 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EC2018272B0B6C5500C69150 /* PBXTargetDependency */,
-			);
-			name = iFitTrakcerUITests;
-			productName = iFitTrakcerUITests;
-			productReference = EC2018252B0B6C5500C69150 /* iFitTrakcerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -331,10 +381,6 @@
 						CreatedOnToolsVersion = 15.0.1;
 					};
 					EC20181A2B0B6C5500C69150 = {
-						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = EC20180A2B0B6C5400C69150;
-					};
-					EC2018242B0B6C5500C69150 = {
 						CreatedOnToolsVersion = 15.0.1;
 						TestTargetID = EC20180A2B0B6C5400C69150;
 					};
@@ -355,7 +401,6 @@
 			targets = (
 				EC20180A2B0B6C5400C69150 /* iFitTrakcer */,
 				EC20181A2B0B6C5500C69150 /* iFitTrakcerTests */,
-				EC2018242B0B6C5500C69150 /* iFitTrakcerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -377,18 +422,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC2018232B0B6C5500C69150 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		EC20183E2B0B70D500C69150 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -412,22 +451,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC7F32F12B28E003005A4F90 /* GenericTextField.swift in Sources */,
 				EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */,
+				EC7F32EF2B28DEEB005A4F90 /* GenericActionButton.swift in Sources */,
 				EC2018112B0B6C5400C69150 /* ContentView.swift in Sources */,
+				EC7F32F62B28EDC0005A4F90 /* RegisterViewModel.swift in Sources */,
 				EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */,
+				EC7F32E82B1C7284005A4F90 /* ProfileViewModel.swift in Sources */,
 				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
+				EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */,
+				EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
+				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
+				EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */,
+				ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */,
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
 				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
+				EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */,
+				EC7F32EB2B281AB4005A4F90 /* LoginScreenView.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
+				EC7F32ED2B28DD5C005A4F90 /* RegisterScreenView.swift in Sources */,
+				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
+				EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */,
 				EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */,
 				EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */,
 				EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */,
+				EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */,
+				EC7F32E62B1C71DA005A4F90 /* UserDataModel.swift in Sources */,
 				EC2018462B0B71FE00C69150 /* ActivityNavigationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,15 +495,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC2018212B0B6C5500C69150 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EC20182A2B0B6C5500C69150 /* iFitTrakcerUITests.swift in Sources */,
-				EC20182C2B0B6C5500C69150 /* iFitTrakcerUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -456,11 +502,6 @@
 			isa = PBXTargetDependency;
 			target = EC20180A2B0B6C5400C69150 /* iFitTrakcer */;
 			targetProxy = EC20181C2B0B6C5500C69150 /* PBXContainerItemProxy */;
-		};
-		EC2018272B0B6C5500C69150 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC20180A2B0B6C5400C69150 /* iFitTrakcer */;
-			targetProxy = EC2018262B0B6C5500C69150 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -517,6 +558,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -574,6 +616,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -589,6 +632,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iFitTrakcer/iFitTrakcer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iFitTrakcer/Preview Content\"";
@@ -596,6 +640,10 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We want to write your health data.";
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -619,6 +667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = iFitTrakcer/iFitTrakcer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iFitTrakcer/Preview Content\"";
@@ -626,6 +675,10 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We want to read your health data.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We want to write your health data.";
+				INFOPLIST_KEY_NSVoIPUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -684,42 +737,6 @@
 			};
 			name = Release;
 		};
-		EC2018362B0B6C5500C69150 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7352ZCGRRF;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SimeonTsekov.iFitTrakcerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iFitTrakcer;
-			};
-			name = Debug;
-		};
-		EC2018372B0B6C5500C69150 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7352ZCGRRF;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SimeonTsekov.iFitTrakcerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iFitTrakcer;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -746,15 +763,6 @@
 			buildConfigurations = (
 				EC2018332B0B6C5500C69150 /* Debug */,
 				EC2018342B0B6C5500C69150 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EC2018352B0B6C5500C69150 /* Build configuration list for PBXNativeTarget "iFitTrakcerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EC2018362B0B6C5500C69150 /* Debug */,
-				EC2018372B0B6C5500C69150 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,13 +8,39 @@
 import SwiftUI
 
 struct ActivityContentView: View {
+    @StateObject var viewModel: ActivityViewModel
     var router: ActivityRouter
 
     var body: some View {
-        Text("Activity Screen")
+        List {
+            activitySection
+        }
     }
-}
 
-#Preview {
-    ActivityContentView(router: ActivityRouter())
+    @ViewBuilder
+    private var activitySection: some View {
+        Section(header: Text("7-Day Summary")) {
+            SimpleListCell(title: "Workouts",
+                           value: String(viewModel.dailyWorkoutEntries.count))
+            if let weeklyAverageStepEntries = viewModel.dailyStepsEntries.weeklyAverage() {
+                SimpleListCell(title: "Steps",
+                               value: String(format: "%.2f", weeklyAverageStepEntries))
+            }
+            if let weeklyAverageDistanceEntries = viewModel.dailyDistanceEntries.weeklyAverage() {
+                SimpleListCell(title: "Distance",
+                               value: String(format: "%.2f", weeklyAverageDistanceEntries) + " km")
+            }
+            if let weeklyAverageEnergyExpenditureEntries = viewModel.dailyEnergyExpenditureEntries.weeklyAverage() {
+                SimpleListCell(title: "Energy Burned",
+                               value: String(format: "%.2f", weeklyAverageEnergyExpenditureEntries) + " kcal")
+            }
+        }
+
+        if let userActivityRecommendation = viewModel.userActivityRecommendation {
+            Section(header: Text("Recommendation")) {
+                SimpleListCell(title: "ChatGPT Recommends",
+                               value: userActivityRecommendation)
+            }
+        }
+    }
 }

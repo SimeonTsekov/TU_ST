@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct ActivityNavigationView: View {
+    @EnvironmentObject private var healthKitManager: HealthKitManager
     @ObservedObject private var router = ActivityRouter()
 
     var body: some View {
         NavigationStack(path: $router.path) {
             activityContentView
-                //.navigationDestination(for: ActivityDestination.self) { $0 }
+                // .navigationDestination(for: ActivityDestination.self) { $0 }
                 .navigationTitle("Activity")
-                .navigationBarTitleDisplayMode(.inline)
         }
     }
 
     var activityContentView: some View {
-        ActivityContentView(router: router)
+        ActivityContentView(viewModel: activityViewModel, router: router)
     }
-}
 
-#Preview {
-    ActivityNavigationView()
+    var activityViewModel: ActivityViewModel {
+        ActivityViewModel(healthKitManager: healthKitManager)
+    }
 }
