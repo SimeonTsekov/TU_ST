@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using webAPI.Interfaces;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Middlewares
 {
@@ -9,7 +9,7 @@ namespace webAPI.Middlewares
 
         public UserMiddleware(RequestDelegate next)
         {
-            _next = next;
+            this._next = next;
         }
 
         public async Task Invoke(HttpContext context)
@@ -28,7 +28,7 @@ namespace webAPI.Middlewares
                 context.Items["currentUser"] = userModel;
             }
 
-            await _next(context);
+            await this._next(context);
         }
     }
 }

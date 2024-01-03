@@ -9,12 +9,12 @@ namespace webAPI.Authentication.JwtBearer.OptionsSetup
 
         public JwtOptionsSetup(IConfiguration configuration)
         {
-            _configuration = configuration;
+            this._configuration = configuration;
         }
 
         public void Configure(JwtBearerSettings options)
         {
-            _configuration.GetSection(SectionName).Bind(options);
+            this._configuration.GetSection(SectionName).Bind(options);
         }
     }
 }

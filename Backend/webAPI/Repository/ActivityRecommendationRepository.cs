@@ -1,62 +1,76 @@
 ﻿using webAPI.Data;
 using webApi.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using webAPI.Interfaces;
+using webAPI.Interfaces.ActivityRecommendation;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Repository
 {
-	public class ActivityRecommendationRepository : IActivityRecommendationRepository
+    public class ActivityRecommendationRepository : IActivityRecommendationRepository
 	{
 		private readonly webAPIDbContext _dbContext;
+        private readonly ICurrentUserService _currentUserService;
 
-		public ActivityRecommendationRepository(webAPIDbContext dbContext)
+        public ActivityRecommendationRepository(webAPIDbContext dbContext, ICurrentUserService currentUserService)
 		{
-			_dbContext = dbContext;
+			this._dbContext = dbContext;
+			_currentUserService = currentUserService;
 		}
 
 		public ActivityRecommendationModel Create(ActivityRecommendationModel newModel)
 		{
-			_dbContext.ActivityRecommendationModels.Add(newModel);
-			_dbContext.SaveChanges();
-
+            this._dbContext.ActivityRecommendationModels.Add(newModel);
+            this._dbContext.SaveChanges();
 			return newModel;
 		}
 
-		public void Delete(int activityRecommendationId)
+        public void Delete(int activityRecommendationId)
 		{
-			var modelToRemove = _dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
+			var modelToRemove = this._dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
 
-			if (modelToRemove != null)
-			{
-				_dbContext.ActivityRecommendationModels.Remove(modelToRemove);
-				_dbContext.SaveChanges();
-			}
-		}
+            if (modelToRemove == null)
+            {
+                return;
+            }
+
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != modelToRemove.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
+
+            this._dbContext.ActivityRecommendationModels.Remove(modelToRemove);
+            this._dbContext.SaveChanges();
+        }
 
 		public ActivityRecommendationModel GetActivityRecommendationById(int activityRecommendationId)
 		{
-			var activityRecommendation = _dbContext.ActivityRecommendationModels.Find(activityRecommendationId);
+			var recommendation = this._dbContext.ActivityRecommendationModels.Find(activityRecommendationId) ?? throw new NullReferenceException("The activity recommendation with id '" + activityRecommendationId + "' was not found.");
 
-			if (activityRecommendation != null)
-			{
-				return activityRecommendation;
-			}
+            if (!_currentUserService.IsAdmin() && _currentUserService.GetCurrentUser().Id != recommendation.UserId)
+            {
+                throw new InvalidOperationException("You do not have access to this resource!");
+            }
 
-			throw new NullReferenceException();
+            return recommendation;
 		}
 
-		public List<ActivityRecommendationModel> GetAllActivityRecommendations()
-		{
-			return _dbContext.ActivityRecommendationModels.ToList();
-		}
+        public List<ActivityRecommendationModel> Get(int userId, string order, int count)
+        {
+            var query = userId > 0 ? this._dbContext.ActivityRecommendationModels.Where(a => a.UserId == userId)
+                : this._dbContext.ActivityRecommendationModels.AsQueryable();
 
-		public ActivityRecommendationModel Update(int activityRecommendationId, ActivityRecommendationModel updatedModel)
-		{
-			var existingModel = this.GetActivityRecommendationById(activityRecommendationId);
+            query = order.ToLower() switch
+            {
+                "asc" => query.OrderBy(a => a.CreatedDate),
+                "desc" => query.OrderByDescending(a => a.CreatedDate),
+                _ => throw new ArgumentException("Invalid order parameter. Accepted values are 'asc' or 'desc'.")
+            };
 
-            existingModel.Recommendation = updatedModel.Recommendation;
+            if (count > 0)
+            {
+                query = query.Take(count);
+            }
 
-			return existingModel;
-		}
+            return query.ToList();
+        }
 	}
 }

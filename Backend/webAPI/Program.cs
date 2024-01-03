@@ -1,8 +1,8 @@
+using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using webAPI.Authentication.JwtBearer;
-using webAPI.Authentication.JwtBearer.impl;
 using webAPI.Authentication.JwtBearer.OptionsSetup;
 using webAPI.Swagger;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +13,23 @@ using webAPI.Services;
 using webAPI.Repositories;
 using webAPI.Repository;
 using Microsoft.OpenApi.Models;
+using webAPI.Utils;
+using webAPI.Interfaces.ActivityRecommendation;
+using webAPI.Interfaces.ActivityRepository;
+using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.HealthRecommendation;
+using webAPI.Interfaces.User;
+using webAPI.Interfaces.Authentication;
+using DotNetEnv.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Add default appsettings.json configuration file
+    .AddEnvironmentVariables() // Add environment variables to IConfiguration
+    .AddDotNetEnv(".env", LoadOptions.TraversePath()) // Simply add the DotNetEnv configuration source!
+    .Build();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -44,17 +59,21 @@ builder.Services.AddAuthentication(options =>
     })
     .AddJwtBearer();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
-builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IActivityDataRepository, ActivityDataRepository>();
+builder.Services.AddScoped<IActivityDataService, ActivityDataService>();
 builder.Services.AddScoped<IHealthDataRepository, HealthDataRepository>();
 builder.Services.AddScoped<IHealthDataService, HealthDataService>();
 
@@ -63,6 +82,7 @@ builder.Services.AddScoped<IActivityRecommendationService, ActivityRecommendatio
 builder.Services.AddScoped<IHealthRecommendationRepository, HealthRecommendationRepository>();
 builder.Services.AddScoped<IHealthRecommendationService, HealthRecommendationService>();
 
+builder.Services.AddScoped<IGPTService, GPTService>();
 
 var app = builder.Build();
 

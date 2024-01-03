@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using AutoMapper;
-using webAPI.Authentication.JwtBearer;
-using webAPI.Interfaces;
+﻿using AutoMapper;
 using webAPI.DTOs.Request;
 using webAPI.DTOs.Response;
 using webApi.Data.Models;
 using webAPI.DTOs;
+using webAPI.Interfaces.User;
+using webAPI.Interfaces.Authentication;
+using System;
 
 namespace webAPI.Services
 {
@@ -17,14 +17,14 @@ namespace webAPI.Services
 
         public AuthService(IJwtProvider jwtProvider, IUserRepository userRepository, IMapper mapper)
         {
-            _jwtProvider = jwtProvider;
-            _userRepository = userRepository;
-            _mapper = mapper;
+            this._jwtProvider = jwtProvider;
+            this._userRepository = userRepository;
+            this._mapper = mapper;
         }
 
         public JwtResponse Login(UserLoginRequest loginRequest)
         {
-            var user = _userRepository.FindUserByEmail(loginRequest.Email!);
+            var user = this._userRepository.FindUserByEmail(loginRequest.Email!);
 
             if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
             {
@@ -38,7 +38,7 @@ namespace webAPI.Services
         {
             try
             {
-                _userRepository.FindUserByEmail(registerRequest.Email!);
+                this._userRepository.FindUserByEmail(registerRequest.Email!);
 
                 // If the above line doesn't throw an exception, it means that the user exists, so the email is already taken
                 // and we can't register the user, so we throw an exception to be caught in the controller
@@ -56,23 +56,31 @@ namespace webAPI.Services
                 Email = registerRequest.Email!,
                 Password = hashedPassword,
                 Username = registerRequest.Username!,
-                Age = registerRequest.Age,
-                Height = registerRequest.Height,
+                Sex = Sex.Unidentified,
+                Age = -1,
+                Height = -1,
+                UserRoles = new HashSet<UserRole>()
+                {
+                    new()
+                    {
+                        RoleId = Role.UserRole.Value
+                    }
+                }
             };
 
-            _userRepository.Create(newUser);
+            this._userRepository.Create(newUser);
 
             return CreateSession(newUser);
-        }
+    }
 
         private JwtResponse CreateSession(UserModel user)
         {
-            var jwt = _jwtProvider.Generate(user);
+            var jwt = this._jwtProvider.Generate(user);
 
             return new JwtResponse()
             {
                 AccessToken = jwt,
-                User = _mapper.Map<UserResponse>(user)
+                User = this._mapper.Map<UserResponse>(user)
             };
         }
     }

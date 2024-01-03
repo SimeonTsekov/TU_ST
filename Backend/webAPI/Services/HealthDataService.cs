@@ -2,26 +2,29 @@
 using webApi.Data.Models;
 using webAPI.DTOs.Request;
 using webAPI.DTOs.Response;
-using webAPI.Interfaces;
+using webAPI.Interfaces.HealthData;
+using webAPI.Interfaces.User;
 
 namespace webAPI.Services
 {
     public class HealthDataService : IHealthDataService
     {
         private readonly IHealthDataRepository _healthDataRepository;
+        private readonly ICurrentUserService _currentUserService;
         private readonly IMapper _mapper;
 
-        public HealthDataService(IHealthDataRepository healthDataRepository, IMapper mapper)
+        public HealthDataService(IHealthDataRepository healthDataRepository, IMapper mapper, ICurrentUserService currentUserService)
         {
-            _healthDataRepository = healthDataRepository;
-            _mapper = mapper;
+            this._healthDataRepository = healthDataRepository;
+            this._currentUserService = currentUserService;
+            this._mapper = mapper;
         }
 
-        public HealthDataResponse Create(HealthDataRequest newModel, UserModel user)
+        public HealthDataResponse Create(HealthDataRequest newModel)
         {
             var data = this._mapper.Map<HealthDataModel>(newModel);
 
-            data.UserId = user.Id;
+            data.UserId = this._currentUserService.GetCurrentUser().Id;
 
             var result = this._healthDataRepository.Create(data);
 
@@ -41,9 +44,9 @@ namespace webAPI.Services
             this._healthDataRepository.Delete(id);
         }
 
-        public List<HealthDataResponse> GetAll()
+        public List<HealthDataResponse> Get(string order, int count)
         {
-            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.GetAllHealthData());
+            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.Get(-1,order, count));
         }
 
         public HealthDataResponse GetById(int id)
@@ -51,9 +54,9 @@ namespace webAPI.Services
             return this._mapper.Map<HealthDataResponse>(this._healthDataRepository.GetHealthDataById(id));
         }
 
-        public List<HealthDataResponse> GetAllByUserId(int userId)
+        public List<HealthDataResponse> GetByUserId(int userId, string order, int count)
         {
-            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.GetAllHealthDataByUserId(userId));
+            return this._mapper.Map<List<HealthDataResponse>>(this._healthDataRepository.Get(userId, order, count));
         }
     }
 }

@@ -1,24 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace webApi.Data.Models;
 
 public partial class UserModel : BaseModel
 {
-    [Required]
     public string? Username { get; set; }
 
-    [Required]
     public string? Email { get; set; }
 
-    [Required]
     public string? Password { get; set; }
 
-    [Required]
     public int Age { get; set; }
 
-    [Required]
     public int Height { get; set; }
+
+
+    [Column(TypeName = "varchar(20)")]
+    public string? SexString { get; set; }
+
+    [NotMapped]
+    public Sex Sex
+    {
+        get => (Sex) Enum.Parse(typeof(Sex), SexString ?? throw new InvalidOperationException("Invalid sex enum value!"), true);
+        set => SexString = value.ToString();
+    }
+
 
     [InverseProperty("User")]
     public virtual ICollection<ActivityDataModel> ActivityDataModels { get; set; } = new List<ActivityDataModel>();
@@ -31,4 +39,6 @@ public partial class UserModel : BaseModel
 
     [InverseProperty("User")]
     public virtual ICollection<HealthRecommendationModel> HealthRecommendationModels { get; set; } = new List<HealthRecommendationModel>();
+
+    public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
 }

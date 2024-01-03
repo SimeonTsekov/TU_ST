@@ -12,8 +12,8 @@ using webAPI.Data;
 namespace webAPI.Data.Migrations
 {
     [DbContext(typeof(webAPIDbContext))]
-    [Migration("20231210153326_initialCreate")]
-    partial class initialCreate
+    [Migration("20231224030907_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,8 +70,7 @@ namespace webAPI.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Recommendation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -107,10 +106,6 @@ namespace webAPI.Data.Migrations
                     b.Property<float>("LeanBodyMass")
                         .HasColumnType("real");
 
-                    b.Property<string>("SleepAnalysis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -133,8 +128,7 @@ namespace webAPI.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Recommendation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -144,6 +138,45 @@ namespace webAPI.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("HealthRecommendationModels");
+                });
+
+            modelBuilder.Entity("webApi.Data.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2023, 12, 24, 5, 9, 6, 462, DateTimeKind.Local).AddTicks(6953),
+                            Name = "Admin",
+                            Value = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2023, 12, 24, 5, 9, 6, 464, DateTimeKind.Local).AddTicks(4317),
+                            Name = "User",
+                            Value = 2
+                        });
                 });
 
             modelBuilder.Entity("webApi.Data.Models.UserModel", b =>
@@ -161,23 +194,63 @@ namespace webAPI.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SexString")
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("UserModels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 20,
+                            CreatedDate = new DateTime(2023, 12, 24, 5, 9, 7, 261, DateTimeKind.Local).AddTicks(3249),
+                            Email = "admin@gmail.com",
+                            Height = 180,
+                            Password = "$2a$11$sMPkMD4HGG.wWdErrHo/yuuF4OXAq1EeB/WS2QGL0g1kajUuW.1Ze",
+                            SexString = "Male",
+                            Username = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("webApi.Data.Models.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 2
+                        });
                 });
 
             modelBuilder.Entity("webApi.Data.Models.ActivityDataModel", b =>
@@ -224,6 +297,30 @@ namespace webAPI.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("webApi.Data.Models.UserRole", b =>
+                {
+                    b.HasOne("webApi.Data.Models.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webApi.Data.Models.UserModel", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("webApi.Data.Models.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("webApi.Data.Models.UserModel", b =>
                 {
                     b.Navigation("ActivityDataModels");
@@ -233,6 +330,8 @@ namespace webAPI.Data.Migrations
                     b.Navigation("HealthDataModels");
 
                     b.Navigation("HealthRecommendationModels");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }
