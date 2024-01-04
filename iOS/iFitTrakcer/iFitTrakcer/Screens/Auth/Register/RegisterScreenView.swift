@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RegisterScreenView: View {
     @EnvironmentObject private var profileRouter: ProfileRouter
-    @StateObject private var viewModel = RegisterViewModel()
+    @StateObject var viewModel: RegisterViewModel
 
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
@@ -20,7 +20,12 @@ struct RegisterScreenView: View {
             passwordInputField
             confirmPasswordInputField
             errorMessage
-            registerButton
+
+            if viewModel.isRegistering {
+                ProgressView()
+            } else {
+                registerButton
+            }
         }
         .padding([.leading, .trailing], 16)
     }
@@ -58,7 +63,11 @@ struct RegisterScreenView: View {
 
     private var registerButton: some View {
         GenericActionButton(label: "Register") {
-            _ = viewModel.validateFields()
+            Task {
+                if viewModel.validateFields() {
+                    await viewModel.registerAction()
+                }
+            }
         }
         .disabled(viewModel.registerIsDisabled)
     }

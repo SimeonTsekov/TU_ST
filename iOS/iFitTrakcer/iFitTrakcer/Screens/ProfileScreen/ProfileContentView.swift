@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Sex: String, CaseIterable {
+enum Sex: String, CaseIterable, Decodable {
     case male = "Male"
     case female = "Female"
     case unidentified = "Unidentified"
@@ -38,11 +38,30 @@ struct ProfileContentView: View {
         }
     }
 
+    @ViewBuilder
     private var authButton: some View {
+        if viewModel.isLoggedIn {
+            logOutButton
+        } else {
+            logInButton
+        }
+    }
+
+    private var logInButton: some View {
         Button {
             router.pushLogin()
         } label: {
             Text("Log In")
+                .foregroundColor(Color.accentColor)
+                .font(.system(.headline, design: .rounded))
+        }
+    }
+
+    private var logOutButton: some View {
+        Button {
+            viewModel.logOut()
+        } label: {
+            Text("Log Out")
                 .foregroundColor(Color.accentColor)
                 .font(.system(.headline, design: .rounded))
         }

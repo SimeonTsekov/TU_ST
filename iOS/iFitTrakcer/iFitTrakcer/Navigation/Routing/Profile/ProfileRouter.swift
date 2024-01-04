@@ -17,10 +17,18 @@ class ProfileRouter: ProfileRouting, ObservableObject {
     @Published var path = [ProfileDestination]()
 
     func pushLogin() {
-        path.append(.login)
+        path.append(.login(self))
     }
 
     func pushRegister() {
-        path.append(.register)
+        path.append(.register(self))
+    }
+
+    func popBack() {
+        path.removeLast()
+    }
+
+    func popAll() {
+        path.removeAll()
     }
 }

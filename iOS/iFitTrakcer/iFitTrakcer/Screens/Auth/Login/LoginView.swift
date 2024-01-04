@@ -8,22 +8,22 @@
 import Foundation
 import SwiftUI
 
-struct LoginScreenView: View {
-    @EnvironmentObject private var router: ProfileRouter
-    @State private var username = ""
-    @State private var password = ""
-
-    var loginIsDisabled: Bool {
-        username.isEmpty || password.isEmpty
-    }
+struct LoginView: View {
+    @StateObject var viewModel: LoginViewModel
 
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             titleText
-            usernameInputField
+            emailInputField
             passwordInputField
-            loginButton
-            registerButton
+            errorMessage
+
+            if viewModel.isLoggingIn {
+                ProgressView()
+            } else {
+                loginButton
+                registerButton
+            }
         }
         .padding([.leading, .trailing], 16)
     }
@@ -34,24 +34,35 @@ struct LoginScreenView: View {
             .fontWeight(.bold)
     }
 
-    private var usernameInputField: some View {
-        GenericTextField(placeholder: "Username", text: $username)
+    private var emailInputField: some View {
+        GenericTextField(placeholder: "Email", text: $viewModel.email)
     }
 
     private var passwordInputField: some View {
-        GenericSecureField(placeholder: "Password", text: $password)
+        GenericSecureField(placeholder: "Password", text: $viewModel.password)
     }
 
     private var loginButton: some View {
         GenericActionButton(label: "Log In") {
-            return
+            Task {
+                await viewModel.logInAction()
+            }
         }
-        .disabled(loginIsDisabled)
+        .disabled(viewModel.loginIsDisabled)
+    }
+
+    @ViewBuilder
+    private var errorMessage: some View {
+        if let errorMessage = viewModel.errorMessage {
+            Text(errorMessage)
+                .foregroundStyle(.red)
+                .font(.system(.headline, design: .rounded))
+        }
     }
 
     private var registerButton: some View {
         Button {
-            router.pushRegister()
+            viewModel.pushRegister()
         } label: {
             Text("Don't have an account? Register instead.")
                 .foregroundColor(Color.accentColor)
