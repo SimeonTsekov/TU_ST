@@ -17,7 +17,7 @@ class ProfileRouter: ProfileRouting, ObservableObject {
     @Published var path = [ProfileDestination]()
 
     func pushLogin(with user: User) {
-        path.append(.login(user))
+        path.append(.login(user, self))
     }
 
     func pushRegister() {
