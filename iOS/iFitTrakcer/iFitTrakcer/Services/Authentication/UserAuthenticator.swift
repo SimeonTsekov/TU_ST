@@ -9,8 +9,8 @@ import Foundation
 import OSLog
 
 protocol UserAuthenticating {
-    func login(email: String, password: String) async -> Bool
-    func register(username: String, email: String, password: String, confirmPassword: String) async -> Bool
+    func login(email: String, password: String) async
+    func register(username: String, email: String, password: String, confirmPassword: String) async
     func logout()
 }
 
@@ -24,19 +24,19 @@ final class UserAuthenticator: UserAuthenticating {
 
     // MARK: Public
 
-    func login(email: String, password: String) async -> Bool {
+    func login(email: String, password: String) async {
         let result = await executeLoginRequest(email: email, password: password)
 
         switch result {
         case .success(let response):
             tokenHandler.storeToken(token: response.accessToken)
-            return true
-        case .failure:
-            return false
+        case .failure(let error as NSError):
+            self.logger
+                .error("[AUTH] Register failed with error code \(error.code)")
         }
     }
 
-    func register(username: String, email: String, password: String, confirmPassword: String) async -> Bool {
+    func register(username: String, email: String, password: String, confirmPassword: String) async {
         let result = await executeRegisterRequest(username: username,
                                                   email: email,
                                                   password: password,
@@ -45,9 +45,9 @@ final class UserAuthenticator: UserAuthenticating {
         switch result {
         case .success(let response):
             tokenHandler.storeToken(token: response.accessToken)
-            return true
-        case .failure:
-            return false
+        case .failure(let error as NSError):
+            self.logger
+                .error("[AUTH] Register failed with error code \(error.code)")
         }
     }
 

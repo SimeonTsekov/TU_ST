@@ -5,8 +5,10 @@
 //  Created by Simeon Tsekov on 3.01.24.
 //
 
+import Combine
 import Foundation
 
+@MainActor
 class LoginViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
@@ -14,11 +16,26 @@ class LoginViewModel: ObservableObject {
     @Published var isLoggingIn = false
 
     @Injected(\.userAuthenticator) private var userAuthenticator: UserAuthenticating
+    @Injected(\.tokenHandler) private var tokenHandler: TokenHandling
 
     private let router: ProfileRouter
+    private var cancellable: AnyCancellable?
 
     init(router: ProfileRouter) {
         self.router = router
+
+        cancellable = tokenHandler.tokenPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] token in
+                guard let self else { return }
+
+                guard token != nil else {
+                    self.errorMessage = "Something went wrong"
+                    return
+                }
+
+                self.router.popBack()
+            }
     }
 
     var loginIsDisabled: Bool {
@@ -32,12 +49,7 @@ class LoginViewModel: ObservableObject {
     }
 
     private func logIn() async {
-        let success = await userAuthenticator.login(email: email, password: password)
-        if success {
-            router.popBack()
-        } else {
-            errorMessage = "Something went wrong"
-        }
+        await userAuthenticator.login(email: email, password: password)
     }
 
     func pushRegister() {

@@ -5,11 +5,13 @@
 //  Created by Simeon Tsekov on 4.01.24.
 //
 
+import Combine
 import Foundation
 import SwiftKeychainWrapper
 
 protocol TokenHandling {
     var token: String? { get }
+    var tokenPublisher: PassthroughSubject<String?, Never> { get }
 
     func storeToken(token: String)
     func retrieveToken()
@@ -18,8 +20,9 @@ protocol TokenHandling {
 
 class TokenHandler: TokenHandling, ObservableObject {
     private(set) var token: String?
-
     private let tokenKey = "AuthToken"
+
+    var tokenPublisher = PassthroughSubject<String?, Never>()
 
     init() {
         retrieveToken()
@@ -27,6 +30,7 @@ class TokenHandler: TokenHandling, ObservableObject {
 
     func storeToken(token: String) {
         self.token = token
+        tokenPublisher.send(token)
         KeychainWrapper.standard.set(token, forKey: tokenKey)
     }
 
@@ -36,6 +40,7 @@ class TokenHandler: TokenHandling, ObservableObject {
 
     func clearToken() {
         self.token = nil
+        tokenPublisher.send(token)
         KeychainWrapper.standard.removeObject(forKey: tokenKey)
     }
 }

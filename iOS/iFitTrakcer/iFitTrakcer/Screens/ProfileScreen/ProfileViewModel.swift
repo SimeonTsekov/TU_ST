@@ -5,16 +5,40 @@
 //  Created by Simeon Tsekov on 3.12.23.
 //
 
+import Combine
 import Foundation
 
 @MainActor
 class ProfileViewModel: ObservableObject {
     @Injected(\.healthKitManager) private var healthKitManager: HealthKitManager
+    @Injected(\.tokenHandler) private var tokenHandler: TokenHandling
 
     @Published var userData = UserDataModel()
+    @Published var isLoggedIn = false
+
+    private var cancellable: AnyCancellable?
 
     init() {
         loadUserData()
+
+        isLoggedIn = tokenHandler.token != nil
+
+        cancellable = tokenHandler.tokenPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] token in
+                guard let self else { return }
+
+                guard token != nil else {
+                    self.isLoggedIn = false
+                    return
+                }
+
+                self.isLoggedIn = true
+            }
+    }
+
+    func logOut() {
+        tokenHandler.clearToken()
     }
 
     private func loadUserData() {

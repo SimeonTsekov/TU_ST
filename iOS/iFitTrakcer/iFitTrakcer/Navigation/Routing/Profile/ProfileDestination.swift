@@ -34,13 +34,9 @@ extension ProfileDestination: View {
     var body: some View {
         switch self {
         case .login(let router):
-            LoginView(viewModel: loginViewModel(router: router))
+            LoginView(viewModel: LoginViewModel(router: router))
         case .register:
             RegisterScreenView()
         }
-    }
-
-    private func loginViewModel(router: ProfileRouter) -> LoginViewModel {
-        return LoginViewModel(router: router)
     }
 }
