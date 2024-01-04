@@ -12,7 +12,8 @@ import HealthKit
 class ActivityViewModel: ObservableObject {
     @Published var userActivity = UserActivityhModel()
     @Published var userActivityRecommendation: String? = "Sample activity recommendation"
-    var healthKitManager: HealthKitManager
+
+    @Injected(\.healthKitManager) private var healthKitManager: HealthKitManager
 
     var dailyWorkoutEntries: [HKWorkout] {
         userActivity.workoutEntries
@@ -30,8 +31,7 @@ class ActivityViewModel: ObservableObject {
         userActivity.dailyEnergyExpenditureEntries
     }
 
-    init(healthKitManager: HealthKitManager) {
-        self.healthKitManager = healthKitManager
+    init() {
         loadActivityData()
     }
 

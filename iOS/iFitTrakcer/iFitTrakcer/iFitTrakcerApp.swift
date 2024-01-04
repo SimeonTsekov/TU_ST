@@ -9,9 +9,8 @@ import SwiftUI
 
 @main
 struct IFitTrakcerApp: App {
+    @Injected(\.healthKitManager) var healthKitManager: HealthKitManager
     @State var healthKitPermissionsAcquired = false
-    var healthKitManager = HealthKitManager()
-    var user = User()
 
     var body: some Scene {
         WindowGroup {
@@ -24,8 +23,6 @@ struct IFitTrakcerApp: App {
         if healthKitPermissionsAcquired {
             ContentView()
                 .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.5)))
-                .environmentObject(healthKitManager)
-                .environmentObject(user)
         } else {
             splashView
                 .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.5)))

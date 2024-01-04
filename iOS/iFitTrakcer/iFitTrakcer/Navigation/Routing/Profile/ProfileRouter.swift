@@ -9,15 +9,15 @@ import Foundation
 import SwiftUI
 
 protocol ProfileRouting {
-    func pushLogin(with user: User)
+    func pushLogin()
     func pushRegister()
 }
 
 class ProfileRouter: ProfileRouting, ObservableObject {
     @Published var path = [ProfileDestination]()
 
-    func pushLogin(with user: User) {
-        path.append(.login(user, self))
+    func pushLogin() {
+        path.append(.login(self))
     }
 
     func pushRegister() {

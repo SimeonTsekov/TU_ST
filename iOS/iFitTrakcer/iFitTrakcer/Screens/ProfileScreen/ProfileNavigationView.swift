@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfileNavigationView: View {
-    @EnvironmentObject private var healthKitManager: HealthKitManager
     @StateObject private var router = ProfileRouter()
 
     var body: some View {
@@ -25,6 +24,6 @@ struct ProfileNavigationView: View {
     }
 
     var profileViewModel: ProfileViewModel {
-        ProfileViewModel(healthKitManager: healthKitManager)
+        ProfileViewModel()
     }
 }

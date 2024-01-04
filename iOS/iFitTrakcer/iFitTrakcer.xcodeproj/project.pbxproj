@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC14436E2B46AFFF00E878E7 /* TokenHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC14436D2B46AFFF00E878E7 /* TokenHandler.swift */; };
+		EC1443702B46B16000E878E7 /* AuthenticationEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC14436F2B46B16000E878E7 /* AuthenticationEndpoints.swift */; };
+		EC1443732B46BAEE00E878E7 /* InjectedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */; };
+		EC1443752B46BB0C00E878E7 /* InjectedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443742B46BB0C00E878E7 /* InjectedValues.swift */; };
+		EC1443772B46BB2900E878E7 /* Keys+InjectionValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */; };
 		EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */; };
 		EC2018112B0B6C5400C69150 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018102B0B6C5400C69150 /* ContentView.swift */; };
 		EC2018132B0B6C5500C69150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC2018122B0B6C5500C69150 /* Assets.xcassets */; };
@@ -61,6 +66,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC14436D2B46AFFF00E878E7 /* TokenHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenHandler.swift; sourceTree = "<group>"; };
+		EC14436F2B46B16000E878E7 /* AuthenticationEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationEndpoints.swift; sourceTree = "<group>"; };
+		EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedWrapper.swift; sourceTree = "<group>"; };
+		EC1443742B46BB0C00E878E7 /* InjectedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedValues.swift; sourceTree = "<group>"; };
+		EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keys+InjectionValues.swift"; sourceTree = "<group>"; };
 		EC20180B2B0B6C5400C69150 /* iFitTrakcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFitTrakcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerApp.swift; sourceTree = "<group>"; };
 		EC2018102B0B6C5400C69150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +135,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC14436C2B46AFE900E878E7 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				EC14436D2B46AFFF00E878E7 /* TokenHandler.swift */,
+				ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */,
+				EC14436F2B46B16000E878E7 /* AuthenticationEndpoints.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		EC1443712B46BAD200E878E7 /* DependencyInjection */ = {
+			isa = PBXGroup;
+			children = (
+				EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */,
+				EC1443742B46BB0C00E878E7 /* InjectedValues.swift */,
+				EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */,
+			);
+			path = DependencyInjection;
+			sourceTree = "<group>";
+		};
 		EC2018022B0B6C5400C69150 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +176,7 @@
 		EC20180D2B0B6C5400C69150 /* iFitTrakcer */ = {
 			isa = PBXGroup;
 			children = (
+				EC1443712B46BAD200E878E7 /* DependencyInjection */,
 				EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */,
 				EC20183B2B0B6E5A00C69150 /* Helpers */,
 				EC2018382B0B6E0100C69150 /* Navigation */,
@@ -299,9 +330,9 @@
 		EC3D88232B148C88003196DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC14436C2B46AFE900E878E7 /* Authentication */,
 				ECA15D1D2B2C9B3400BEB489 /* RESTClient */,
 				EC3D88242B148C9C003196DB /* HealthKit */,
-				ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -498,12 +529,16 @@
 				EC2018582B0B752F00C69150 /* HealthDestination.swift in Sources */,
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
 				EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */,
+				EC1443772B46BB2900E878E7 /* Keys+InjectionValues.swift in Sources */,
 				EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
 				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
 				EC2018562B0B750C00C69150 /* HealthRouter.swift in Sources */,
+				EC1443732B46BAEE00E878E7 /* InjectedWrapper.swift in Sources */,
+				EC1443752B46BB0C00E878E7 /* InjectedValues.swift in Sources */,
 				EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */,
 				ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */,
+				EC14436E2B46AFFF00E878E7 /* TokenHandler.swift in Sources */,
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
 				EC20183D2B0B6E8800C69150 /* Icon.swift in Sources */,
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
@@ -514,6 +549,7 @@
 				ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */,
 				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
+				EC1443702B46B16000E878E7 /* AuthenticationEndpoints.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
 				EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */,
 				ECF3BB072B459C1300DD9C53 /* LoginViewModel.swift in Sources */,

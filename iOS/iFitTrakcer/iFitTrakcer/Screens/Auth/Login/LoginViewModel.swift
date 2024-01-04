@@ -13,11 +13,11 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var isLoggingIn = false
 
-    private let router: ProfileRouter
-    private let userAuthenticator: UserAuthenticating
+    @Injected(\.userAuthenticator) private var userAuthenticator: UserAuthenticating
 
-    init(userAuthenticator: UserAuthenticating, router: ProfileRouter) {
-        self.userAuthenticator = userAuthenticator
+    private let router: ProfileRouter
+
+    init(router: ProfileRouter) {
         self.router = router
     }
 

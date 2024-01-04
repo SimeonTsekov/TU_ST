@@ -11,7 +11,8 @@ import Foundation
 class HealthViewModel: ObservableObject {
     @Published var userHealth = UserHealthModel()
     @Published var userHealthRecommendation: String? = "Sample health recommendation"
-    var healthKitManager: HealthKitManager
+
+    @Injected(\.healthKitManager) private var healthKitManager: HealthKitManager
 
     var bodyMassEntries: [Double] {
         userHealth.bodyMassEntries
@@ -29,8 +30,7 @@ class HealthViewModel: ObservableObject {
         userHealth.leanBodyMassEntries
     }
 
-    init(healthKitManager: HealthKitManager) {
-        self.healthKitManager = healthKitManager
+    init() {
         loadHealthData()
     }
 

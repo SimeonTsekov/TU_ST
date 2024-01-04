@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 enum ProfileDestination {
-    case login(User, ProfileRouter)
+    case login(ProfileRouter)
     case register
 }
 
@@ -33,15 +33,14 @@ extension ProfileDestination: Hashable {
 extension ProfileDestination: View {
     var body: some View {
         switch self {
-        case .login(let user, let router):
-            LoginView(viewModel: loginViewModel(with: user, router: router))
+        case .login(let router):
+            LoginView(viewModel: loginViewModel(router: router))
         case .register:
             RegisterScreenView()
         }
     }
 
-    private func loginViewModel(with user: User, router: ProfileRouter) -> LoginViewModel {
-        let userAuthenticator = UserAuthenticator(user: user)
-        return LoginViewModel(userAuthenticator: userAuthenticator, router: router)
+    private func loginViewModel(router: ProfileRouter) -> LoginViewModel {
+        return LoginViewModel(router: router)
     }
 }

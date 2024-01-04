@@ -14,8 +14,4 @@ extension ActivityDestination: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.hashValue)
     }
-
-    static func == (lhs: ActivityDestination, rhs: ActivityDestination) -> Bool {
-        return true
-    }
 }

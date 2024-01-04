@@ -9,11 +9,11 @@ import Foundation
 
 @MainActor
 class ProfileViewModel: ObservableObject {
-    @Published var userData = UserDataModel()
-    var healthKitManager: HealthKitManager
+    @Injected(\.healthKitManager) private var healthKitManager: HealthKitManager
 
-    init(healthKitManager: HealthKitManager) {
-        self.healthKitManager = healthKitManager
+    @Published var userData = UserDataModel()
+
+    init() {
         loadUserData()
     }
 
