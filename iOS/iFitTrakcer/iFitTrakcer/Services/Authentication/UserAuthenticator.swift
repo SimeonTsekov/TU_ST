@@ -29,7 +29,7 @@ final class UserAuthenticator: UserAuthenticating {
 
         switch result {
         case .success(let response):
-            tokenHandler.storeToken(token: response.token)
+            tokenHandler.storeToken(token: response.accessToken)
             return true
         case .failure:
             return false
@@ -44,7 +44,7 @@ final class UserAuthenticator: UserAuthenticating {
 
         switch result {
         case .success(let response):
-            tokenHandler.storeToken(token: response.token)
+            tokenHandler.storeToken(token: response.accessToken)
             return true
         case .failure:
             return false

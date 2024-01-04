@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Sex: String, CaseIterable {
+enum Sex: String, CaseIterable, Decodable {
     case male = "Male"
     case female = "Female"
     case unidentified = "Unidentified"

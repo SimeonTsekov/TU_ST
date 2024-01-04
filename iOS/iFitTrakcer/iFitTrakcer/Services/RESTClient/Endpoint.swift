@@ -18,13 +18,15 @@ protocol Endpoint: Encodable {
 
 extension Endpoint {
     func request(relativeTo url: URL) -> URLRequest? {
-        var request = URLRequest(url: url)
+        let extendedUrl = url.appending(path: path)
+        var request = URLRequest(url: extendedUrl)
 
         request.httpMethod = httpMethod.rawValue
 
         if httpMethod == .POST {
             if let data = try? JSONEncoder().encode(self),
                let jsonString = String(data: data, encoding: .utf8) {
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = jsonString.data(using: .utf8)
             }
         }
