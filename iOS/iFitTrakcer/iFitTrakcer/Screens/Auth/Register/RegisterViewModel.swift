@@ -8,12 +8,21 @@
 import Combine
 import Foundation
 
+@MainActor
 class RegisterViewModel: ObservableObject {
     @Published var username = ""
     @Published var email = ""
     @Published var password = ""
     @Published var confirmPassword = ""
+
     @Published var errorMessage: String?
+    @Published var isRegistering = false
+
+    @Injected(\.userAuthenticator) private var userAuthenticator: UserAuthenticating
+    @Injected(\.tokenHandler) private var tokenHandler: TokenHandling
+
+    private let router: ProfileRouter
+    private var cancellable: AnyCancellable?
 
     var registerIsDisabled: Bool {
         username.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty
@@ -35,14 +44,21 @@ class RegisterViewModel: ObservableObject {
         password == confirmPassword
     }
 
-    init(username: String = "",
-         email: String = "",
-         password: String = "",
-         confirmPassword: String = "") {
-        self.username = username
-        self.email = email
-        self.password = password
-        self.confirmPassword = confirmPassword
+    init(router: ProfileRouter) {
+        self.router = router
+
+        cancellable = tokenHandler.tokenPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] token in
+                guard let self else { return }
+
+                guard token != nil else {
+                    self.errorMessage = "Something went wrong"
+                    return
+                }
+
+                self.router.popBack()
+            }
     }
 
     func validateFields() -> Bool {
@@ -66,5 +82,18 @@ class RegisterViewModel: ObservableObject {
 
         errorMessage = nil
         return true
+    }
+
+    func registerAction() async {
+        isRegistering = true
+        await register()
+        isRegistering = false
+    }
+
+    func register() async {
+        await userAuthenticator.register(username: username,
+                                         email: email,
+                                         password: password,
+                                         confirmPassword: confirmPassword)
     }
 }

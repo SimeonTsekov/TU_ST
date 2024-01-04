@@ -21,10 +21,14 @@ class ProfileRouter: ProfileRouting, ObservableObject {
     }
 
     func pushRegister() {
-        path.append(.register)
+        path.append(.register(self))
     }
 
     func popBack() {
         path.removeLast()
+    }
+
+    func popAll() {
+        path.removeAll()
     }
 }

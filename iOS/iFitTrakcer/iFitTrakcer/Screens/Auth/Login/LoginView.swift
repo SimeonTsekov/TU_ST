@@ -44,7 +44,7 @@ struct LoginView: View {
 
     private var loginButton: some View {
         GenericActionButton(label: "Log In") {
-            Task { @MainActor in
+            Task {
                 await viewModel.logInAction()
             }
         }
