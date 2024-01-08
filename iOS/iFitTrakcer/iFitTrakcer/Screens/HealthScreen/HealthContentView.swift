@@ -12,27 +12,31 @@ struct HealthContentView: View {
     var router: HealthRouter
 
     var body: some View {
-        List {
-            healthSection
+        if viewModel.isLoadingUserHealth {
+            ProgressView()
+        } else {
+            List {
+                healthSection
+            }
         }
     }
 
     @ViewBuilder
     private var healthSection: some View {
         Section(header: Text("7-Day Summary")) {
-            if let weeklyAverageWeight = viewModel.bodyMassEntries.average() {
+            if let weeklyAverageWeight = viewModel.bodyMassEntries?.average() {
                 SimpleListCell(title: "Body Mass",
                                value: String(format: "%.2f", weeklyAverageWeight) + " kg")
             }
-            if let weeklyAverageBMI = viewModel.bmiEntries.average() {
+            if let weeklyAverageBMI = viewModel.bmiEntries?.average() {
                 SimpleListCell(title: "BMI",
                                value: String(format: "%.2f", weeklyAverageBMI))
             }
-            if let weeklyAveragebodyFat = viewModel.bodyFatEntries.average() {
+            if let weeklyAveragebodyFat = viewModel.bodyFatEntries?.average() {
                 SimpleListCell(title: "Body Fat",
                                value: String(format: "%.2f", weeklyAveragebodyFat * 100) + " %")
             }
-            if let weeklyAverageLeanMass = viewModel.leanBodyMassEntries.average() {
+            if let weeklyAverageLeanMass = viewModel.leanBodyMassEntries?.average() {
                 SimpleListCell(title: "Lean Mass",
                                value: String(format: "%.2f", weeklyAverageLeanMass) + " kg")
             }
@@ -40,7 +44,7 @@ struct HealthContentView: View {
 
         if let userHealthRecommendation = viewModel.userHealthRecommendation {
             Section(header: Text("Recommendation")) {
-                SimpleListCell(title: "ChatGPT Recommends",
+                SimpleListCell(title: "AI Recommends",
                                value: userHealthRecommendation)
             }
         }

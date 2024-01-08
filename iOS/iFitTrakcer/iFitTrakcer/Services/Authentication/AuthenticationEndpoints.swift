@@ -17,6 +17,7 @@ struct User: Decodable {
     let sex: Sex
     let createdDate: String
 }
+
 struct UserTokenResponse: Decodable {
     let accessToken: String
     let user: User

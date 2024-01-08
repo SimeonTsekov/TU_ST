@@ -25,7 +25,8 @@ final class UserAuthenticator: UserAuthenticating {
     // MARK: Public
 
     func login(email: String, password: String) async {
-        let result = await executeLoginRequest(email: email, password: password)
+        let loginEndpoint = LoginEndpoint(email: email, password: password)
+        let result = await executeLoginRequest(loginEndpoint: loginEndpoint)
 
         switch result {
         case .success(let response):
@@ -37,10 +38,11 @@ final class UserAuthenticator: UserAuthenticating {
     }
 
     func register(username: String, email: String, password: String, confirmPassword: String) async {
-        let result = await executeRegisterRequest(username: username,
-                                                  email: email,
-                                                  password: password,
-                                                  confirmPassword: confirmPassword)
+        let registerEndpoint = RegisterEndpoint(username: username,
+                                                email: email,
+                                                password: password,
+                                                confirmPassword: confirmPassword)
+        let result = await executeRegisterRequest(registerEndpoint: registerEndpoint)
 
         switch result {
         case .success(let response):
@@ -57,9 +59,7 @@ final class UserAuthenticator: UserAuthenticating {
 
     // MARK: Private
 
-    private func executeLoginRequest(email: String,
-                                     password: String) async -> Result<LoginEndpoint.ResponseModel, Error> {
-        let loginEndpoint = LoginEndpoint(email: email, password: password)
+    private func executeLoginRequest(loginEndpoint: LoginEndpoint) async -> Result<LoginEndpoint.ResponseModel, Error> {
 
         let result = await withCheckedContinuation { continuation in
             restClient.call(loginEndpoint) { result in
@@ -70,16 +70,8 @@ final class UserAuthenticator: UserAuthenticating {
         return result
     }
 
-    private func executeRegisterRequest(username: String,
-                                        email: String,
-                                        password: String,
-                                        confirmPassword: String) async
+    private func executeRegisterRequest(registerEndpoint: RegisterEndpoint) async
     -> Result<RegisterEndpoint.ResponseModel, Error> {
-        let registerEndpoint = RegisterEndpoint(username: username,
-                                                email: email,
-                                                password: password,
-                                                confirmPassword: confirmPassword)
-
         let result = await withCheckedContinuation { continuation in
             restClient.call(registerEndpoint) { result in
                 continuation.resume(returning: result)

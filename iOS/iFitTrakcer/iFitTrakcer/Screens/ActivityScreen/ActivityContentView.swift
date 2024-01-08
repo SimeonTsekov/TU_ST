@@ -12,25 +12,31 @@ struct ActivityContentView: View {
     var router: ActivityRouter
 
     var body: some View {
-        List {
-            activitySection
+        if viewModel.isLoadingUserActivity {
+            ProgressView()
+        } else {
+            List {
+                activitySection
+            }
         }
     }
 
     @ViewBuilder
     private var activitySection: some View {
         Section(header: Text("7-Day Summary")) {
-            SimpleListCell(title: "Workouts",
-                           value: String(viewModel.dailyWorkoutEntries.count))
-            if let weeklyAverageStepEntries = viewModel.dailyStepsEntries.weeklyAverage() {
+            if let dailyWorkoutEntries = viewModel.dailyWorkoutEntries?.count {
+                SimpleListCell(title: "Workouts",
+                               value: String(dailyWorkoutEntries))
+            }
+            if let weeklyAverageStepEntries = viewModel.dailyStepsEntries?.weeklyAverage() {
                 SimpleListCell(title: "Steps",
                                value: String(format: "%.2f", weeklyAverageStepEntries))
             }
-            if let weeklyAverageDistanceEntries = viewModel.dailyDistanceEntries.weeklyAverage() {
+            if let weeklyAverageDistanceEntries = viewModel.dailyDistanceEntries?.weeklyAverage() {
                 SimpleListCell(title: "Distance",
                                value: String(format: "%.2f", weeklyAverageDistanceEntries) + " km")
             }
-            if let weeklyAverageEnergyExpenditureEntries = viewModel.dailyEnergyExpenditureEntries.weeklyAverage() {
+            if let weeklyAverageEnergyExpenditureEntries = viewModel.dailyEnergyExpenditureEntries?.weeklyAverage() {
                 SimpleListCell(title: "Energy Burned",
                                value: String(format: "%.2f", weeklyAverageEnergyExpenditureEntries) + " kcal")
             }
@@ -38,7 +44,7 @@ struct ActivityContentView: View {
 
         if let userActivityRecommendation = viewModel.userActivityRecommendation {
             Section(header: Text("Recommendation")) {
-                SimpleListCell(title: "ChatGPT Recommends",
+                SimpleListCell(title: "AI Recommends",
                                value: userActivityRecommendation)
             }
         }

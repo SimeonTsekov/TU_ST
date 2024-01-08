@@ -22,8 +22,9 @@ class RESTClient {
     }
 
     func call<T: Endpoint>(_ endpoint: T,
+                           authorization token: String? = nil,
                            completion completionHandler: @escaping (Result<T.ResponseModel, Error>) -> Void) {
-        guard let request = endpoint.request(relativeTo: baseURL) else {
+        guard let request = endpoint.request(relativeTo: baseURL, authorization: token) else {
             completionHandler(.failure(NSError(domain: baseURL.absoluteString,
                                                code: -1,
                                                userInfo: ["Message": "Couldn't create URLRequest"])))

@@ -18,6 +18,10 @@ struct HealthNavigationView: View {
     }
 
     var healthContentView: some View {
-        HealthContentView(viewModel: HealthViewModel(), router: router)
+        let healthViewModel = HealthViewModel()
+        Task {
+            await healthViewModel.initialiseData()
+        }
+        return HealthContentView(viewModel: healthViewModel, router: router)
     }
 }

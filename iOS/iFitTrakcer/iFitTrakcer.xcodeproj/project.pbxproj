@@ -12,6 +12,8 @@
 		EC1443732B46BAEE00E878E7 /* InjectedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */; };
 		EC1443752B46BB0C00E878E7 /* InjectedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443742B46BB0C00E878E7 /* InjectedValues.swift */; };
 		EC1443772B46BB2900E878E7 /* Keys+InjectionValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */; };
+		EC1443862B4C378D00E878E7 /* NetworkLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443852B4C378D00E878E7 /* NetworkLoader.swift */; };
+		EC1443892B4C382E00E878E7 /* ActivityEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443882B4C382E00E878E7 /* ActivityEndpoints.swift */; };
 		EC20180F2B0B6C5400C69150 /* iFitTrakcerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */; };
 		EC2018112B0B6C5400C69150 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2018102B0B6C5400C69150 /* ContentView.swift */; };
 		EC2018132B0B6C5500C69150 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC2018122B0B6C5500C69150 /* Assets.xcassets */; };
@@ -48,6 +50,7 @@
 		EC7F32F62B28EDC0005A4F90 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */; };
 		ECA15D1F2B2C9B5E00BEB489 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA15D1E2B2C9B5E00BEB489 /* Endpoint.swift */; };
 		ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */; };
+		ECA8C20A2B4C737B007D8189 /* HealthEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA8C2092B4C737B007D8189 /* HealthEndpoints.swift */; };
 		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
 		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 		ECF3BB042B45936F00DD9C53 /* UserAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */; };
@@ -71,6 +74,9 @@
 		EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedWrapper.swift; sourceTree = "<group>"; };
 		EC1443742B46BB0C00E878E7 /* InjectedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedValues.swift; sourceTree = "<group>"; };
 		EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keys+InjectionValues.swift"; sourceTree = "<group>"; };
+		EC1443782B482AE500E878E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EC1443852B4C378D00E878E7 /* NetworkLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoader.swift; sourceTree = "<group>"; };
+		EC1443882B4C382E00E878E7 /* ActivityEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEndpoints.swift; sourceTree = "<group>"; };
 		EC20180B2B0B6C5400C69150 /* iFitTrakcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iFitTrakcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC20180E2B0B6C5400C69150 /* iFitTrakcerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iFitTrakcerApp.swift; sourceTree = "<group>"; };
 		EC2018102B0B6C5400C69150 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 		EC7F32F52B28EDC0005A4F90 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		ECA15D1E2B2C9B5E00BEB489 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
+		ECA8C2092B4C737B007D8189 /* HealthEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthEndpoints.swift; sourceTree = "<group>"; };
 		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
 		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticator.swift; sourceTree = "<group>"; };
@@ -155,6 +162,24 @@
 			path = DependencyInjection;
 			sourceTree = "<group>";
 		};
+		EC1443872B4C379700E878E7 /* DataLoading */ = {
+			isa = PBXGroup;
+			children = (
+				EC14438A2B4C383D00E878E7 /* Endpoints */,
+				EC1443852B4C378D00E878E7 /* NetworkLoader.swift */,
+			);
+			path = DataLoading;
+			sourceTree = "<group>";
+		};
+		EC14438A2B4C383D00E878E7 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				EC1443882B4C382E00E878E7 /* ActivityEndpoints.swift */,
+				ECA8C2092B4C737B007D8189 /* HealthEndpoints.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
 		EC2018022B0B6C5400C69150 = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +201,7 @@
 		EC20180D2B0B6C5400C69150 /* iFitTrakcer */ = {
 			isa = PBXGroup;
 			children = (
+				EC1443782B482AE500E878E7 /* Info.plist */,
 				EC1443712B46BAD200E878E7 /* DependencyInjection */,
 				EC3D88272B148DFF003196DB /* iFitTrakcer.entitlements */,
 				EC20183B2B0B6E5A00C69150 /* Helpers */,
@@ -330,6 +356,7 @@
 		EC3D88232B148C88003196DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC1443872B4C379700E878E7 /* DataLoading */,
 				EC14436C2B46AFE900E878E7 /* Authentication */,
 				ECA15D1D2B2C9B3400BEB489 /* RESTClient */,
 				EC3D88242B148C9C003196DB /* HealthKit */,
@@ -530,6 +557,7 @@
 				EC20184F2B0B731000C69150 /* ActivityDestination.swift in Sources */,
 				EC3D88312B14D99F003196DB /* UserHealthModel.swift in Sources */,
 				EC1443772B46BB2900E878E7 /* Keys+InjectionValues.swift in Sources */,
+				ECA8C20A2B4C737B007D8189 /* HealthEndpoints.swift in Sources */,
 				EC7F32F32B28E06D005A4F90 /* GenericSecureField.swift in Sources */,
 				EC2018402B0B712200C69150 /* TabRouter.swift in Sources */,
 				EC3D882F2B14C3BB003196DB /* UserMetric.swift in Sources */,
@@ -537,6 +565,7 @@
 				EC1443732B46BAEE00E878E7 /* InjectedWrapper.swift in Sources */,
 				EC1443752B46BB0C00E878E7 /* InjectedValues.swift in Sources */,
 				EC3D88262B148CAE003196DB /* HealthKitManager.swift in Sources */,
+				EC1443862B4C378D00E878E7 /* NetworkLoader.swift in Sources */,
 				ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */,
 				EC14436E2B46AFFF00E878E7 /* TokenHandler.swift in Sources */,
 				EC2018512B0B746D00C69150 /* HealthNavigationView.swift in Sources */,
@@ -544,6 +573,7 @@
 				EC20185C2B0B760900C69150 /* ProfileNavigationView.swift in Sources */,
 				EC3D88342B14DC51003196DB /* NumericArray+Average.swift in Sources */,
 				EC7F32EB2B281AB4005A4F90 /* LoginView.swift in Sources */,
+				EC1443892B4C382E00E878E7 /* ActivityEndpoints.swift in Sources */,
 				EC2018482B0B720F00C69150 /* ActivityContentView.swift in Sources */,
 				EC7F32ED2B28DD5C005A4F90 /* RegisterScreenView.swift in Sources */,
 				ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */,
@@ -716,6 +746,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iFitTrakcer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We want to read your health data.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We want to read your health data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We want to write your health data.";
@@ -751,6 +783,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iFitTrakcer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We want to read your health data.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We want to read your health data.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We want to write your health data.";

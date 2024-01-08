@@ -13,13 +13,15 @@ class ProfileViewModel: ObservableObject {
     @Injected(\.healthKitManager) private var healthKitManager: HealthKitManager
     @Injected(\.tokenHandler) private var tokenHandler: TokenHandling
 
-    @Published var userData = UserDataModel()
+    @Published var userData: UserDataModel = UserDataModel()
     @Published var isLoggedIn = false
 
     private var cancellable: AnyCancellable?
 
     init() {
-        loadUserData()
+        Task {
+            await loadUserData()
+        }
 
         isLoggedIn = tokenHandler.token != nil
 
@@ -34,6 +36,9 @@ class ProfileViewModel: ObservableObject {
                 }
 
                 self.isLoggedIn = true
+                Task {
+                    await self.loadUserData()
+                }
             }
     }
 
@@ -41,14 +46,8 @@ class ProfileViewModel: ObservableObject {
         tokenHandler.clearToken()
     }
 
-    private func loadUserData() {
-        Task { @MainActor [weak self] in
-            guard let self else {
-                return
-            }
-
-            self.userData = await fetchUserData()
-        }
+    private func loadUserData() async {
+        userData = await fetchUserData()
     }
 
     private func fetchUserData() async -> UserDataModel {
