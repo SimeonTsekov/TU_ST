@@ -91,9 +91,10 @@ class RegisterViewModel: ObservableObject {
     }
 
     func register() async {
-        await userAuthenticator.register(username: username,
-                                         email: email,
-                                         password: password,
-                                         confirmPassword: confirmPassword)
+        let registerRequestBody = RegisterRequestBody(username: username,
+                                                      email: email,
+                                                      password: password,
+                                                      confirmPassword: confirmPassword)
+        await userAuthenticator.register(registerRequestBody)
     }
 }

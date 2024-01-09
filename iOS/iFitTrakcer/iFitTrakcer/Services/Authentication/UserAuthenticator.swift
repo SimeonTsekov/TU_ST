@@ -9,12 +9,8 @@ import Foundation
 import OSLog
 
 protocol UserAuthenticating {
-    func login(email: String,
-               password: String) async
-    func register(username: String,
-                  email: String,
-                  password: String,
-                  confirmPassword: String) async
+    func login(_ requestBody: LoginRequestBody) async
+    func register(_ requestBody: RegisterRequestBody) async
     func logout()
 }
 
@@ -26,37 +22,37 @@ final class UserAuthenticator: UserAuthenticating {
 
     static private let basePath = "http://localhost:5121/api/Auth"
 
+    func login(_ requestBody: LoginRequestBody) async {
+        let endpoint = LoginEndpoint(email: requestBody.email,
+                                     password: requestBody.password)
 
-    func login(email: String, password: String) async {
-        let endpoint = LoginEndpoint(email: email, password: password)
-        let result = await restClient.execute(endpoint)
-
-        switch result {
-        case .success(let response):
-            tokenHandler.storeToken(token: response.accessToken)
-        case .failure(let error as NSError):
-            self.logger
-                .error("[AUTH] Register failed with error code \(error.code)")
-        }
+        await executeAuthEndpoint(with: endpoint)
     }
 
-    func register(username: String, email: String, password: String, confirmPassword: String) async {
-        let endpoint = RegisterEndpoint(username: username,
-                                        email: email,
-                                        password: password,
-                                        confirmPassword: confirmPassword)
-        let result = await restClient.execute(endpoint)
+    func register(_ requestBody: RegisterRequestBody) async {
+        let endpoint = RegisterEndpoint(username: requestBody.username,
+                                        email: requestBody.email,
+                                        password: requestBody.password,
+                                        confirmPassword: requestBody.confirmPassword)
 
-        switch result {
-        case .success(let response):
-            tokenHandler.storeToken(token: response.accessToken)
-        case .failure(let error as NSError):
-            self.logger
-                .error("[AUTH] Register failed with error code \(error.code)")
-        }
+        await executeAuthEndpoint(with: endpoint)
     }
 
     func logout() {
         tokenHandler.clearToken()
+    }
+
+    private func executeAuthEndpoint<E: Endpoint>(with endpoint: E) async {
+        let result = await restClient.execute(endpoint)
+
+        switch result {
+        case .success(let response):
+            if let tokenResponse = response as? UserTokenResponse {
+                tokenHandler.storeToken(token: tokenResponse.accessToken)
+            }
+        case .failure(let error as NSError):
+            self.logger
+                .error("[AUTH] Register failed with error code \(error.code)")
+        }
     }
 }

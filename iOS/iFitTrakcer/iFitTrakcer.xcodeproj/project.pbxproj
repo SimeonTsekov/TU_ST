@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EC14436E2B46AFFF00E878E7 /* TokenHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC14436D2B46AFFF00E878E7 /* TokenHandler.swift */; };
-		EC1443702B46B16000E878E7 /* AuthenticationEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC14436F2B46B16000E878E7 /* AuthenticationEndpoints.swift */; };
+		EC1443702B46B16000E878E7 /* LoginEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC14436F2B46B16000E878E7 /* LoginEndpoint.swift */; };
 		EC1443732B46BAEE00E878E7 /* InjectedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */; };
 		EC1443752B46BB0C00E878E7 /* InjectedValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443742B46BB0C00E878E7 /* InjectedValues.swift */; };
 		EC1443772B46BB2900E878E7 /* Keys+InjectionValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */; };
@@ -52,6 +52,8 @@
 		ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */; };
 		ECA8C20A2B4C737B007D8189 /* HealthEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA8C2092B4C737B007D8189 /* HealthEndpoint.swift */; };
 		ECA8C20C2B4D51B0007D8189 /* RecommendationEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA8C20B2B4D51B0007D8189 /* RecommendationEndpoint.swift */; };
+		ECA8C20F2B4D8662007D8189 /* RegistrationEnpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA8C20E2B4D8662007D8189 /* RegistrationEnpoint.swift */; };
+		ECA8C2112B4D86D8007D8189 /* UserTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA8C2102B4D86D8007D8189 /* UserTokenResponse.swift */; };
 		ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */; };
 		ECC4AFEB2B1A108C0022C6AB /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */; };
 		ECF3BB042B45936F00DD9C53 /* UserAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */; };
@@ -71,7 +73,7 @@
 
 /* Begin PBXFileReference section */
 		EC14436D2B46AFFF00E878E7 /* TokenHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenHandler.swift; sourceTree = "<group>"; };
-		EC14436F2B46B16000E878E7 /* AuthenticationEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationEndpoints.swift; sourceTree = "<group>"; };
+		EC14436F2B46B16000E878E7 /* LoginEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEndpoint.swift; sourceTree = "<group>"; };
 		EC1443722B46BAEE00E878E7 /* InjectedWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedWrapper.swift; sourceTree = "<group>"; };
 		EC1443742B46BB0C00E878E7 /* InjectedValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectedValues.swift; sourceTree = "<group>"; };
 		EC1443762B46BB2900E878E7 /* Keys+InjectionValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keys+InjectionValues.swift"; sourceTree = "<group>"; };
@@ -119,6 +121,8 @@
 		ECA15D202B2C9DFD00BEB489 /* RESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RESTClient.swift; sourceTree = "<group>"; };
 		ECA8C2092B4C737B007D8189 /* HealthEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthEndpoint.swift; sourceTree = "<group>"; };
 		ECA8C20B2B4D51B0007D8189 /* RecommendationEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEndpoint.swift; sourceTree = "<group>"; };
+		ECA8C20E2B4D8662007D8189 /* RegistrationEnpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationEnpoint.swift; sourceTree = "<group>"; };
+		ECA8C2102B4D86D8007D8189 /* UserTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenResponse.swift; sourceTree = "<group>"; };
 		ECC4AFE82B1A0F1C0022C6AB /* UserActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityModel.swift; sourceTree = "<group>"; };
 		ECC4AFEA2B1A108C0022C6AB /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticator.swift; sourceTree = "<group>"; };
@@ -147,9 +151,9 @@
 		EC14436C2B46AFE900E878E7 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				ECA8C20D2B4D864D007D8189 /* Endpoints */,
 				EC14436D2B46AFFF00E878E7 /* TokenHandler.swift */,
 				ECF3BB032B45936F00DD9C53 /* UserAuthenticator.swift */,
-				EC14436F2B46B16000E878E7 /* AuthenticationEndpoints.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -410,6 +414,16 @@
 			path = RESTClient;
 			sourceTree = "<group>";
 		};
+		ECA8C20D2B4D864D007D8189 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				EC14436F2B46B16000E878E7 /* LoginEndpoint.swift */,
+				ECA8C20E2B4D8662007D8189 /* RegistrationEnpoint.swift */,
+				ECA8C2102B4D86D8007D8189 /* UserTokenResponse.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
 		ECF3BB052B459C0500DD9C53 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC7F32F12B28E003005A4F90 /* GenericTextField.swift in Sources */,
+				ECA8C2112B4D86D8007D8189 /* UserTokenResponse.swift in Sources */,
 				EC2018612B0B768F00C69150 /* ProfileRouter.swift in Sources */,
 				EC7F32EF2B28DEEB005A4F90 /* GenericActionButton.swift in Sources */,
 				ECF3BB042B45936F00DD9C53 /* UserAuthenticator.swift in Sources */,
@@ -583,11 +598,12 @@
 				ECA15D212B2C9DFD00BEB489 /* RESTClient.swift in Sources */,
 				ECC4AFE92B1A0F1C0022C6AB /* UserActivityModel.swift in Sources */,
 				EC20184D2B0B72EF00C69150 /* ActivityRouter.swift in Sources */,
-				EC1443702B46B16000E878E7 /* AuthenticationEndpoints.swift in Sources */,
+				EC1443702B46B16000E878E7 /* LoginEndpoint.swift in Sources */,
 				EC2018532B0B749F00C69150 /* HealthContentView.swift in Sources */,
 				EC3D88222B13E07C003196DB /* SimpleListCell.swift in Sources */,
 				ECF3BB072B459C1300DD9C53 /* LoginViewModel.swift in Sources */,
 				EC2018632B0B76BB00C69150 /* ProfileDestination.swift in Sources */,
+				ECA8C20F2B4D8662007D8189 /* RegistrationEnpoint.swift in Sources */,
 				EC20185E2B0B764400C69150 /* ProfileContentView.swift in Sources */,
 				EC20183A2B0B6E1800C69150 /* TabDestination.swift in Sources */,
 				EC3D882B2B14A1E3003196DB /* HealthViewModel.swift in Sources */,
