@@ -17,7 +17,7 @@ protocol Endpoint: Encodable {
 
 extension Endpoint {
     func request(relativeTo url: URL,
-                 authorization token: String?) -> URLRequest? {
+                 authorization token: String?) -> URLRequest {
         let extendedUrl = url.appending(path: path)
         var request = URLRequest(url: extendedUrl)
 

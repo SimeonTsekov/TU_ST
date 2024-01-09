@@ -9,8 +9,12 @@ import Foundation
 import OSLog
 
 protocol UserAuthenticating {
-    func login(email: String, password: String) async
-    func register(username: String, email: String, password: String, confirmPassword: String) async
+    func login(email: String,
+               password: String) async
+    func register(username: String,
+                  email: String,
+                  password: String,
+                  confirmPassword: String) async
     func logout()
 }
 
@@ -25,8 +29,8 @@ final class UserAuthenticator: UserAuthenticating {
     // MARK: Public
 
     func login(email: String, password: String) async {
-        let loginEndpoint = LoginEndpoint(email: email, password: password)
-        let result = await executeLoginRequest(loginEndpoint: loginEndpoint)
+        let endpoint = LoginEndpoint(email: email, password: password)
+        let result = await restClient.execute(endpoint)
 
         switch result {
         case .success(let response):
@@ -38,11 +42,11 @@ final class UserAuthenticator: UserAuthenticating {
     }
 
     func register(username: String, email: String, password: String, confirmPassword: String) async {
-        let registerEndpoint = RegisterEndpoint(username: username,
-                                                email: email,
-                                                password: password,
-                                                confirmPassword: confirmPassword)
-        let result = await executeRegisterRequest(registerEndpoint: registerEndpoint)
+        let endpoint = RegisterEndpoint(username: username,
+                                        email: email,
+                                        password: password,
+                                        confirmPassword: confirmPassword)
+        let result = await restClient.execute(endpoint)
 
         switch result {
         case .success(let response):
@@ -55,29 +59,5 @@ final class UserAuthenticator: UserAuthenticating {
 
     func logout() {
         tokenHandler.clearToken()
-    }
-
-    // MARK: Private
-
-    private func executeLoginRequest(loginEndpoint: LoginEndpoint) async -> Result<LoginEndpoint.ResponseModel, Error> {
-
-        let result = await withCheckedContinuation { continuation in
-            restClient.call(loginEndpoint) { result in
-                continuation.resume(returning: result)
-            }
-        }
-
-        return result
-    }
-
-    private func executeRegisterRequest(registerEndpoint: RegisterEndpoint) async
-    -> Result<RegisterEndpoint.ResponseModel, Error> {
-        let result = await withCheckedContinuation { continuation in
-            restClient.call(registerEndpoint) { result in
-                continuation.resume(returning: result)
-            }
-        }
-
-        return result
     }
 }

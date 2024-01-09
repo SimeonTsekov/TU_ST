@@ -48,7 +48,7 @@ final class NetworkLoader: NetworkLoading {
                                             dailyDistance: dailyDistance,
                                             dailyEnergyBurned: dailyEnergyBurned)
 
-        let result = await executeQuery(with: endpoint, authorization: token)
+        let result = await restClient.execute(endpoint, authorization: token)
 
         switch result {
         case .success:
@@ -69,7 +69,7 @@ final class NetworkLoader: NetworkLoading {
 
         let endpoint = GetActivityRecommendationEndpoint()
 
-        let result = await executeQuery(with: endpoint, authorization: token)
+        let result = await restClient.execute(endpoint, authorization: token)
 
         switch result {
         case .success(let response):
@@ -98,7 +98,7 @@ final class NetworkLoader: NetworkLoading {
                                           bodyFat: bodyFat,
                                           leanBodyMass: leanBodyMass)
 
-        let result = await executeQuery(with: endpoint, authorization: token)
+        let result = await restClient.execute(endpoint, authorization: token)
 
         switch result {
         case .success:
@@ -119,7 +119,7 @@ final class NetworkLoader: NetworkLoading {
 
         let endpoint = GetHealthRecommendationEndpoint()
 
-        let result = await executeQuery(with: endpoint, authorization: token)
+        let result = await restClient.execute(endpoint, authorization: token)
 
         switch result {
         case .success(let response):
@@ -131,20 +131,5 @@ final class NetworkLoader: NetworkLoading {
                 .error("[NETWORK] Health recommendation download failed with error code \(error.code)")
             return nil
         }
-    }
-
-    // MARK: Private
-
-    private func executeQuery<T: Endpoint>(with endpoint: T,
-                                           authorization token: String) async ->
-        Result<T.ResponseModel, Error> {
-
-        let result = await withCheckedContinuation { continuation in
-            restClient.call(endpoint, authorization: tokenHandler.token) { result in
-                continuation.resume(returning: result)
-            }
-        }
-
-        return result
     }
 }
