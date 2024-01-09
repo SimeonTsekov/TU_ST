@@ -44,10 +44,11 @@ class ActivityViewModel: ObservableObject {
     }
 
     private func uploadActivityData() async {
-        await networkLoader.uploadActivityData(workouts: Int(dailyWorkoutEntries?.count ?? 0),
-                                               dailySteps: Int(dailyStepsEntries?.average() ?? 0),
-                                               dailyDistance: Int(dailyDistanceEntries?.average() ?? 0),
-                                               dailyEnergyBurned: Int(dailyEnergyExpenditureEntries?.average() ?? 0))
+        let activityRequestBody = ActivityRequestBody(workouts: dailyWorkoutEntries?.count ?? 0,
+                                                      dailySteps: dailyStepsEntries?.average() ?? 0,
+                                                      dailyDistance: dailyDistanceEntries?.average() ?? 0,
+                                                      dailyEnergyBurned: dailyEnergyExpenditureEntries?.average() ?? 0)
+        await networkLoader.uploadActivityData(activityRequestBody)
     }
 
     private func downloadActivityRecommendationData() async {

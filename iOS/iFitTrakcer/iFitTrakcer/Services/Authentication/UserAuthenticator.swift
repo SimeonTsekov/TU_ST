@@ -26,7 +26,6 @@ final class UserAuthenticator: UserAuthenticating {
 
     static private let basePath = "http://localhost:5121/api/Auth"
 
-    // MARK: Public
 
     func login(email: String, password: String) async {
         let endpoint = LoginEndpoint(email: email, password: password)

@@ -43,10 +43,11 @@ class HealthViewModel: ObservableObject {
     }
 
     private func uploadHealthData() async {
-        await networkLoader.uploadHealthData(bodyMass: bodyMassEntries?.average() ?? 0,
-                                             bmi: bmiEntries?.average() ?? 0,
-                                             bodyFat: bodyFatEntries?.average() ?? 0,
-                                             leanBodyMass: leanBodyMassEntries?.average() ?? 0)
+        let healthRequestBody = HealthRequestBody(bodyMass: bodyMassEntries?.average() ?? 0,
+                                                  bmi: bmiEntries?.average() ?? 0,
+                                                  bodyFat: bodyFatEntries?.average() ?? 0,
+                                                  leanBodyMass: leanBodyMassEntries?.average() ?? 0)
+        await networkLoader.uploadHealthData(healthRequestBody)
     }
 
     private func downloadHealthRecommendationData() async {

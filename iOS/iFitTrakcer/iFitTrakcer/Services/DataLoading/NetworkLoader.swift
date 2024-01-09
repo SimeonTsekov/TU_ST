@@ -9,16 +9,8 @@ import OSLog
 import Foundation
 
 protocol NetworkLoading {
-    func uploadActivityData(workouts: Int,
-                            dailySteps: Int,
-                            dailyDistance: Int,
-                            dailyEnergyBurned: Int) async
-
-    func uploadHealthData(bodyMass: Double,
-                          bmi: Double,
-                          bodyFat: Double,
-                          leanBodyMass: Double) async
-
+    func uploadActivityData(_ requestBody: ActivityRequestBody) async
+    func uploadHealthData(_ requestBody: HealthRequestBody) async
     func downloadRecommendationData(for endpoint: RecommendationEndpoint) async -> String?
 }
 
@@ -30,79 +22,53 @@ final class NetworkLoader: NetworkLoading {
 
     static private let basePath = "http://localhost:5121/api"
 
-    // MARK: Public
+    func uploadActivityData(_ requestBody: ActivityRequestBody) async {
+        let endpoint = PostActivityEndpoint(workouts: requestBody.workouts,
+                                            dailySteps: requestBody.dailySteps,
+                                            dailyDistance: requestBody.dailyDistance,
+                                            dailyEnergyBurned: requestBody.dailyEnergyBurned)
 
-    func uploadActivityData(workouts: Int,
-                            dailySteps: Int,
-                            dailyDistance: Int,
-                            dailyEnergyBurned: Int) async {
-        guard let token = tokenHandler.token else {
-            self.logger
-                .error("[NETWORK] Activity upload failed with missing token")
-            return
-        }
-
-        let endpoint = PostActivityEndpoint(workouts: workouts,
-                                            dailySteps: dailySteps,
-                                            dailyDistance: dailyDistance,
-                                            dailyEnergyBurned: dailyEnergyBurned)
-
-        let result = await restClient.execute(endpoint, authorization: token)
-
-        switch result {
-        case .success:
-            self.logger
-                .error("[NETWORK] Activity upload successful")
-        case .failure(let error as NSError):
-            self.logger
-                .error("[NETWORK] Activity upload failed with error code \(error.code)")
-        }
+        let _: PostActivityEndpoint.ResponseModel? = await authorizeAndExecuteEndpoint(with: endpoint)
     }
 
-    func uploadHealthData(bodyMass: Double,
-                          bmi: Double,
-                          bodyFat: Double,
-                          leanBodyMass: Double) async {
-        guard let token = tokenHandler.token else {
-            self.logger
-                .error("[NETWORK] Health upload failed with missing token")
-            return
-        }
+    func uploadHealthData(_ requestBody: HealthRequestBody) async {
+        let endpoint = PostHealthEndpoint(bodyMass: requestBody.bodyMass,
+                                          bmi: requestBody.bmi,
+                                          bodyFat: requestBody.bodyFat,
+                                          leanBodyMass: requestBody.leanBodyMass)
 
-        let endpoint = PostHealthEndpoint(bodyMass: bodyMass,
-                                          bmi: bmi,
-                                          bodyFat: bodyFat,
-                                          leanBodyMass: leanBodyMass)
-
-        let result = await restClient.execute(endpoint, authorization: token)
-
-        switch result {
-        case .success:
-            self.logger
-                .error("[NETWORK] Health upload successful")
-        case .failure(let error as NSError):
-            self.logger
-                .error("[NETWORK] Health upload failed with error code \(error.code)")
-        }
+        let _: PostHealthEndpoint.ResponseModel? = await authorizeAndExecuteEndpoint(with: endpoint)
     }
 
     func downloadRecommendationData(for endpoint: RecommendationEndpoint) async -> String? {
+        let result: RecommendationEndpoint.ResponseModel? = await authorizeAndExecuteEndpoint(with: endpoint)
+        return result?.recommendation
+    }
+
+    private func authorizeAndExecuteEndpoint<E: Endpoint, R>(with endpoint: E) async -> R? {
         guard let token = tokenHandler.token else {
             self.logger
-                .error("[NETWORK] Recommendation download for \(endpoint.logId) failed - missing token")
+                .error("[NETWORK] \(E.self) failed with missing token")
             return nil
         }
 
+        let result: R? = await executeEnpoint(with: endpoint, authorization: token)
+
+        return result
+    }
+
+    private func executeEnpoint<E: Endpoint, R>(with endpoint: E, 
+                                                authorization token: String) async -> R? {
         let result = await restClient.execute(endpoint, authorization: token)
 
         switch result {
-        case .success(let response):
+        case .success(let data):
             self.logger
-                .error("[NETWORK] Recommendation download for \(endpoint.logId) successful")
-            return response.recommendation
+                .error("[NETWORK] \(E.self) successful")
+            return data as? R
         case .failure(let error as NSError):
             self.logger
-                .error("[NETWORK] Recommendation download for \(endpoint.logId) failed - error code \(error.code)")
+                .error("[NETWORK] \(E.self) failed with error code \(error.code)")
             return nil
         }
     }

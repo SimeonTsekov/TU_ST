@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct HealthRequestBody {
+    let bodyMass: Double
+    let bmi: Double
+    let bodyFat: Double
+    let leanBodyMass: Double
+}
+
 struct HealthResponse: Decodable {
     let id: Int
     let userId: Double
