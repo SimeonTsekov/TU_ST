@@ -8,6 +8,8 @@
 import Foundation
 
 class RESTClient {
+    private typealias Response = (data: Data, urlResponse: URLResponse)
+
     private var baseURL: URL
     private let session: URLSession
 
@@ -18,45 +20,45 @@ class RESTClient {
         }
 
         baseURL = url
-        session = URLSession(configuration: .default)
+
+        let sessionConfiguration = URLSessionConfiguration.default
+        sessionConfiguration.timeoutIntervalForRequest = timeoutInterval
+        session = URLSession(configuration: sessionConfiguration)
     }
 
-    func call<T: Endpoint>(_ endpoint: T,
-                           completion completionHandler: @escaping (Result<T.ResponseModel, Error>) -> Void) {
-        guard let request = endpoint.request(relativeTo: baseURL) else {
-            completionHandler(.failure(NSError(domain: baseURL.absoluteString,
-                                               code: -1,
-                                               userInfo: ["Message": "Couldn't create URLRequest"])))
-            return
-        }
+    func execute<T: Endpoint>(_ endpoint: T,
+                              authorization token: String? = nil) async -> Result<T.ResponseModel, Error> {
+        let request = endpoint.request(relativeTo: baseURL, authorization: token)
 
-        session.dataTask(with: request) { [weak self] data, response, error in
-            guard let self = self else {
-                completionHandler(.failure(NSError(domain: "",
-                                                   code: -1111,
-                                                   userInfo: ["Message": "self is nil"])))
-                return
-            }
-
-            switch self.validateResponse(data: data, response: response, error: error) {
-            case let .failure(error):
-                completionHandler(.failure(error))
-            case let .success(data):
-                do {
-                    let result = try JSONDecoder().decode(T.ResponseModel.self, from: data)
-                    completionHandler(.success(result))
-                } catch {
-                    completionHandler(.failure(error))
-                }
-            }
+        do {
+            let response: Response = try await session.data(for: request)
+            let result: Result<T.ResponseModel, Error> = handleResponse(response: response)
+            return result
+        } catch {
+            return .failure(error)
         }
-        .resume()
     }
 
-    private func validateResponse(data: Data?,
-                                  response: URLResponse?,
-                                  error: Error?) -> Result<Data, Error> {
-        guard let httpResponse = response as? HTTPURLResponse else {
+    private func handleResponse<T: Decodable>(response: Response) -> Result<T, Error> {
+        let validatedResponse = validateResponse(data: response.data,
+                                                 urlResponse: response.urlResponse)
+
+        switch validatedResponse {
+        case let .failure(error):
+            return .failure(error)
+        case let .success(data):
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                return .success(result)
+            } catch {
+                return .failure(error)
+            }
+        }
+    }
+
+    private func validateResponse(data: Data,
+                                  urlResponse: URLResponse) -> Result<Data, Error> {
+        guard let httpResponse = urlResponse as? HTTPURLResponse else {
             return .failure(NSError(domain: baseURL.absoluteString,
                                     code: 400,
                                     userInfo: ["Message": "Response is not HTTPURLResponse"]))
@@ -68,11 +70,6 @@ class RESTClient {
                                     userInfo: ["Message": "Server Error"]))
         }
 
-        guard let data = data else {
-            return .failure(NSError(domain: baseURL.absoluteString,
-                                    code: httpResponse.statusCode,
-                                    userInfo: ["Message": "Missing Data"]))
-        }
         return .success(data)
     }
 }

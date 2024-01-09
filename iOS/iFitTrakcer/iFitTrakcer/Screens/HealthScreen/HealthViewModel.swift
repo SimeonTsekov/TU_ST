@@ -9,39 +9,55 @@ import Foundation
 
 @MainActor
 class HealthViewModel: ObservableObject {
-    @Published var userHealth = UserHealthModel()
-    @Published var userHealthRecommendation: String? = "Sample health recommendation"
+    @Published var userHealth: UserHealthModel?
+    @Published var userHealthRecommendation: String?
+    @Published var isLoadingUserHealth = true
 
     @Injected(\.healthKitManager) private var healthKitManager: HealthKitManager
+    @Injected(\.networkLoader) private var networkLoader: NetworkLoading
 
-    var bodyMassEntries: [Double] {
-        userHealth.bodyMassEntries
+    var bodyMassEntries: [Double]? {
+        userHealth?.bodyMassEntries
     }
 
-    var bmiEntries: [Double] {
-        userHealth.bmiEntries
+    var bmiEntries: [Double]? {
+        userHealth?.bmiEntries
     }
 
-    var bodyFatEntries: [Double] {
-        userHealth.bodyFatEntries
+    var bodyFatEntries: [Double]? {
+        userHealth?.bodyFatEntries
     }
 
-    var leanBodyMassEntries: [Double] {
-        userHealth.leanBodyMassEntries
+    var leanBodyMassEntries: [Double]? {
+        userHealth?.leanBodyMassEntries
     }
 
-    init() {
-        loadHealthData()
+    func initialiseData() async {
+        await loadHealthKitHealthData()
+        await uploadHealthDataAndGenerateReccomendations()
     }
 
-    private func loadHealthData() {
-        Task { @MainActor [weak self] in
-            guard let self else {
-                return
-            }
+    private func uploadHealthDataAndGenerateReccomendations() async {
+        await uploadHealthData()
+        await downloadHealthRecommendationData()
+    }
 
-            self.userHealth = await fetchHealthData()
-        }
+    private func uploadHealthData() async {
+        let healthRequestBody = HealthRequestBody(bodyMass: bodyMassEntries?.average() ?? 0,
+                                                  bmi: bmiEntries?.average() ?? 0,
+                                                  bodyFat: bodyFatEntries?.average() ?? 0,
+                                                  leanBodyMass: leanBodyMassEntries?.average() ?? 0)
+        await networkLoader.uploadHealthData(healthRequestBody)
+    }
+
+    private func downloadHealthRecommendationData() async {
+        let result = await networkLoader.downloadRecommendationData(for: .health)
+        userHealthRecommendation = result
+    }
+
+    private func loadHealthKitHealthData() async {
+        userHealth = await fetchHealthData()
+        isLoadingUserHealth = false
     }
 
     private func fetchHealthData() async -> UserHealthModel {

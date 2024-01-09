@@ -18,6 +18,10 @@ struct ActivityNavigationView: View {
     }
 
     var activityContentView: some View {
-        ActivityContentView(viewModel: ActivityViewModel(), router: router)
+        let activityViewModel = ActivityViewModel()
+        Task {
+            await activityViewModel.initialiseData()
+        }
+        return ActivityContentView(viewModel: activityViewModel, router: router)
     }
 }

@@ -49,7 +49,8 @@ class LoginViewModel: ObservableObject {
     }
 
     private func logIn() async {
-        await userAuthenticator.login(email: email, password: password)
+        let loginRequestBody = LoginRequestBody(email: email, password: password)
+        await userAuthenticator.login(loginRequestBody)
     }
 
     func pushRegister() {

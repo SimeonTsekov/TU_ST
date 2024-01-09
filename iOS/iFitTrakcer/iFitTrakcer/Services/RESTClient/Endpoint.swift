@@ -12,21 +12,29 @@ protocol Endpoint: Encodable {
 
     var path: String { get }
     var httpMethod: HTTPMethod { get }
-    var queryItems: [URLQueryItem]? { get }
-//    var httpHeaders: [HTTPHeader] { get }
+    var httpHeaders: [HTTPHeader] { get }
 }
 
 extension Endpoint {
-    func request(relativeTo url: URL) -> URLRequest? {
+    func request(relativeTo url: URL,
+                 authorization token: String?) -> URLRequest {
         let extendedUrl = url.appending(path: path)
         var request = URLRequest(url: extendedUrl)
 
         request.httpMethod = httpMethod.rawValue
 
+        if let token {
+            request.addValue("Bearer \(String(describing: token))",
+                             forHTTPHeaderField: HTTPHeader.Key.authorization.rawValue)
+        }
+
+        for header in httpHeaders {
+            request.addValue(header.value, forHTTPHeaderField: header.key.rawValue)
+        }
+
         if httpMethod == .POST {
             if let data = try? JSONEncoder().encode(self),
                let jsonString = String(data: data, encoding: .utf8) {
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.httpBody = jsonString.data(using: .utf8)
             }
         }
@@ -38,15 +46,33 @@ extension Endpoint {
 protocol GETEndpoint: Endpoint {}
 
 extension GETEndpoint {
-    var httpMethod: HTTPMethod { HTTPMethod.GET }
-    var queryItems: [URLQueryItem]? { nil }
+    var contentType: HTTPHeader.ContentType {
+        .json
+    }
+
+    var httpMethod: HTTPMethod {
+        HTTPMethod.GET
+    }
+
+    var httpHeaders: [HTTPHeader] {
+        [HTTPHeader(key: .contentType, value: contentType.rawValue)]
+    }
 }
 
 protocol POSTEndpoint: Endpoint {}
 
 extension POSTEndpoint {
-    var httpMethod: HTTPMethod { HTTPMethod.POST }
-    var queryItems: [URLQueryItem]? { nil }
+    var contentType: HTTPHeader.ContentType {
+        .json
+    }
+
+    var httpMethod: HTTPMethod {
+        HTTPMethod.POST
+    }
+
+    var httpHeaders: [HTTPHeader] {
+        [HTTPHeader(key: .contentType, value: contentType.rawValue)]
+    }
 }
 
 public enum HTTPMethod: String {
@@ -57,7 +83,13 @@ public enum HTTPMethod: String {
 
 public struct HTTPHeader {
     public enum Key: String {
+        case contentType = "Content-Type"
         case authorization = "Authorization"
+    }
+
+    public enum ContentType: String {
+        case all = "*/*"
+        case json = "application/json"
     }
 
     let key: HTTPHeader.Key
