@@ -27,7 +27,6 @@ struct SimpleListCell: View {
                 .foregroundStyle(Color.accentColor)
                 .font(.system(.headline, design: .rounded))
             Text(value)
-                .multilineTextAlignment(.center)
                 .font(.system(.body, design: .rounded))
         }
     }

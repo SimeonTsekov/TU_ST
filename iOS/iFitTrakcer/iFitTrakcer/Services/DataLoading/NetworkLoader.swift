@@ -19,8 +19,7 @@ protocol NetworkLoading {
                           bodyFat: Double,
                           leanBodyMass: Double) async
 
-    func downloadActivityRecommendationData() async -> String?
-    func downloadHealthRecommendationData() async -> String?
+    func downloadRecommendationData(for endpoint: RecommendationEndpoint) async -> String?
 }
 
 final class NetworkLoader: NetworkLoading {
@@ -60,29 +59,6 @@ final class NetworkLoader: NetworkLoading {
         }
     }
 
-    func downloadActivityRecommendationData() async -> String? {
-        guard let token = tokenHandler.token else {
-            self.logger
-                .error("[NETWORK] Activity recommendation download failed with missing token")
-            return nil
-        }
-
-        let endpoint = GetActivityRecommendationEndpoint()
-
-        let result = await restClient.execute(endpoint, authorization: token)
-
-        switch result {
-        case .success(let response):
-            self.logger
-                .error("[NETWORK] Activity recommendation download successful")
-            return response.recommendation
-        case .failure(let error as NSError):
-            self.logger
-                .error("[NETWORK] Activity recommendation download failed with error code \(error.code)")
-            return nil
-        }
-    }
-
     func uploadHealthData(bodyMass: Double,
                           bmi: Double,
                           bodyFat: Double,
@@ -110,25 +86,23 @@ final class NetworkLoader: NetworkLoading {
         }
     }
 
-    func downloadHealthRecommendationData() async -> String? {
+    func downloadRecommendationData(for endpoint: RecommendationEndpoint) async -> String? {
         guard let token = tokenHandler.token else {
             self.logger
-                .error("[NETWORK] Health recommendation download failed with missing token")
+                .error("[NETWORK] Recommendation download for \(endpoint.logId) failed - missing token")
             return nil
         }
-
-        let endpoint = GetHealthRecommendationEndpoint()
 
         let result = await restClient.execute(endpoint, authorization: token)
 
         switch result {
         case .success(let response):
             self.logger
-                .error("[NETWORK] Health recommendation download successful")
+                .error("[NETWORK] Recommendation download for \(endpoint.logId) successful")
             return response.recommendation
         case .failure(let error as NSError):
             self.logger
-                .error("[NETWORK] Health recommendation download failed with error code \(error.code)")
+                .error("[NETWORK] Recommendation download for \(endpoint.logId) failed - error code \(error.code)")
             return nil
         }
     }

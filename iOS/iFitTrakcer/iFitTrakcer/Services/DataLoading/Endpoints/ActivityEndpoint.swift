@@ -1,5 +1,5 @@
 //
-//  ActivityEndpoints.swift
+//  ActivityEndpoint.swift
 //  iFitTrakcer
 //
 //  Created by Simeon Tsekov on 8.01.24.
@@ -30,16 +30,4 @@ struct PostActivityEndpoint: POSTEndpoint {
     enum CodingKeys: String, CodingKey {
         case workouts, dailySteps, dailyDistance, dailyEnergyBurned
     }
-}
-
-struct ActivityRecommendationResponse: Decodable {
-    let id: Int
-    let recommendation: String
-    let createdDate: String
-}
-
-struct GetActivityRecommendationEndpoint: GETEndpoint {
-    typealias ResponseModel = ActivityRecommendationResponse
-
-    var path: String = "/ActivityRecommendation/generate"
 }

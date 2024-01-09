@@ -51,7 +51,7 @@ class ActivityViewModel: ObservableObject {
     }
 
     private func downloadActivityRecommendationData() async {
-        let result = await networkLoader.downloadActivityRecommendationData()
+        let result = await networkLoader.downloadRecommendationData(for: .activity)
         userActivityRecommendation = result
     }
 

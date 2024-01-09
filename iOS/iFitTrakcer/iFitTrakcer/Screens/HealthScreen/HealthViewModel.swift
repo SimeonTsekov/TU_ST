@@ -50,7 +50,7 @@ class HealthViewModel: ObservableObject {
     }
 
     private func downloadHealthRecommendationData() async {
-        let result = await networkLoader.downloadHealthRecommendationData()
+        let result = await networkLoader.downloadRecommendationData(for: .health)
         userHealthRecommendation = result
     }
 

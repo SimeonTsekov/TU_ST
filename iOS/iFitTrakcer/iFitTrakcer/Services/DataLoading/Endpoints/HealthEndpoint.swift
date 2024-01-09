@@ -1,5 +1,5 @@
 //
-//  HealthEndpoints.swift
+//  HealthEndpoint.swift
 //  iFitTrakcer
 //
 //  Created by Simeon Tsekov on 8.01.24.
@@ -30,16 +30,4 @@ struct PostHealthEndpoint: POSTEndpoint {
     enum CodingKeys: String, CodingKey {
         case bodyMass, bmi, bodyFat, leanBodyMass
     }
-}
-
-struct HealthRecommendationResponse: Decodable {
-    let id: Int
-    let recommendation: String
-    let createdDate: String
-}
-
-struct GetHealthRecommendationEndpoint: GETEndpoint {
-    typealias ResponseModel = HealthRecommendationResponse
-
-    var path: String = "/HealthRecommendation/generate"
 }
